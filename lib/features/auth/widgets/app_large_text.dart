@@ -8,7 +8,7 @@ class AppLargeText extends StatelessWidget {
   FontWeight fontWeight;
   AppLargeText({
     super.key,
-    this.size = 35,
+    this.size = 30,
     required this.text,
     required this.fontWeight,
     this.color = GlobalVariables.mainBlack,

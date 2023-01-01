@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/features/auth/screens/login_page.dart';
 import 'package:livin_sweaty/router.dart';
-
-import 'features/auth/screens/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,4 +22,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

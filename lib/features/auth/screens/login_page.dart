@@ -49,12 +49,12 @@ class _LoginState extends State<Login> {
                 text: "Login",
                 fontWeight: FontWeight.w700,
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               CustomTextField(
                 controller: _emailController,
-                hintText: "Email",
+                hintText: "Email ID",
                 hintStyle: const TextStyle(
-                  fontSize: 24.0,
+                  fontSize: 18.0,
                   color: GlobalVariables.lightGrey,
                 ),
                 prefixIcon: const Icon(Icons.email),
@@ -64,12 +64,12 @@ class _LoginState extends State<Login> {
                 controller: _passwordController,
                 hintText: "Password",
                 hintStyle: const TextStyle(
-                  fontSize: 24.0,
+                  fontSize: 18.0,
                   color: GlobalVariables.lightGrey,
                 ),
                 prefixIcon: const Icon(Icons.lock),
               ),
-              const SizedBox(height: 70),
+              const SizedBox(height: 60),
               CustomButtom(
                 text: 'Log In',
                 color: GlobalVariables.mainBlack,
@@ -89,7 +89,7 @@ class _LoginState extends State<Login> {
               Center(
                 child: AppText(
                   text: "Forgot Password?",
-                  size: 20,
+                  size: 18,
                   fontWeight: FontWeight.w700,
                 ),
               ),
