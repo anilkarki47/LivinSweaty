@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/custom_textfield.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
+import 'package:livin_sweaty/features/auth/screens/signup_page.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_large_text.dart';
 
 import '../../../common/widgets/custom_button.dart';
@@ -83,7 +84,10 @@ class _LoginState extends State<Login> {
                 textColor: GlobalVariables.lightGrey,
                 color: Colors.white,
                 borderColor: GlobalVariables.lightGrey,
-                onTap: () {},
+                onTap: () => {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const SignUp())),
+                },
               ),
               const SizedBox(height: 30),
               Center(

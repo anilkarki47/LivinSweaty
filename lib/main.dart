@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/features/auth/screens/login_page.dart';
+import 'package:livin_sweaty/features/auth/screens/signup_page.dart';
 import 'package:livin_sweaty/router.dart';
 
 void main() {
