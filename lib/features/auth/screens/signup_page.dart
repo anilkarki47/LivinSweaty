@@ -34,7 +34,8 @@ class _SignUpState extends State<SignUp> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            margin: const EdgeInsets.all(25),
+            margin:
+                const EdgeInsets.only(bottom: 25.0, left: 20.0, right: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -115,9 +116,10 @@ class _SignUpState extends State<SignUp> {
                   textColor: Colors.white,
                   borderColor: Colors.transparent,
                   onTap: () => {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => 
-                        HomePage())),
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage())),
                   },
                 ),
                 const SizedBox(height: 30),
