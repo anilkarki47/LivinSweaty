@@ -1,17 +1,29 @@
-console.log("hello world");
-
-const { json } = require("express");
+// PACKAGE IMPORTS
 const express = require("express");
+const mongoose = require("mongoose");
+
+// IMPORTS FROM OTHER FILE
+const authRouter = require("./routes/auth");
+
+// INIT
 const PORT = 3000;
-
 const app = express();
+const DB =
+  "mongodb+srv://anil:anil123@cluster0.mdkt0tp.mongodb.net/?retryWrites=true&w=majority";
 
-// CREATING AN API
-// GET, PUT, POST, DELETE, RPDATE -> CRUD
+// MIDDLEWARE
+app.use(express.json());
+app.use(authRouter);
 
-app.get("/", (req,res) => {
-  res.json({name:"Anil Karki"});
-});
+// CONNECTIONS
+mongoose
+  .connect(DB)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 
 app.listen(PORT, () => {
   console.log(`connected at port ${PORT}`);
