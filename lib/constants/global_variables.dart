@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-class GlobalVariables{
+String uri = 'http://10.0.2.2:3000';
+
+class GlobalVariables {
   // COLORS
   static const Color mainBlack = Color(0xFF0D0D0D);
   static const Color midBlackGrey = Color(0xFF0D0D0D);
