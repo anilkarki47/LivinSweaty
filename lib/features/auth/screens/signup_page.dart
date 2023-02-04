@@ -131,8 +131,8 @@ class _SignUpState extends State<SignUp> {
                     textColor: Colors.white,
                     borderColor: Colors.transparent,
                     onTap: () => {
-                      if (_signUpFormKey.currentState!.validate())
-                        {signUpUser()}
+                      if (_signUpFormKey.currentState!.validate()){
+                        signUpUser()}
                     },
                   ),
                   const SizedBox(height: 30),

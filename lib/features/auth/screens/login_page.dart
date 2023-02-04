@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/custom_textfield.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
 import 'package:livin_sweaty/features/auth/screens/signup_page.dart';
+import 'package:livin_sweaty/features/auth/services/auth_service.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_large_text.dart';
 
 import '../../../common/widgets/custom_button.dart';
@@ -14,6 +15,11 @@ class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
 }
+
+final _loginFormKey = GlobalKey<FormState>();
+
+// BINDING SIGNUP USERS IN SIGNUP UI
+final AuthService authService = AuthService();
 
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
@@ -28,6 +34,13 @@ class _LoginState extends State<Login> {
     _nameController.dispose();
   }
 
+  void loginUser() {
+    authService.loginUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,70 +49,77 @@ class _LoginState extends State<Login> {
         child: SafeArea(
           child: Container(
             margin: const EdgeInsets.all(25),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    color: GlobalVariables.lightGrey,
-                    height: 200,
+            child: Form(
+              key: _loginFormKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(
+                      color: GlobalVariables.lightGrey,
+                      height: 200,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 30),
-                AppLargeText(
-                  text: "Login",
-                  fontWeight: FontWeight.w700,
-                ),
-                const SizedBox(height: 20),
-                CustomTextField(
-                  controller: _emailController,
-                  hintText: "Email ID",
-                  hintStyle: const TextStyle(
-                    fontSize: 18.0,
-                    color: GlobalVariables.lightGrey,
-                  ),
-                  prefixIcon: const Icon(Icons.email),
-                ),
-                const SizedBox(height: 15),
-                CustomTextField(
-                  controller: _passwordController,
-                  hintText: "Password",
-                  hintStyle: const TextStyle(
-                    fontSize: 18.0,
-                    color: GlobalVariables.lightGrey,
-                  ),
-                  prefixIcon: const Icon(Icons.lock),
-                ),
-                const SizedBox(height: 60),
-                CustomButtom(
-                  text: 'Log In',
-                  color: GlobalVariables.mainBlack,
-                  textColor: Colors.white,
-                  borderColor: Colors.transparent,
-                  onTap: () {},
-                ),
-                const SizedBox(height: 15),
-                CustomButtom(
-                  text: 'Create Account',
-                  textColor: GlobalVariables.lightGrey,
-                  color: Colors.white,
-                  borderColor: GlobalVariables.lightGrey,
-                  onTap: () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUp())),
-                  },
-                ),
-                const SizedBox(height: 30),
-                Center(
-                  child: AppText(
-                    text: "Forgot Password?",
-                    size: 18,
+                  const SizedBox(height: 30),
+                  AppLargeText(
+                    text: "Login",
                     fontWeight: FontWeight.w700,
                   ),
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  CustomTextField(
+                    controller: _emailController,
+                    hintText: "Email ID",
+                    hintStyle: const TextStyle(
+                      fontSize: 18.0,
+                      color: GlobalVariables.lightGrey,
+                    ),
+                    prefixIcon: const Icon(Icons.email),
+                  ),
+                  const SizedBox(height: 15),
+                  CustomTextField(
+                    controller: _passwordController,
+                    hintText: "Password",
+                    hintStyle: const TextStyle(
+                      fontSize: 18.0,
+                      color: GlobalVariables.lightGrey,
+                    ),
+                    prefixIcon: const Icon(Icons.lock),
+                  ),
+                  const SizedBox(height: 60),
+                  CustomButtom(
+                    text: 'Log In',
+                    color: GlobalVariables.mainBlack,
+                    textColor: Colors.white,
+                    borderColor: Colors.transparent,
+                    onTap: () {
+                      if (_loginFormKey.currentState!.validate()) {
+                        loginUser();
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  CustomButtom(
+                    text: 'Create Account',
+                    textColor: GlobalVariables.lightGrey,
+                    color: Colors.white,
+                    borderColor: GlobalVariables.lightGrey,
+                    onTap: () => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUp())),
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: AppText(
+                      text: "Forgot Password?",
+                      size: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
