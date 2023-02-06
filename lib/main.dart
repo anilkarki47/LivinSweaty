@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/features/auth/screens/Password%20Reset/otp_verify.dart';
 import 'package:livin_sweaty/features/auth/screens/login_page.dart';
+import 'package:livin_sweaty/providers/user_provider.dart';
 import 'package:livin_sweaty/router.dart';
-
-import 'features/auth/screens/Password Reset/reset_password.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+    )
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
