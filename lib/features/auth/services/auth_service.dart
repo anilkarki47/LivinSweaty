@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../common/widgets/nav_bar.dart';
 import '../../../providers/user_provider.dart';
 import '../screens/home/screens/home_screen.dart';
 
@@ -83,7 +84,7 @@ class AuthService {
 
           Navigator.pushNamedAndRemoveUntil(
             context,
-            HomeScreen.routeName,
+            BottomBar.routeName,
             (route) => false,
           );
         },

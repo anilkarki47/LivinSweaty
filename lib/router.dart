@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/common/widgets/nav_bar.dart';
 import 'package:livin_sweaty/features/auth/screens/home/screens/home_screen.dart';
 
 import 'features/auth/screens/login_page.dart';
@@ -15,6 +16,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const HomeScreen(),
+      );
+
+      case BottomBar.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const BottomBar(),
       );
 
     default:
