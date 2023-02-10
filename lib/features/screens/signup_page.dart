@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/features/auth/screens/login_page.dart';
+import 'package:livin_sweaty/features/screens/login_page.dart';
 import 'package:livin_sweaty/features/auth/services/auth_service.dart';
-import '../../../common/widgets/custom_button.dart';
-import '../../../common/widgets/custom_textfield.dart';
-import '../../../constants/global_variables.dart';
-import '../widgets/app_large_text.dart';
-import '../widgets/app_text.dart';
+import '../../common/widgets/custom_button.dart';
+import '../../common/widgets/custom_textfield.dart';
+import '../../constants/global_variables.dart';
+import '../auth/widgets/app_large_text.dart';
+import '../auth/widgets/app_text.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -62,6 +62,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(height: 20),
                   AppLargeText(
+                    color: GlobalVariables.mainBlack,
                     text: "Sign Up",
                     fontWeight: FontWeight.w700,
                   ),

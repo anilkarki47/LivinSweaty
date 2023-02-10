@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/constants/global_variables.dart';
 
-class AppLargeText extends StatelessWidget {
+class AppFeatureText extends StatelessWidget {
   double size;
   String text;
   Color color;
   FontWeight fontWeight;
-  AppLargeText({
+  AppFeatureText({
     super.key,
-    this.size = 30,
+    this.size = 24,
     required this.text,
-    required this.fontWeight,
-    required this.color,
+    this.fontWeight = FontWeight.w700,
+    this.color = GlobalVariables.mainBlack,
   });
 
   @override

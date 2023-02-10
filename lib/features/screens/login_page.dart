@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/custom_textfield.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
-import 'package:livin_sweaty/features/auth/screens/signup_page.dart';
+import 'package:livin_sweaty/features/screens/signup_page.dart';
 import 'package:livin_sweaty/features/auth/services/auth_service.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_large_text.dart';
 
-import '../../../common/widgets/custom_button.dart';
-import '../widgets/app_text.dart';
+import '../../common/widgets/custom_button.dart';
+import '../auth/widgets/app_text.dart';
 
 class Login extends StatefulWidget {
   static const String routeName = '/auth-screen';
@@ -62,6 +62,7 @@ class _LoginState extends State<Login> {
                   ),
                   const SizedBox(height: 30),
                   AppLargeText(
+                    color: GlobalVariables.mainBlack,
                     text: "Login",
                     fontWeight: FontWeight.w700,
                   ),

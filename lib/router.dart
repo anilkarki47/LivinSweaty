@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/nav_bar.dart';
-import 'package:livin_sweaty/features/auth/screens/home/screens/home_screen.dart';
+import 'package:livin_sweaty/features/home/screens/home_screen.dart';
 
-import 'features/auth/screens/login_page.dart';
+import 'features/screens/login_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {

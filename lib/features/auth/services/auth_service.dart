@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../common/widgets/nav_bar.dart';
 import '../../../providers/user_provider.dart';
-import '../screens/home/screens/home_screen.dart';
+import '../../home/screens/home_screen.dart';
 
 class AuthService {
   // SIGNUP USER

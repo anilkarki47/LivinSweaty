@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/features/auth/screens/login_page.dart';
+import 'package:livin_sweaty/features/screens/login_page.dart';
 import 'package:livin_sweaty/providers/user_provider.dart';
 import 'package:livin_sweaty/router.dart';
 import 'package:provider/provider.dart';
 
 import 'common/widgets/nav_bar.dart';
-import 'features/auth/screens/home/screens/home_screen.dart';
+import 'features/home/screens/home_screen.dart';
 import 'features/auth/services/auth_service.dart';
 
 void main() {

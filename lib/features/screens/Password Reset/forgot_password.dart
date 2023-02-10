@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:livin_sweaty/common/widgets/custom_textfield.dart';
 
-import '../../../../common/widgets/custom_button.dart';
-import '../../../../common/widgets/custom_textfield.dart';
-import '../../../../constants/global_variables.dart';
-import '../../widgets/app_large_text.dart';
-import '../../widgets/app_text.dart';
+import '../../../common/widgets/custom_button.dart';
+import '../../../constants/global_variables.dart';
+import '../../auth/widgets/app_large_text.dart';
+import '../../auth/widgets/app_text.dart';
 
-class OtpVerification extends StatelessWidget {
-  const OtpVerification({super.key});
+class ForgotPassword extends StatelessWidget {
+  final TextEditingController _emailController = TextEditingController();
+  ForgotPassword({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +28,12 @@ class OtpVerification extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 AppLargeText(
+                  color: GlobalVariables.mainBlack,
                   text: "Forgot",
                   fontWeight: FontWeight.w700,
                 ),
                 AppLargeText(
+                  color: GlobalVariables.mainBlack,
                   text: "Password?",
                   fontWeight: FontWeight.w700,
                 ),
@@ -43,7 +44,15 @@ class OtpVerification extends StatelessWidget {
                   size: 12,
                 ),
                 const SizedBox(height: 20),
-                const TextField(),
+                CustomTextField(
+                  controller: _emailController,
+                  hintText: "Email ID",
+                  hintStyle: const TextStyle(
+                    fontSize: 18.0,
+                    color: GlobalVariables.lightGrey,
+                  ),
+                  prefixIcon: const Icon(Icons.email),
+                ),
                 const SizedBox(height: 50),
                 CustomButtom(
                   text: 'Continue',
