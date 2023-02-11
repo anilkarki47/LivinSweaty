@@ -34,7 +34,7 @@ class _BottomBarState extends State<BottomBar> {
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _page,
-        selectedItemColor: GlobalVariables.midBlackGrey,
+        selectedItemColor: GlobalVariables.mainBlack,
         unselectedItemColor: GlobalVariables.lightGrey,
         backgroundColor: GlobalVariables.offWhite,
         iconSize: 28,
@@ -42,32 +42,33 @@ class _BottomBarState extends State<BottomBar> {
         items: const [
           // home
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_outlined,
-              ),
-              label: 'Home'),
+            icon: ImageIcon(
+              AssetImage("assets/icons/home.png"),
+            ),
+            label: 'Home',
+          ),
           // meal
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.food_bank_outlined,
+              icon: ImageIcon(
+                AssetImage("assets/icons/food.png"),
               ),
               label: 'Meal'),
           // workouts
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.sports_gymnastics,
+              icon: ImageIcon(
+                AssetImage("assets/icons/gym.png"),
               ),
               label: 'Workout'),
           //favorite
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite,
+              icon: ImageIcon(
+                AssetImage("assets/icons/favourite.png"),
               ),
               label: 'Favourite'),
 
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_outlined,
+              icon: ImageIcon(
+                AssetImage("assets/icons/progress.png"),
               ),
               label: 'Progress'),
         ],
