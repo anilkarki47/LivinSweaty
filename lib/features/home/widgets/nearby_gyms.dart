@@ -19,18 +19,27 @@ class NearbyGyms extends StatelessWidget {
           // elements here!
           Container(
             decoration: BoxDecoration(
+              image: const DecorationImage(
+                  image: AssetImage('assets/images/hall1.jpg'),
+                  fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(15),
               color: GlobalVariables.midBlackGrey,
             ),
           ),
           Container(
             decoration: BoxDecoration(
+              image: const DecorationImage(
+                  image: AssetImage('assets/images/hall2.jpg'),
+                  fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(15),
               color: GlobalVariables.midBlackGrey,
             ),
           ),
           Container(
             decoration: BoxDecoration(
+              image: const DecorationImage(
+                  image: AssetImage('assets/images/hall3.jpg'),
+                  fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(15),
               color: GlobalVariables.midBlackGrey,
             ),

@@ -56,7 +56,11 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   Center(
                     child: Container(
-                      color: GlobalVariables.lightGrey,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/signup.gif'),
+                              fit: BoxFit.cover)),
+                      // color: GlobalVariables.lightGrey,
                       height: 200,
                     ),
                   ),
@@ -132,8 +136,8 @@ class _SignUpState extends State<SignUp> {
                     textColor: Colors.white,
                     borderColor: Colors.transparent,
                     onTap: () => {
-                      if (_signUpFormKey.currentState!.validate()){
-                        signUpUser()}
+                      if (_signUpFormKey.currentState!.validate())
+                        {signUpUser()}
                     },
                   ),
                   const SizedBox(height: 30),

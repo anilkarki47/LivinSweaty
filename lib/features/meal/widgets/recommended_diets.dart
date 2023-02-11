@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/global_variables.dart';
 
-class MyPlans extends StatelessWidget {
-  const MyPlans({super.key});
+class RecommendedDiets extends StatelessWidget {
+  const RecommendedDiets({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,33 +12,43 @@ class MyPlans extends StatelessWidget {
       height: 200,
       child: GridView.count(
         crossAxisCount: 1,
-        childAspectRatio: 0.7,
+        childAspectRatio: 1.4,
+        padding: EdgeInsets.symmetric(horizontal: size.width / 20 - 5.6),
         mainAxisSpacing: size.width / 30,
         scrollDirection: Axis.horizontal,
         children: [
           // elements here!
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
               image: const DecorationImage(
-                  image: AssetImage('assets/images/fit.jpg'),
+                  image: AssetImage('assets/images/dish1.jpg'),
                   fit: BoxFit.cover),
-              color: GlobalVariables.midBlackGrey,
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
-                  image: AssetImage('assets/images/fit_g.jpg'),
-                  fit: BoxFit.cover),
               color: GlobalVariables.midBlackGrey,
             ),
           ),
           Container(
             decoration: BoxDecoration(
               image: const DecorationImage(
-                  image: AssetImage('assets/images/fit.jpg'),
+                  image: AssetImage('assets/images/dish2.jpg'),
+                  fit: BoxFit.cover),
+              borderRadius: BorderRadius.circular(15),
+              color: GlobalVariables.midBlackGrey,
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                  image: AssetImage('assets/images/dish3.jpg'),
+                  fit: BoxFit.cover),
+              borderRadius: BorderRadius.circular(15),
+              color: GlobalVariables.midBlackGrey,
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                  image: AssetImage('assets/images/diet2.jpg'),
                   fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(15),
               color: GlobalVariables.midBlackGrey,

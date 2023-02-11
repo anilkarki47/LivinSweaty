@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/global_variables.dart';
+import '../../auth/widgets/app_large_text.dart';
 
-class MyPlans extends StatelessWidget {
-  const MyPlans({super.key});
+class MealCatogery extends StatelessWidget {
+  const MealCatogery({super.key});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: 200,
+      height: 100,
       child: GridView.count(
         crossAxisCount: 1,
         childAspectRatio: 0.7,
+        padding: EdgeInsets.symmetric(horizontal: size.width / 20 - 5.6),
         mainAxisSpacing: size.width / 30,
         scrollDirection: Axis.horizontal,
         children: [
@@ -20,28 +22,40 @@ class MyPlans extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
-                  image: AssetImage('assets/images/fit.jpg'),
-                  fit: BoxFit.cover),
               color: GlobalVariables.midBlackGrey,
+            ),
+            child: Center(
+              child: AppLargeText(
+                text: "Vegan",
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
-                  image: AssetImage('assets/images/fit_g.jpg'),
-                  fit: BoxFit.cover),
               color: GlobalVariables.midBlackGrey,
+            ),
+            child: Center(
+              child: AppLargeText(
+                text: "Non Veg",
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
           Container(
             decoration: BoxDecoration(
-              image: const DecorationImage(
-                  image: AssetImage('assets/images/fit.jpg'),
-                  fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(15),
               color: GlobalVariables.midBlackGrey,
+            ),
+            child: Center(
+              child: AppLargeText(
+                text: "Diet",
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
 import 'package:livin_sweaty/features/home/screens/home_screen.dart';
+import 'package:livin_sweaty/features/meal/screens/main_meal_page.dart';
+import 'package:livin_sweaty/features/workouts/screens/workouts.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
@@ -22,8 +24,8 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> pages = [
     const HomeScreen(),
-    const Center(child: Text("Meal")),
-    const Center(child: Text("Workout")),
+    const Meal(),
+    const Workout(),
     const Center(child: Text("Favourite")),
     const Center(child: Text("Progress")),
   ];

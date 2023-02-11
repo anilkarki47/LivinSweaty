@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
+import 'package:livin_sweaty/features/account/EditProfile/body.dart';
 import 'package:livin_sweaty/features/home/widgets/home_feature.dart';
 import 'package:livin_sweaty/features/home/widgets/my_plans.dart';
 import 'package:livin_sweaty/features/home/widgets/nearby_gyms.dart';
@@ -17,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -36,15 +37,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Row(
                           children: [
-                            CircleAvatar(
-                              radius: 35,
-                              backgroundColor: GlobalVariables.offWhite,
-                              child: Padding(
-                                padding: const EdgeInsets.all(3),
-                                child: ClipOval(
-                                  child: Image.asset(
-                                    "assets/images/20048400.jpg",
-                                    fit: BoxFit.cover,
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Body()));
+                              },
+                              child: CircleAvatar(
+                                radius: 35,
+                                backgroundColor: GlobalVariables.offWhite,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3),
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      "assets/images/20048400.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),

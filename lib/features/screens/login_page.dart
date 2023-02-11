@@ -56,7 +56,11 @@ class _LoginState extends State<Login> {
                 children: [
                   Center(
                     child: Container(
-                      color: GlobalVariables.lightGrey,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/login.gif'),
+                              fit: BoxFit.cover)),
+                      // color: GlobalVariables.lightGrey,
                       height: 200,
                     ),
                   ),
