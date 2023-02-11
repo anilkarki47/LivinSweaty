@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/features/screens/login_page.dart';
+import 'package:livin_sweaty/features/screens/splash_screen/splash.dart';
 import 'package:livin_sweaty/providers/user_provider.dart';
 import 'package:livin_sweaty/router.dart';
 import 'package:provider/provider.dart';
 
-import 'common/widgets/nav_bar.dart';
-import 'features/home/screens/home_screen.dart';
 import 'features/auth/services/auth_service.dart';
 
 void main() {
@@ -40,9 +38,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: ((settings) => generateRoute(settings)),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const BottomBar()
-          : const Login(),
+      home: const SplashScreen(),
     );
   }
 }
