@@ -4,7 +4,9 @@ import 'package:livin_sweaty/features/account/EditProfile/body.dart';
 import 'package:livin_sweaty/features/home/widgets/home_feature.dart';
 import 'package:livin_sweaty/features/home/widgets/my_plans.dart';
 import 'package:livin_sweaty/features/home/widgets/nearby_gyms.dart';
+import 'package:provider/provider.dart';
 
+import '../../../providers/user_provider.dart';
 import '../../auth/widgets/app_feature_text.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
     // Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -62,16 +65,28 @@ class _HomeScreenState extends State<HomeScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  "Hi, Anil",
-                                  style: TextStyle(
-                                      color: GlobalVariables.lightGrey,
-                                      fontSize: 14,
-                                      fontFamily: "Roboto",
-                                      fontWeight: FontWeight.w500),
+                              children: [
+                                Row(
+                                  children: [
+                                    const Text(
+                                      "Hi, ",
+                                      style: TextStyle(
+                                          color: GlobalVariables.lightGrey,
+                                          fontSize: 14,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Text(
+                                      user.name,
+                                      style: const TextStyle(
+                                          color: GlobalVariables.lightGrey,
+                                          fontSize: 14,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
                                 ),
-                                Text(
+                                const Text(
                                   "SAT 17 DEC",
                                   style: TextStyle(
                                       color: GlobalVariables.midBlackGrey,
