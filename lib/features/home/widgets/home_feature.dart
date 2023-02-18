@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_large_text.dart';
 
 import '../../../constants/global_variables.dart';
+import 'bmi_calculaor.dart';
 
 class HomeFeature extends StatelessWidget {
   const HomeFeature({super.key});
@@ -19,16 +20,26 @@ class HomeFeature extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           // elements here!
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: GlobalVariables.midBlackGrey,
-            ),
-            child: Center(
-              child: AppLargeText(
-                text: "BMI Calculator",
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BMI(),
+                ),
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: GlobalVariables.midBlackGrey,
+              ),
+              child: Center(
+                child: AppLargeText(
+                  text: "BMI Calculator",
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
