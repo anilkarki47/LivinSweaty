@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
+import 'package:livin_sweaty/features/admin/screens/admin_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/widgets/nav_bar.dart';
@@ -36,9 +37,10 @@ class SplashScreenState extends State<SplashScreen> {
       splashTransition: SplashTransition.fadeTransition,
       backgroundColor: GlobalVariables.mainBlack,
       nextScreen: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const BottomBar()
+          ? Provider.of<UserProvider>(context).user.type == 'user'
+              ? const BottomBar()
+              : const AdminScreen()
           : const Login(),
     );
   }
 }
-
