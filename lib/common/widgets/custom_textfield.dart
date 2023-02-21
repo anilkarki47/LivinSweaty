@@ -6,12 +6,14 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final TextStyle hintStyle;
   final Widget prefixIcon;
+  final int maxLines;
   const CustomTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.hintStyle,
-    required this.prefixIcon,
+    this.maxLines = 1,
+    this.prefixIcon = const Icon(Icons.add),
   });
 
   @override
@@ -34,10 +36,12 @@ class CustomTextField extends StatelessWidget {
         ),
       ),
       validator: (val) {
-        if(val == null || val.isEmpty){
+        if (val == null || val.isEmpty) {
           return 'Enter your $hintText';
         }
-        return null;},
+        return null;
+      },
+      maxLines: maxLines,
     );
   }
 }
