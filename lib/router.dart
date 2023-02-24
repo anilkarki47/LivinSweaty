@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/nav_bar.dart';
+import 'package:livin_sweaty/features/admin/screens/workout_screens/add_workout_screen.dart';
 import 'package:livin_sweaty/features/home/screens/home_screen.dart';
 
 import 'features/screens/login_page.dart';
@@ -18,19 +19,23 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => const HomeScreen(),
       );
 
-      case BottomBar.routeName:
+    case BottomBar.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const BottomBar(),
+      );
+
+    case AddWorkoutScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AddWorkoutScreen(),
       );
 
     default:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const Scaffold(
-          body: Center(
-            child: Text('404 ERROR!')
-          ),
+          body: Center(child: Text('404 ERROR!')),
         ),
       );
   }

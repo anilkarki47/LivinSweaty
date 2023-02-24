@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/features/admin/screens/add_workout_screen.dart';
 
 import '../../../constants/global_variables.dart';
+import 'workout_screens/workout_screen.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({super.key});
@@ -21,7 +21,7 @@ class _AdminScreenState extends State<AdminScreen> {
   }
 
   List<Widget> pages = [
-    const AddWorkoutScreen(),
+    const WorkoutScreen(),
     const Center(child: Text("Meals")),
     const Center(child: Text("Users")),
   ];
