@@ -7,7 +7,7 @@ import '../../auth/widgets/app_feature_text.dart';
 import '../../auth/widgets/app_large_text.dart';
 
 class Workout extends StatefulWidget {
-  const Workout({super.key, required String description, required String name, required List<String> images});
+  const Workout({super.key});
 
   @override
   State<Workout> createState() => _WorkoutState();

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/custom_button.dart';
 import 'package:livin_sweaty/common/widgets/custom_textfield.dart';
 import 'package:livin_sweaty/constants/utils.dart';
-
 import '../../../../constants/global_variables.dart';
+import '../../services/admin_services.dart';
 
 class AddWorkoutScreen extends StatefulWidget {
   static const String routeName = '/add-workout';
@@ -21,8 +21,12 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   final TextEditingController workoutNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
+  final AdminServices adminServices = AdminServices();
+
   String category = 'Workouts';
   List<File> images = [];
+
+  final _addWorkoutFormKey = GlobalKey<FormState>();
   @override
   void dispose() {
     super.dispose();
@@ -31,6 +35,16 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   }
 
   List<String> appFeatures = ['Workouts', 'Meals', 'Medation'];
+
+  void addWorkout() {
+    if (_addWorkoutFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminServices.addWorkout(
+          context: context,
+          name: workoutNameController.text,
+          description: descriptionController.text,
+          images: images);
+    }
+  }
 
   void selectImages() async {
     var res = await pickImages();
@@ -47,6 +61,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _addWorkoutFormKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
@@ -124,10 +139,10 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                 const SizedBox(height: 20),
                 CustomButtom(
                     text: "Add",
-                    onTap: () {},
+                    onTap: addWorkout,
                     color: GlobalVariables.mainBlack,
                     textColor: Colors.white,
-                    borderColor: Colors.transparent)
+                    borderColor: Colors.transparent),
               ],
             ),
           ),
