@@ -19,4 +19,16 @@ adminRouter.post("/admin/add-workout", admin, async (req, res) => {
   }
 });
 
+// get all the workouts
+  // /admin/get-workouts
+
+  adminRouter.get('/admin/get-workouts',admin,async (req,res) =>{
+    try{
+      const workouts = await Workout.find({}); 
+      res.json(workouts);
+    }catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  })
+
 module.exports = adminRouter;
