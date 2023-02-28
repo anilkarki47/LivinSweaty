@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/common/widgets/single_item.dart';
 import 'package:livin_sweaty/features/admin/screens/workout_screens/add_workout_screen.dart';
 import 'package:livin_sweaty/features/admin/services/admin_services.dart';
 
@@ -35,7 +36,46 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     return workouts == null
         ? const Loader()
         : Scaffold(
-            body: const Center(child: Text("Workouts")),
+            body: GridView.builder(
+                itemCount: workouts!.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (context, index) {
+                  final workoutData = workouts![index];
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 140,
+                        child: SingleItem(
+                          image: workoutData.images[0],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Expanded(
+                                child: Text(
+                              workoutData.name,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              style: const TextStyle(
+                                fontSize: 15,
+                              ),
+                            )),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.delete_outline,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  );
+                }),
             floatingActionButton: FloatingActionButton(
               onPressed: navigateToAddWorkout,
               tooltip: "Add Workouts",
