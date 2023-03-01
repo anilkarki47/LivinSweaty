@@ -60,7 +60,7 @@ class AdminServices {
   // get all the workouts
 
   Future<List<Workout>> fetchAllWorkouts(BuildContext context) async {
-    final userProvider = Provider.of<UserProvider>(context,listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Workout> workoutList = [];
     try {
       http.Response res =
@@ -89,5 +89,36 @@ class AdminServices {
       showSnackBar(context, e.toString());
     }
     return workoutList;
+  }
+
+  void deleteWorkout({
+    required BuildContext context,
+    required Workout workout,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/delete-workout'),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': workout.id,
+        }),
+      );
+
+      // ignore: use_build_context_synchronously
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSucess: () {
+          onSuccess();
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
   }
 }

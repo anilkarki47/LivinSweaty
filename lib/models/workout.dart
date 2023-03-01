@@ -13,16 +13,12 @@ class Workout {
   });
 
   Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-
-    result.addAll({'name': name});
-    result.addAll({'description': description});
-    result.addAll({'images': images});
-    if (id != null) {
-      result.addAll({'id': id});
-    }
-
-    return result;
+    return {
+      'name': name,
+      'description': description,
+      'images': images,
+      'id': id,
+    };
   }
 
   factory Workout.fromMap(Map<String, dynamic> map) {

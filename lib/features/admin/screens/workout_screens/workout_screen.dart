@@ -27,6 +27,17 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     setState(() {});
   }
 
+  void deleteWorkout(Workout workout, int index) {
+    adminServices.deleteWorkout(
+      context: context,
+      workout: workout,
+      onSuccess: () {
+        workouts!.removeAt(index);
+        setState(() {});
+      },
+    );
+  }
+
   void navigateToAddWorkout() {
     Navigator.pushNamed(context, AddWorkoutScreen.routeName);
   }
@@ -55,18 +66,17 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
-                            child: Expanded(
-                                child: Text(
+                            child: Text(
                               workoutData.name,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                               style: const TextStyle(
                                 fontSize: 15,
                               ),
-                            )),
+                            ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () => deleteWorkout(workoutData, index),
                             icon: const Icon(
                               Icons.delete_outline,
                             ),

@@ -20,15 +20,26 @@ adminRouter.post("/admin/add-workout", admin, async (req, res) => {
 });
 
 // get all the workouts
-  // /admin/get-workouts
 
-  adminRouter.get('/admin/get-workouts',admin,async (req,res) =>{
-    try{
-      const workouts = await Workout.find({}); 
-      res.json(workouts);
-    }catch (e) {
-      res.status(500).json({ error: e.message });
-    }
-  })
+adminRouter.get("/admin/get-workouts", admin, async (req, res) => {
+  try {
+    const workouts = await Workout.find({});
+    res.json(workouts);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Delete the workouts
+
+adminRouter.post("/admin/delete-workout", admin, async (req, res) => {
+  try {
+    const { id } = req.body;
+    let workout = await Workout.findOneAndDelete({ id });
+    res.json(workout);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 module.exports = adminRouter;
