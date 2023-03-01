@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/constants/global_variables.dart';
 import 'package:livin_sweaty/features/screens/splash_screen/splash.dart';
 import 'package:livin_sweaty/providers/user_provider.dart';
 import 'package:livin_sweaty/router.dart';
@@ -36,7 +37,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: "Livin'Sweaty",
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: GlobalVariables.mainBlack,
+          secondary: GlobalVariables.mainBlack,
+        ),
       ),
       onGenerateRoute: ((settings) => generateRoute(settings)),
       home: const SplashScreen(),

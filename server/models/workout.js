@@ -11,6 +11,11 @@ const workoutSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
+  catagory: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   images: [
     {
       type: String,

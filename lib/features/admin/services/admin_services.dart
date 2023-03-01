@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:livin_sweaty/constants/error_handling.dart';
 import 'package:livin_sweaty/constants/utils.dart';
 import 'package:http/http.dart' as http;
@@ -17,6 +18,7 @@ class AdminServices {
     required BuildContext context,
     required String name,
     required String description,
+    required String category,
     required List<File> images,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -32,7 +34,7 @@ class AdminServices {
       }
 
       Workout workout =
-          Workout(name: name, description: description, images: imageUrls);
+          Workout(name: name, description: description, images: imageUrls, catagory: category);
 
       http.Response res = await http.post(
         Uri.parse('$uri/admin/add-workout'),

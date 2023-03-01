@@ -4,8 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/custom_button.dart';
-import 'package:livin_sweaty/common/widgets/custom_textfield.dart';
 import 'package:livin_sweaty/constants/utils.dart';
+import '../../../../common/widgets/plain _textfield.dart';
 import '../../../../constants/global_variables.dart';
 import '../../services/admin_services.dart';
 
@@ -20,6 +20,7 @@ class AddWorkoutScreen extends StatefulWidget {
 class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   final TextEditingController workoutNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController catagoryController = TextEditingController();
 
   final AdminServices adminServices = AdminServices();
 
@@ -32,6 +33,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
     super.dispose();
     workoutNameController.dispose();
     descriptionController.dispose();
+    catagoryController.dispose();
   }
 
   List<String> appFeatures = ['Workouts', 'Meals', 'Medation'];
@@ -42,6 +44,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
           context: context,
           name: workoutNameController.text,
           description: descriptionController.text,
+          category: catagoryController.text,
           images: images);
     }
   }
@@ -118,7 +121,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                         ),
                       ),
                 const SizedBox(height: 30),
-                CustomTextField(
+                PlainTextField(
                   controller: workoutNameController,
                   hintText: "Workout Name",
                   hintStyle: const TextStyle(
@@ -127,7 +130,16 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                CustomTextField(
+                PlainTextField(
+                  controller: catagoryController,
+                  hintText: "Workout Category",
+                  hintStyle: const TextStyle(
+                    fontSize: 18.0,
+                    color: GlobalVariables.lightGrey,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                PlainTextField(
                   controller: descriptionController,
                   hintText: "Workout Discription",
                   maxLines: 7,
@@ -143,6 +155,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                     color: GlobalVariables.mainBlack,
                     textColor: Colors.white,
                     borderColor: Colors.transparent),
+                const SizedBox(height: 20),
               ],
             ),
           ),
