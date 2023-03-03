@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/features/auth/widgets/app_large_text.dart';
-
 import '../../../constants/global_variables.dart';
+import '../../auth/widgets/app_large_text.dart';
 import 'bmi_calculaor.dart';
 
 class HomeFeature extends StatelessWidget {

@@ -7,6 +7,7 @@ import '../../constants/global_variables.dart';
 import '../auth/widgets/app_large_text.dart';
 import '../auth/widgets/app_text.dart';
 
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 

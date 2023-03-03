@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/features/workouts/widgets/fat_loss.dart';
-import 'package:livin_sweaty/features/workouts/widgets/muscle_training.dart';
-import 'package:livin_sweaty/features/workouts/widgets/recommended_workouts.dart';
+import 'package:livin_sweaty/features/workouts/widgets/all_exercises.dart';
 
 import '../../auth/widgets/app_feature_text.dart';
 import '../../auth/widgets/app_large_text.dart';
+import '../widgets/fat_loss.dart';
+import '../widgets/muscle_training.dart';
+import '../widgets/recommended_workouts.dart';
 
 class Workout extends StatefulWidget {
   const Workout({super.key});
@@ -30,6 +31,12 @@ class _WorkoutState extends State<Workout> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+
+              const AllExercise(),
+
               const SizedBox(
                 height: 20,
               ),
@@ -76,6 +83,9 @@ class _WorkoutState extends State<Workout> {
                 height: 10,
               ),
               const MuscleTraining(),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),

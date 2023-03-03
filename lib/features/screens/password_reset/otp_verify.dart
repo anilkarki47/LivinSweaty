@@ -5,6 +5,7 @@ import '../../../constants/global_variables.dart';
 import '../../auth/widgets/app_large_text.dart';
 import '../../auth/widgets/app_text.dart';
 
+
 class OtpVerification extends StatelessWidget {
   const OtpVerification({super.key});
 
