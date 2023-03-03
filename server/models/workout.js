@@ -6,6 +6,16 @@ const workoutSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
+  count: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  target: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   description: {
     type: String,
     required: true,

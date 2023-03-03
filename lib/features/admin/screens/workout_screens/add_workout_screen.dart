@@ -19,6 +19,8 @@ class AddWorkoutScreen extends StatefulWidget {
 
 class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   final TextEditingController workoutNameController = TextEditingController();
+  final TextEditingController workoutCountController = TextEditingController();
+  final TextEditingController workoutTargetController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController catagoryController = TextEditingController();
 
@@ -32,6 +34,8 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   void dispose() {
     super.dispose();
     workoutNameController.dispose();
+    workoutCountController.dispose();
+    workoutTargetController.dispose();
     descriptionController.dispose();
     catagoryController.dispose();
   }
@@ -43,6 +47,8 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
       adminServices.addWorkout(
           context: context,
           name: workoutNameController.text,
+          count: workoutCountController.text,
+          target: workoutTargetController.text,
           description: descriptionController.text,
           category: catagoryController.text,
           images: images);
@@ -124,6 +130,24 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                 PlainTextField(
                   controller: workoutNameController,
                   hintText: "Workout Name",
+                  hintStyle: const TextStyle(
+                    fontSize: 18.0,
+                    color: GlobalVariables.lightGrey,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                PlainTextField(
+                  controller: workoutCountController,
+                  hintText: "Workout Reps & Sets",
+                  hintStyle: const TextStyle(
+                    fontSize: 18.0,
+                    color: GlobalVariables.lightGrey,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                PlainTextField(
+                  controller: workoutTargetController,
+                  hintText: "Muscles Target Area",
                   hintStyle: const TextStyle(
                     fontSize: 18.0,
                     color: GlobalVariables.lightGrey,

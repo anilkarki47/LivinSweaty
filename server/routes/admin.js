@@ -6,9 +6,11 @@ const Workout = require("../models/workout");
 // Add workout
 adminRouter.post("/admin/add-workout", admin, async (req, res) => {
   try {
-    const { name, description, catagory, images } = req.body;
+    const { name, count, target, description, catagory, images } = req.body;
     let workout = new Workout({
       name,
+      count,
+      target,
       description,
       catagory,
       images,

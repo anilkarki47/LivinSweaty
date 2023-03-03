@@ -17,6 +17,8 @@ class AdminServices {
   void addWorkout({
     required BuildContext context,
     required String name,
+    required String count,
+    required String target,
     required String description,
     required String category,
     required List<File> images,
@@ -34,7 +36,7 @@ class AdminServices {
       }
 
       Workout workout =
-          Workout(name: name, description: description, images: imageUrls, catagory: category);
+          Workout(name: name, count:count, target:target, description: description, images: imageUrls, catagory: category);
 
       http.Response res = await http.post(
         Uri.parse('$uri/admin/add-workout'),
