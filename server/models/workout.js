@@ -21,7 +21,7 @@ const workoutSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
-  catagory: {
+  category: {
     type: String,
     required: true,
     trim: true,

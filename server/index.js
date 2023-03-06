@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 // IMPORTS FROM OTHER FILE
 const authRouter = require("./routes/auth");
 const adminRouter = require("./routes/admin");
+const workoutRouter = require("./routes/routes_workout");
 
 // INIT
 const PORT = 3000;
@@ -16,7 +17,7 @@ const DB =
 app.use(express.json());
 app.use(authRouter);
 app.use(adminRouter);
-
+app.use(workoutRouter);
 
 // CONNECTIONS
 mongoose
@@ -28,6 +29,6 @@ mongoose
     console.log(e);
   });
 
-app.listen(PORT, "0.0.0.0",() => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`connected at port ${PORT}`);
 });

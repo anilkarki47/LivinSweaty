@@ -4,6 +4,7 @@ import 'package:livin_sweaty/features/admin/screens/workout_screens/add_workout_
 import 'package:livin_sweaty/features/home/screens/home_screen.dart';
 
 import 'features/screens/login_page.dart';
+import 'features/workouts/screens/all_exercise/screens/workout_category_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -29,6 +30,15 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AddWorkoutScreen(),
+      );
+      
+    case WorkoutCategoryScreen.routeName:
+    var category = routeSettings.arguments as String;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => WorkoutCategoryScreen(
+          category: category,
+        ),
       );
 
     default:

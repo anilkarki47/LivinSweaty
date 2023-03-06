@@ -4,8 +4,8 @@ import '../../../constants/global_variables.dart';
 import '../../auth/widgets/app_large_text.dart';
 
 
-class MealCatogery extends StatelessWidget {
-  const MealCatogery({super.key});
+class MealCategery extends StatelessWidget {
+  const MealCategery({super.key});
 
   @override
   Widget build(BuildContext context) {

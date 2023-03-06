@@ -5,6 +5,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/custom_button.dart';
 import 'package:livin_sweaty/constants/utils.dart';
+import 'package:livin_sweaty/features/auth/widgets/app_text.dart';
 import '../../../../common/widgets/plain _textfield.dart';
 import '../../../../constants/global_variables.dart';
 import '../../services/admin_services.dart';
@@ -22,14 +23,13 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   final TextEditingController workoutCountController = TextEditingController();
   final TextEditingController workoutTargetController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController catagoryController = TextEditingController();
 
   final AdminServices adminServices = AdminServices();
 
-  String category = 'Workouts';
   List<File> images = [];
-
+  String category = "Chest";
   final _addWorkoutFormKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     super.dispose();
@@ -37,10 +37,17 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
     workoutCountController.dispose();
     workoutTargetController.dispose();
     descriptionController.dispose();
-    catagoryController.dispose();
   }
 
-  List<String> appFeatures = ['Workouts', 'Meals', 'Medation'];
+  List<String> workoutCategories = [
+    'Chest',
+    'Back',
+    'Shoulders',
+    'Biceps',
+    'Triceps',
+    'Legs',
+    'Abs'
+  ];
 
   void addWorkout() {
     if (_addWorkoutFormKey.currentState!.validate() && images.isNotEmpty) {
@@ -50,7 +57,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
           count: workoutCountController.text,
           target: workoutTargetController.text,
           description: descriptionController.text,
-          category: catagoryController.text,
+          category: category,
           images: images);
     }
   }
@@ -153,15 +160,16 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                     color: GlobalVariables.lightGrey,
                   ),
                 ),
-                const SizedBox(height: 10),
-                PlainTextField(
-                  controller: catagoryController,
-                  hintText: "Workout Category",
-                  hintStyle: const TextStyle(
-                    fontSize: 18.0,
-                    color: GlobalVariables.lightGrey,
-                  ),
-                ),
+
+                // PlainTextField(
+                //   controller: catagoryController,
+                //   hintText: "Workout Category",
+                //   hintStyle: const TextStyle(
+                //     fontSize: 18.0,
+                //     color: GlobalVariables.lightGrey,
+                //   ),
+                // ),
+
                 const SizedBox(height: 10),
                 PlainTextField(
                   controller: descriptionController,
@@ -170,6 +178,31 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                   hintStyle: const TextStyle(
                     fontSize: 18.0,
                     color: GlobalVariables.lightGrey,
+                  ),
+                ),
+                // category
+                // const SizedBox(height: 5),
+                SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      AppText(text: "Choose Category:   "),
+                      DropdownButton(
+                        value: category,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: workoutCategories.map((String item) {
+                          return DropdownMenuItem(
+                            value: item,
+                            child: Text(item),
+                          );
+                        }).toList(),
+                        onChanged: (String? newVal) {
+                          setState(() {
+                            category = newVal!;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 20),

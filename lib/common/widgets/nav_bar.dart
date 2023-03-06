@@ -4,6 +4,8 @@ import 'package:livin_sweaty/features/home/screens/home_screen.dart';
 import 'package:livin_sweaty/features/meal/screens/main_meal_page.dart';
 import 'package:livin_sweaty/features/workouts/screens/workouts.dart';
 
+import '../../features/progress/screens/progress_page.dart';
+
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
   const BottomBar({super.key});
@@ -27,7 +29,8 @@ class _BottomBarState extends State<BottomBar> {
     const Meal(),
     const Workout(),
     const Center(child: Text("Favourite")),
-    const Center(child: Text("Progress")),
+    // const Center(child: Text("Progress")),
+    const ProgressPage(),
   ];
 
   @override

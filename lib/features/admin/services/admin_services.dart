@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:livin_sweaty/constants/error_handling.dart';
 import 'package:livin_sweaty/constants/utils.dart';
 import 'package:http/http.dart' as http;
@@ -35,8 +34,13 @@ class AdminServices {
         imageUrls.add(res.secureUrl);
       }
 
-      Workout workout =
-          Workout(name: name, count:count, target:target, description: description, images: imageUrls, catagory: category);
+      Workout workout = Workout(
+          name: name,
+          count: count,
+          target: target,
+          description: description,
+          images: imageUrls,
+          category: category);
 
       http.Response res = await http.post(
         Uri.parse('$uri/admin/add-workout'),

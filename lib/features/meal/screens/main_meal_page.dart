@@ -5,7 +5,7 @@ import 'package:livin_sweaty/features/auth/widgets/app_large_text.dart';
 import 'package:livin_sweaty/features/meal/widgets/recommended_diets.dart';
 
 import '../widgets/favourite_meals.dart';
-import '../widgets/meal_catagory.dart';
+import '../widgets/meal_category.dart';
 
 class Meal extends StatelessWidget {
   const Meal({super.key});
@@ -29,7 +29,7 @@ class Meal extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const MealCatogery(),
+            const MealCategery(),
             //
             const SizedBox(
               height: 20,

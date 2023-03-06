@@ -6,13 +6,13 @@ const Workout = require("../models/workout");
 // Add workout
 adminRouter.post("/admin/add-workout", admin, async (req, res) => {
   try {
-    const { name, count, target, description, catagory, images } = req.body;
+    const { name, count, target, description, category, images } = req.body;
     let workout = new Workout({
       name,
       count,
       target,
       description,
-      catagory,
+      category,
       images,
     });
     workout = await workout.save();
@@ -38,7 +38,7 @@ adminRouter.get("/admin/get-workouts", admin, async (req, res) => {
 adminRouter.post("/admin/delete-workout", admin, async (req, res) => {
   try {
     const { id } = req.body;
-    let workout = await Workout.findOneAndDelete({ id });
+    let workout = await Workout.findByIdAndDelete(id);
     res.json(workout);
   } catch (e) {
     res.status(500).json({ error: e.message });

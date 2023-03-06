@@ -30,10 +30,6 @@ authRouter.post("/api/signup", async (req, res) => {
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
-
-  // post data in database
-
-  // return data to the user
 });
 
 // LOGIN ROUTE
