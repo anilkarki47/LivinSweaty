@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/features/workouts/services/all_workout_services.dart';
 import '../../../../../common/widgets/loader.dart';
+import '../../../../../constants/global_variables.dart';
 import '../../../../../models/workout.dart';
+import '../../../../auth/widgets/app_text.dart';
 
 class WorkoutCategoryScreen extends StatefulWidget {
   static const String routeName = '/workout-category';
@@ -38,94 +40,103 @@ class _WorkoutCategoryScreenState extends State<WorkoutCategoryScreen> {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(),
-          ),
-          title: Text(
-            widget.category,
-            style: const TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ),
       body: workoutList == null
           ? const Loader()
-          : Column(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    '${widget.category} Workouts',
-                    style: const TextStyle(
-                      fontSize: 20,
+          : CustomScrollView(
+              slivers: [
+                // Appbar work here!
+                SliverAppBar(
+                  expandedHeight: 180,
+                  pinned: true,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Text(
+                      widget.category,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                      ),
                     ),
+                    expandedTitleScale: 1.6,
+                    centerTitle: false,
+                    collapseMode: CollapseMode.parallax,
+                    background: Image(
+                        image: AssetImage(
+                          GlobalVariables.workoutCategory[0]['image']!,
+                        ),
+                        fit: BoxFit.cover),
                   ),
                 ),
-                SizedBox(
-                  height: 170,
-                  child: GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(left: 15),
-                    itemCount: workoutList!.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      childAspectRatio: 1.4,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      final workout = workoutList![index];
 
-                      return GestureDetector(
-                        // onTap: () {
-                        //   Navigator.pushNamed(
-                        //     context,
-                        //     ProductDetailScreen.routeName,
-                        //     arguments: workout,
-                        //   );
-                        // },
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 130,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black12,
-                                    width: 0.5,
-                                  ),
+                // Item List work here!
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final workout = workoutList![index];
+                      return Container(
+                        margin: const EdgeInsets.only(
+                          left: 15,
+                          right: 15,
+                          top: 15,
+                        ),
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7)),
+                          // color: GlobalVariables.lightGrey,
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 15, bottom: 15),
+                            height: 130,
+                            // width: 100,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.network(
+                                  workout.images[0],
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Image.network(
-                                    workout.images[0],
-                                  ),
+                                const SizedBox(
+                                  width: 10,
                                 ),
-                              ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    AppText(
+                                        text: workout.name,
+                                        fontWeight: FontWeight.w900,
+                                        color: GlobalVariables.mainBlack),
+                                    AppText(
+                                        text: workout.count,
+                                        fontWeight: FontWeight.w500,
+                                        color: GlobalVariables.midBlackGrey),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.adjust,
+                                          size: 20,
+                                          color: GlobalVariables.midBlackGrey,
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        AppText(
+                                            text: workout.target,
+                                            fontWeight: FontWeight.w500,
+                                            color:
+                                                GlobalVariables.midBlackGrey),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              padding: const EdgeInsets.only(
-                                left: 0,
-                                top: 5,
-                                right: 15,
-                              ),
-                              child: Text(
-                                workout.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       );
                     },
+                    childCount: workoutList!.length,
                   ),
                 ),
               ],
