@@ -7,7 +7,6 @@ import '../../constants/global_variables.dart';
 import '../auth/widgets/app_large_text.dart';
 import '../auth/widgets/app_text.dart';
 
-
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -105,6 +104,7 @@ class _SignUpState extends State<SignUp> {
                   Row(
                     children: [
                       AppText(
+                        fontWeight: FontWeight.normal,
                         text: "By signing up you're agree to our ",
                         size: 12,
                       ),
@@ -117,6 +117,7 @@ class _SignUpState extends State<SignUp> {
                   Row(
                     children: [
                       AppText(
+                        fontWeight: FontWeight.normal,
                         text: "and",
                         size: 12,
                         color: GlobalVariables.lightGrey,

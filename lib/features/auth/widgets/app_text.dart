@@ -10,7 +10,7 @@ class AppText extends StatelessWidget {
     super.key,
     this.size = 18,
     required this.text,
-    this.fontWeight = FontWeight.w400,
+    required this.fontWeight,
     this.color = GlobalVariables.mainBlack,
   });
 

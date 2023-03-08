@@ -5,8 +5,9 @@ import 'package:livin_sweaty/features/workouts/screens/all_exercise/screens/work
 class ExerciseList extends StatelessWidget {
   const ExerciseList({super.key});
 
-  void navigateToWorkoutCategoryPage(BuildContext context, String category){
-    Navigator.pushNamed(context, WorkoutCategoryScreen.routeName, arguments:category);
+  void navigateToWorkoutCategoryPage(BuildContext context, String category) {
+    Navigator.pushNamed(context, WorkoutCategoryScreen.routeName,
+        arguments: category);
   }
 
   @override
@@ -19,9 +20,10 @@ class ExerciseList extends StatelessWidget {
               itemCount: GlobalVariables.workoutCategory.length,
               itemBuilder: (context, index) {
                 return Column(
-                  children: [  
+                  children: [
                     GestureDetector(
-                      onTap: () => navigateToWorkoutCategoryPage(context, GlobalVariables.workoutCategory[index]['title']!) ,
+                      onTap: () => navigateToWorkoutCategoryPage(context,
+                          GlobalVariables.workoutCategory[index]['title']!),
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 15),
                         height: 225,
@@ -29,11 +31,12 @@ class ExerciseList extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage(
-                                GlobalVariables.workoutCategory[index]['image']!,
+                                GlobalVariables.workoutCategory[index]
+                                    ['image']!,
                               ),
                               fit: BoxFit.cover),
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.blueAccent,
+                          // color: Colors.blueAccent,
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(

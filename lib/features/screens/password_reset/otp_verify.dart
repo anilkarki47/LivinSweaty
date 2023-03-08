@@ -38,6 +38,7 @@ class OtpVerification extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 AppText(
+                  fontWeight: FontWeight.normal,
                   text:
                       "Please enter the email ID associated with your account.",
                   size: 12,

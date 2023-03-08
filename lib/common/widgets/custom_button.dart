@@ -29,6 +29,7 @@ class CustomButtom extends StatelessWidget {
         ),
       ),
       child: AppText(
+        fontWeight: FontWeight.w400,
         text: text,
         color: textColor,
       ),

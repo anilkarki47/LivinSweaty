@@ -10,7 +10,7 @@ class AppFeatureText extends StatelessWidget {
     super.key,
     this.size = 24,
     required this.text,
-    this.fontWeight = FontWeight.w700,
+    required this.fontWeight,
     this.color = GlobalVariables.mainBlack,
   });
 

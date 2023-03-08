@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/features/workouts/screens/all_exercise/screens/workout_detail.dart';
 import 'package:livin_sweaty/features/workouts/services/all_workout_services.dart';
 import '../../../../../common/widgets/loader.dart';
 import '../../../../../constants/global_variables.dart';
@@ -73,64 +74,78 @@ class _WorkoutCategoryScreenState extends State<WorkoutCategoryScreen> {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       final workout = workoutList![index];
-                      return Container(
-                        margin: const EdgeInsets.only(
-                          left: 15,
-                          right: 15,
-                          top: 15,
-                        ),
-                        child: Card(
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7)),
-                          // color: GlobalVariables.lightGrey,
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                                left: 10, right: 10, top: 15, bottom: 15),
-                            height: 130,
-                            // width: 100,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Image.network(
-                                  workout.images[0],
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    AppText(
-                                        text: workout.name,
-                                        fontWeight: FontWeight.w900,
-                                        color: GlobalVariables.mainBlack),
-                                    AppText(
-                                        text: workout.count,
-                                        fontWeight: FontWeight.w500,
-                                        color: GlobalVariables.midBlackGrey),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.adjust,
-                                          size: 20,
-                                          color: GlobalVariables.midBlackGrey,
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        AppText(
-                                            text: workout.target,
-                                            fontWeight: FontWeight.w500,
-                                            color:
-                                                GlobalVariables.midBlackGrey),
-                                      ],
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WorkoutDetails(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                            left: 15,
+                            right: 15,
+                            top: 15,
+                          ),
+                          child: Card(
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            // color: GlobalVariables.lightGrey,
+                            child: Container(
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10, top: 15, bottom: 15),
+                              height: 130,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    color: GlobalVariables.lightGrey,
+                                    child: Image.network(
+                                      workout.images[0],
                                     ),
-                                  ],
-                                )
-                              ],
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      AppText(
+                                          text: workout.name,
+                                          fontWeight: FontWeight.w900,
+                                          color: GlobalVariables.mainBlack),
+                                      AppText(
+                                          text: workout.count,
+                                          fontWeight: FontWeight.w500,
+                                          color: GlobalVariables.midBlackGrey),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.adjust,
+                                            size: 20,
+                                            color: GlobalVariables.midBlackGrey,
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          AppText(
+                                              text: workout.target,
+                                              fontWeight: FontWeight.w500,
+                                              color:
+                                                  GlobalVariables.midBlackGrey),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),

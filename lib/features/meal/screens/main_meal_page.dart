@@ -80,6 +80,7 @@ class Meal extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                         AppFeatureText(
+                          fontWeight: FontWeight.normal,
                           text: "    0/12 glasses",
                           color: Colors.white,
                         )

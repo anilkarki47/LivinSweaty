@@ -186,7 +186,9 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                   width: double.infinity,
                   child: Row(
                     children: [
-                      AppText(text: "Choose Category:   "),
+                      AppText(
+                          fontWeight: FontWeight.normal,
+                          text: "Choose Category:   "),
                       DropdownButton(
                         value: category,
                         icon: const Icon(Icons.keyboard_arrow_down),
