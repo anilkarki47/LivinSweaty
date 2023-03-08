@@ -21,7 +21,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
           // Appbar work here!
           SliverAppBar(
             bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(30),
+              preferredSize: const Size.fromHeight(10),
               child: Container(
                 color: Colors.white,
                 width: double.maxFinite,
@@ -31,8 +31,10 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                   child: Center(
                     child: Text(
                       "BARBELL WORKOUT",
-                      style:
-                          TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
@@ -40,10 +42,54 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
             ),
             pinned: true,
             backgroundColor: GlobalVariables.mainBlack,
-            // leading: const Padding(padding: EdgeInsets.only(bottom: -0)),
+            toolbarHeight: 90,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
+                      color: Colors.black26,
+                    ),
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      top: 8,
+                      bottom: 8,
+                    ),
+                    // Color
+                    child: const Icon(
+                      Icons.arrow_back_ios, // Icon
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+
+                // Share Icon
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    color: Colors.black26,
+                  ),
+                  padding: const EdgeInsets.only(
+                    left: 5,
+                    top: 8,
+                    bottom: 8,
+                    right: 5,
+                  ),
+                  // Color
+                  child: const Icon(
+                    Icons.share, // Icon
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
             automaticallyImplyLeading: false,
             expandedHeight: 400,
-
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 margin: const EdgeInsets.only(bottom: 50),
@@ -61,6 +107,9 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Card(
                     elevation: 3,
                     shape: RoundedRectangleBorder(
@@ -91,6 +140,9 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Card(
                     elevation: 3,
                     shape: RoundedRectangleBorder(
@@ -120,6 +172,9 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                         ),
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   Card(
                     elevation: 3,
