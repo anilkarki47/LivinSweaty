@@ -161,15 +161,6 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                   ),
                 ),
 
-                // PlainTextField(
-                //   controller: catagoryController,
-                //   hintText: "Workout Category",
-                //   hintStyle: const TextStyle(
-                //     fontSize: 18.0,
-                //     color: GlobalVariables.lightGrey,
-                //   ),
-                // ),
-
                 const SizedBox(height: 10),
                 PlainTextField(
                   controller: descriptionController,

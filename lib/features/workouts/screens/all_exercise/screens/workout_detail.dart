@@ -5,6 +5,7 @@ import 'package:livin_sweaty/features/auth/widgets/app_feature_text.dart';
 import '../../../../../constants/global_variables.dart';
 import '../../../../../models/workout.dart';
 import '../../../../auth/widgets/app_text.dart';
+import 'package:share_plus/share_plus.dart';
 
 class WorkoutDetails extends StatefulWidget {
   final Workout workout;
@@ -75,21 +76,27 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                 ),
 
                 // Share Icon
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3),
-                    color: Colors.black26,
-                  ),
-                  padding: const EdgeInsets.only(
-                    left: 5,
-                    top: 8,
-                    bottom: 8,
-                    right: 5,
-                  ),
-                  // Color
-                  child: const Icon(
-                    Icons.share, // Icon
-                    color: Colors.white,
+                InkWell(
+                  onTap: () => {
+                    Share.share(widget.workout.images[0],
+                        subject: widget.workout.name)
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
+                      color: Colors.black26,
+                    ),
+                    padding: const EdgeInsets.only(
+                      left: 5,
+                      top: 8,
+                      bottom: 8,
+                      right: 5,
+                    ),
+                    // Color
+                    child: const Icon(
+                      Icons.share, // Icon
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
