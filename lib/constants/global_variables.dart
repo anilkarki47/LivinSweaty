@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 // String uri = 'http://10.0.2.2:3000';
 // iic
-// String uri = 'http://192.168.42.14:3000';
+// String uri = 'http://192.168.42.235:3000';
 // home
 String uri = 'http://192.168.100.142:3000';
+// String uri = 'http://0.0.0.0/0';
 
 class GlobalVariables {
   // COLORS

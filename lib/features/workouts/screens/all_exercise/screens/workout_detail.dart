@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:livin_sweaty/features/auth/widgets/app_feature_text.dart';
 
 import '../../../../../constants/global_variables.dart';
+import '../../../../../models/workout.dart';
 import '../../../../auth/widgets/app_text.dart';
 
 class WorkoutDetails extends StatefulWidget {
-  const WorkoutDetails({super.key});
+  final Workout workout;
+  const WorkoutDetails({
+    Key? key,
+    required this.workout,
+  }) : super(key: key);
 
   @override
   State<WorkoutDetails> createState() => _WorkoutDetailsState();
@@ -26,12 +32,12 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                 color: Colors.white,
                 width: double.maxFinite,
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Center(
                     child: Text(
-                      "BARBELL WORKOUT",
-                      style: TextStyle(
+                      widget.workout.name,
+                      style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.w700,
                       ),
@@ -48,7 +54,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, true);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -93,8 +99,8 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 margin: const EdgeInsets.only(bottom: 50),
-                child: Image.asset(
-                  "assets/images/20048400.jpg",
+                child: Image.network(
+                  widget.workout.images[0],
                   width: double.maxFinite,
                   fit: BoxFit.cover,
                 ),
@@ -131,7 +137,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               height: 7,
                             ),
                             AppText(
-                              text: "3 Sets x 12 Reps",
+                              text: widget.workout.count,
                               fontWeight: FontWeight.w500,
                               color: GlobalVariables.midBlackGrey,
                             ),
@@ -164,7 +170,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               height: 7,
                             ),
                             AppText(
-                              text: "3 Sets x 12 Reps",
+                              text: widget.workout.target,
                               fontWeight: FontWeight.w500,
                               color: GlobalVariables.midBlackGrey,
                             ),
@@ -197,8 +203,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               height: 7,
                             ),
                             AppText(
-                              text:
-                                  "The Journal of Living Together is a peer-reviewed academic journal that publishes a collection of articles that reflect various aspects of peace and conflict studies. The contributions from across the disciplines and grounded by relevant philosophical traditions and theoretical and methodological approaches systematically broach topics dealing with tribal, ethnic, racial, cultural, religious and sectarian conflicts, as well as alternative dispute resolution and peacebuilding processes. Through this journal it is our intention to inform, inspire, reveal and explore the intricate and complex nature of human interaction in the context of ethno-religious identity and the roles it plays in war and peace. By sharing theories, methods, practices, observations and valuable experiences we mean to open a broader, more inclusive dialogue between policymakers, academics, researchers, religious leaders, representatives of ethnic groups and indigenous peoples, as well as field practitioners around the world.The Journal of Living Together is a peer-reviewed academic journal that publishes a collection of articles that reflect various aspects of peace and conflict studies. The contributions from across the disciplines and grounded by relevant philosophical traditions and theoretical and methodological approaches systematically broach topics dealing with tribal, ethnic, racial, cultural, religious and sectarian conflicts, as well as alternative dispute resolution and peacebuilding processes. Through this journal it is our intention to inform, inspire, reveal and explore the intricate and complex nature of human interaction in the context of ethno-religious identity and the roles it plays in war and peace. By sharing theories, methods, practices, observations and valuable experiences we mean to open a broader, more inclusive dialogue between policymakers, academics, researchers, religious leaders, representatives of ethnic groups and indigenous peoples, as well as field practitioners around the world.The Journal of Living Together is a peer-reviewed academic journal that publishes a collection of articles that reflect various aspects of peace and conflict studies. The contributions from across the disciplines and grounded by relevant philosophical traditions and theoretical and methodological approaches systematically broach topics dealing with tribal, ethnic, racial, cultural, religious and sectarian conflicts, as well as alternative dispute resolution and peacebuilding processes. Through this journal it is our intention to inform, inspire, reveal and explore the intricate and complex nature of human interaction in the context of ethno-religious identity and the roles it plays in war and peace. By sharing theories, methods, practices, observations and valuable experiences we mean to open a broader, more inclusive dialogue between policymakers, academics, researchers, religious leaders, representatives of ethnic groups and indigenous peoples, as well as field practitioners around the world.",
+                              text: widget.workout.description,
                               fontWeight: FontWeight.w500,
                               color: GlobalVariables.midBlackGrey,
                             ),

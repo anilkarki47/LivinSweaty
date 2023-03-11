@@ -76,10 +76,12 @@ class _WorkoutCategoryScreenState extends State<WorkoutCategoryScreen> {
                       final workout = workoutList![index];
                       return GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const WorkoutDetails(),
+                              builder: (context) => WorkoutDetails(
+                                workout: workout,
+                              ),
                             ),
                           );
                         },
