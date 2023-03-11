@@ -14,7 +14,6 @@ import '../../../providers/user_provider.dart';
 class ProgressServices {
   void addProgress({
     required BuildContext context,
-    required String name,
     required List<File> images,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -24,14 +23,14 @@ class ProgressServices {
 
       for (int i = 0; i < images.length; i++) {
         CloudinaryResponse res = await cloudinary.uploadFile(
-          CloudinaryFile.fromFile(images[i].path, folder: name),
+          CloudinaryFile.fromFile(images[i].path, folder: "Progress"),
         );
         imageUrls.add(res.secureUrl);
       }
 
-      Progress progress = Progress(name: name, images: imageUrls);
-    
-    http.Response res = await http.post(
+      Progress progress = Progress(images: imageUrls);
+
+      http.Response res = await http.post(
         Uri.parse('$uri/admin/add-workout'),
         headers: {
           'Content-Type': 'application/json; charset=utf-8',

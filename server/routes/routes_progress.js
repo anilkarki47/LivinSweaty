@@ -4,7 +4,7 @@ const Progress = require("../models/progress");
 const progressRouter = express.Router();
 
 
-// Add workout
+// Add progress
 progressRouter.post("/auth/add-progress", auth, async (req, res) => {
   try {
     const { name, images } = req.body;

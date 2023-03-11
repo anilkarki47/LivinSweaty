@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:livin_sweaty/features/auth/widgets/app_text.dart';
 
 import '../../../common/widgets/custom_button.dart';
 import '../../../constants/global_variables.dart';
@@ -38,6 +39,17 @@ class _ProgressPageState extends State<ProgressPage> {
     });
   }
 
+  File? _image;
+  Future getImage(ImageSource source) async {
+    final image = await ImagePicker().pickImage(source: source);
+    if (image == null) return null;
+
+    final imageTemporary = File(image.path);
+    setState(() {
+      _image = imageTemporary;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,35 +61,29 @@ class _ProgressPageState extends State<ProgressPage> {
             padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
             child: Column(
               children: [
-                images.isNotEmpty
-                    ? CarouselSlider(
-                        items: images.map(
-                          (i) {
-                            return Builder(
-                              builder: (BuildContext context) => Image.file(
-                                i,
-                                fit: BoxFit.cover,
-                                height: 200,
-                              ),
-                            );
-                          },
-                        ).toList(),
-                        options: CarouselOptions(
-                          viewportFraction: 1,
-                          height: 200,
-                        ),
+                _image != null
+                    ? Image.file(
+                        _image!,
+                        height: 300,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
                       )
                     : Container(
                         height: 300,
                         width: double.infinity,
-                        color: Colors.black,
+                        color: GlobalVariables.mainBlack,
+                        child: Center(
+                            child: AppText(
+                                text: "Select an Image!",
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white)),
                       ),
                 const SizedBox(
                   height: 20,
                 ),
                 CustomButtom(
                   text: "Pick from Camera",
-                  onTap: () {},
+                  onTap: () => getImage(ImageSource.camera),
                   color: GlobalVariables.midBlackGrey,
                   textColor: Colors.white,
                   borderColor: Colors.transparent,
@@ -87,7 +93,7 @@ class _ProgressPageState extends State<ProgressPage> {
                 ),
                 CustomButtom(
                   text: "Pick from Gallery",
-                  onTap: selectImage,
+                  onTap: () => getImage(ImageSource.gallery),
                   color: GlobalVariables.midBlackGrey,
                   textColor: Colors.white,
                   borderColor: Colors.transparent,
