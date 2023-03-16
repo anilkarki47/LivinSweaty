@@ -11,7 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../common/widgets/nav_bar.dart';
 import '../../../providers/user_provider.dart';
-import '../../home/screens/home_screen.dart';
 
 class AuthService {
   // SIGNUP USER
@@ -38,6 +37,7 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8'
         },
       );
+      // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,
         context: context,
@@ -74,6 +74,7 @@ class AuthService {
         },
       );
       // print(res.body);
+      // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,
         context: context,
@@ -82,6 +83,7 @@ class AuthService {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
 
+          // ignore: use_build_context_synchronously
           Navigator.pushNamedAndRemoveUntil(
             context,
             BottomBar.routeName,
@@ -130,9 +132,7 @@ class AuthService {
         var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userRes.body);
       }
-    }
-
-    catch (e) {
+    } catch (e) {
       showSnackBar(
         context,
         e.toString(),

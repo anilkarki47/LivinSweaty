@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/global_variables.dart';
-import 'workout_screens/workout_screen.dart';
+import 'admin_screens/meal_screens/meal_screen.dart';
+import 'admin_screens/workout_screens/workout_screen.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({super.key});
@@ -22,7 +23,7 @@ class _AdminScreenState extends State<AdminScreen> {
 
   List<Widget> pages = [
     const WorkoutScreen(),
-    const Center(child: Text("Meals")),
+    const MealScreen(),
     const Center(child: Text("Users")),
   ];
   @override

@@ -31,7 +31,7 @@ class ProgressServices {
       Progress progress = Progress(images: imageUrls);
 
       http.Response res = await http.post(
-        Uri.parse('$uri/admin/add-workout'),
+        Uri.parse('$uri/auth/add-progress'),
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'x-auth-token': userProvider.user.token,
@@ -44,7 +44,7 @@ class ProgressServices {
         response: res,
         context: context,
         onSucess: () {
-          showSnackBar(context, "Workout added sucessfully.");
+          showSnackBar(context, "Progress added sucessfully.");
           Navigator.pop(context);
         },
       );

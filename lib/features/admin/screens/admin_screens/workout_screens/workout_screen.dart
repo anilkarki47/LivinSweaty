@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/single_item.dart';
-import 'package:livin_sweaty/features/admin/screens/workout_screens/add_workout_screen.dart';
+import 'package:livin_sweaty/features/admin/screens/admin_screens/workout_screens/add_workout_screen.dart';
 import 'package:livin_sweaty/features/admin/services/admin_services.dart';
 
-import '../../../../common/widgets/loader.dart';
-import '../../../../models/workout.dart';
+import '../../../../../common/widgets/loader.dart';
+import '../../../../../models/workout.dart';
 
 class WorkoutScreen extends StatefulWidget {
   const WorkoutScreen({super.key});

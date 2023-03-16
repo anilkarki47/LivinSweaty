@@ -1,12 +1,12 @@
 import 'dart:io';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_text.dart';
 
 import '../../../common/widgets/custom_button.dart';
 import '../../../constants/global_variables.dart';
-import '../../../constants/utils.dart';
 import '../services/progress_services.dart';
 
 class ProgressPage extends StatefulWidget {
@@ -16,39 +16,36 @@ class ProgressPage extends StatefulWidget {
   State<ProgressPage> createState() => _ProgressPageState();
 }
 
-// final ImagePicker _picker = ImagePicker();
-// // Pick an image
-// final Future<XFile?> image = _picker.pickImage(source: ImageSource.gallery);
-// // Capture a photo
-// final Future<XFile?> photo = _picker.pickImage(source: ImageSource.camera);
-
 @override
 class _ProgressPageState extends State<ProgressPage> {
   final ProgressServices progressServices = ProgressServices();
 
-  List<File> images = [];
-
-// void addProgress(){
-//   progressServices.addProgress(context: context, name: .text, images: images)
-// }
-
-  void selectImage() async {
-    var res = await pickImages();
-    setState(() {
-      images = res;
-    });
+  void addProgress() {
+    progressServices.addProgress(context: context, images: images);
   }
 
-  File? _image;
-  Future getImage(ImageSource source) async {
-    final image = await ImagePicker().pickImage(source: source);
-    if (image == null) return null;
+  // List<File> images = [];
+  // Future getImage(ImageSource source) async {
+  //   final image = await ImagePicker().pickImage(source: source);
+  //   if (image == null) return Container();
 
-    final imageTemporary = File(image.path);
-    setState(() {
-      _image = imageTemporary;
-    });
-  }
+  //   images.add(File(image.path));
+  //   setState(() {
+  //     images;
+  //   });
+  // }
+
+List<File> images = [];
+
+Future<void> getImage(ImageSource source) async {
+  final image = await ImagePicker().pickImage(source: source);
+  if (image == null) return;
+
+  images.add(File(image.path));
+  setState(() {
+    images;
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +58,23 @@ class _ProgressPageState extends State<ProgressPage> {
             padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
             child: Column(
               children: [
-                _image != null
-                    ? Image.file(
-                        _image!,
-                        height: 300,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
+                images.isNotEmpty
+                    ? CarouselSlider(
+                        items: images.map(
+                          (i) {
+                            return Builder(
+                              builder: (BuildContext context) => Image.file(
+                                i,
+                                fit: BoxFit.cover,
+                                height: 200,
+                              ),
+                            );
+                          },
+                        ).toList(),
+                        options: CarouselOptions(
+                          viewportFraction: 1,
+                          height: 200,
+                        ),
                       )
                     : Container(
                         height: 300,
@@ -103,7 +111,7 @@ class _ProgressPageState extends State<ProgressPage> {
                 ),
                 CustomButtom(
                   text: "Post Image",
-                  onTap: () {},
+                  onTap: addProgress,
                   color: GlobalVariables.mainBlack,
                   textColor: Colors.white,
                   borderColor: Colors.transparent,

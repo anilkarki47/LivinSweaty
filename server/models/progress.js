@@ -1,11 +1,6 @@
-const mongooose = require("mongooose");
+const mongooose = require("mongoose");
 
 const progressSchema = mongooose.Schema({
-  name: {
-    type: "string",
-    required: true,
-    trim: true,
-  },
   images: [
     {
       type: String,

@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/custom_button.dart';
 import 'package:livin_sweaty/constants/utils.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_text.dart';
-import '../../../../common/widgets/plain _textfield.dart';
-import '../../../../constants/global_variables.dart';
-import '../../services/admin_services.dart';
+import '../../../../../common/widgets/plain _textfield.dart';
+import '../../../../../constants/global_variables.dart';
+import '../../../services/admin_services.dart';
 
 class AddWorkoutScreen extends StatefulWidget {
   static const String routeName = '/add-workout';

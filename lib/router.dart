@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/common/widgets/nav_bar.dart';
-import 'package:livin_sweaty/features/admin/screens/workout_screens/add_workout_screen.dart';
+import 'package:livin_sweaty/features/admin/screens/admin_screens/workout_screens/add_workout_screen.dart';
 import 'package:livin_sweaty/features/home/screens/home_screen.dart';
 
 import 'features/screens/login_page.dart';

@@ -7,9 +7,8 @@ const progressRouter = express.Router();
 // Add progress
 progressRouter.post("/auth/add-progress", auth, async (req, res) => {
   try {
-    const { name, images } = req.body;
+    const { images } = req.body;
     let progress = new Progress({
-        name,
         images
     });
     progress = await progress.save();
@@ -18,3 +17,4 @@ progressRouter.post("/auth/add-progress", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+module.exports = progressRouter;
