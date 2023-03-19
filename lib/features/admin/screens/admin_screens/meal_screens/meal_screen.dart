@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/common/widgets/single_item.dart';
-import 'package:livin_sweaty/features/admin/screens/admin_screens/workout_screens/add_workout_screen.dart';
 import 'package:livin_sweaty/features/admin/services/admin_services.dart';
+import 'package:livin_sweaty/models/meal.dart';
 
-import '../../../../../common/widgets/loader.dart';
-import '../../../../../models/workout.dart';
+import 'add_meal_screen.dart';
 
 class MealScreen extends StatefulWidget {
   const MealScreen({super.key});
@@ -14,12 +12,12 @@ class MealScreen extends StatefulWidget {
 }
 
 class _MealScreenState extends State<MealScreen> {
-  // List<Workout>? workouts;
-  // final AdminServices adminServices = AdminServices();
-  @override
+  List<Meal>? meals;
+  final AdminServices adminServices = AdminServices();
+  // @override
   // void initState() {
   //   super.initState();
-  //   fetchAllWorkouts();
+  //   // fetchAllMeals();
   // }
 
   // fetchAllWorkouts() async {
@@ -38,9 +36,9 @@ class _MealScreenState extends State<MealScreen> {
   //   );
   // }
 
-  // void navigateToAddWorkout() {
-  //   Navigator.pushNamed(context, AddWorkoutScreen.routeName);
-  // }
+  void navigateToAddMeal() {
+    Navigator.pushNamed(context, AddMealScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,8 +89,8 @@ class _MealScreenState extends State<MealScreen> {
                   );
                 }),
             floatingActionButton: FloatingActionButton(
-              // onPressed: navigateToAddWorkout,
-              onPressed: () {},
+              onPressed: navigateToAddMeal,
+              // onPressed: () {},
               tooltip: "Add Meals",
               child: const Icon(Icons.add),
             ),

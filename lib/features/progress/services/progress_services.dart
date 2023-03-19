@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
@@ -51,5 +52,37 @@ class ProgressServices {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+  }
+
+  Future<List<Progress>> fetchAllProgress(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<Progress> progressList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/auth/get-progress'), headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      // ignore: use_build_context_synchronously
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSucess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            progressList.add(
+              Progress.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return progressList;
   }
 }

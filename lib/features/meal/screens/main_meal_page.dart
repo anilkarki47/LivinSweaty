@@ -7,8 +7,8 @@ import 'package:livin_sweaty/features/meal/widgets/recommended_diets.dart';
 import '../widgets/favourite_meals.dart';
 import '../widgets/meal_category.dart';
 
-class Meal extends StatelessWidget {
-  const Meal({super.key});
+class MealPage extends StatelessWidget {
+  const MealPage({super.key});
 
   @override
   Widget build(BuildContext context) {

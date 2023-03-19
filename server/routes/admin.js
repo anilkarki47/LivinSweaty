@@ -45,4 +45,26 @@ adminRouter.post("/admin/delete-workout", admin, async (req, res) => {
   }
 });
 
+
+// Add Meal
+adminRouter.post("/admin/add-meal", admin, async (req, res) => {
+  try {
+    const { name, prepTime, ingredients, instructions, category, images } = req.body;
+    let workout = new Workout({
+      name,
+      prepTime,
+      description,
+      ingredients,
+      instructions,
+      category,
+      images,
+    });
+    workout = await workout.save();
+    res.json(workout);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 module.exports = adminRouter;

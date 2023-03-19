@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/features/meal/screens/meal_list.dart';
 
 import '../../../constants/global_variables.dart';
 import '../../auth/widgets/app_large_text.dart';
-
 
 class MealCategery extends StatelessWidget {
   const MealCategery({super.key});
@@ -20,16 +20,22 @@ class MealCategery extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           // elements here!
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: GlobalVariables.midBlackGrey,
-            ),
-            child: Center(
-              child: AppLargeText(
-                text: "Vegan",
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+          InkWell(
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const MealList()));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: GlobalVariables.midBlackGrey,
+              ),
+              child: Center(
+                child: AppLargeText(
+                  text: "Vegan",
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),

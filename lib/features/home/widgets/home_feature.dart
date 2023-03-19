@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../constants/global_variables.dart';
 import '../../auth/widgets/app_large_text.dart';
+import '../screens/medation/medation_list.dart';
 import 'bmi_calculaor.dart';
 
 class HomeFeature extends StatelessWidget {
@@ -42,16 +43,24 @@ class HomeFeature extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: GlobalVariables.midBlackGrey,
-            ),
-            child: Center(
-              child: AppLargeText(
-                text: "Medation",
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+          InkWell(
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MedationList()));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: GlobalVariables.midBlackGrey,
+              ),
+              child: Center(
+                child: AppLargeText(
+                  text: "Medation",
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),

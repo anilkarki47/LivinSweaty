@@ -26,7 +26,7 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> pages = [
     const HomeScreen(),
-    const Meal(),
+    const MealPage(),
     const Workout(),
     const Center(child: Text("Favourite")),
     // const Center(child: Text("Progress")),

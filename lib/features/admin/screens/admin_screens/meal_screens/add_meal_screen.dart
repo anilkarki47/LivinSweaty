@@ -11,7 +11,7 @@ import '../../../../../constants/global_variables.dart';
 import '../../../services/admin_services.dart';
 
 class AddMealScreen extends StatefulWidget {
-  static const String routeName = '/add-workout';
+  static const String routeName = '/add-meal';
   const AddMealScreen({super.key});
 
   @override
@@ -20,43 +20,43 @@ class AddMealScreen extends StatefulWidget {
 
 class _AddMealScreenState extends State<AddMealScreen> {
   final TextEditingController mealNameController = TextEditingController();
-  final TextEditingController mealCountController = TextEditingController();
-  final TextEditingController mealTargetController = TextEditingController();
+  final TextEditingController mealTimeController = TextEditingController();
+  final TextEditingController mealIngredientController =
+      TextEditingController();
+  final TextEditingController instructionController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
   final AdminServices adminServices = AdminServices();
 
   List<File> images = [];
-  String category = "Chest";
-  final _addWorkoutFormKey = GlobalKey<FormState>();
+  String category = "Vegan";
+  final _addMealFormKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     super.dispose();
     mealNameController.dispose();
-    mealCountController.dispose();
-    mealTargetController.dispose();
+    mealTimeController.dispose();
+    mealIngredientController.dispose();
+    instructionController.dispose();
     descriptionController.dispose();
   }
 
-  List<String> workoutCategories = [
-    'Chest',
-    'Back',
-    'Shoulders',
-    'Biceps',
-    'Triceps',
-    'Legs',
-    'Abs'
+  List<String> mealCategories = [
+    'Vegan',
+    'NonVeg',
+    'Diet',
   ];
 
-  void addWorkout() {
-    if (_addWorkoutFormKey.currentState!.validate() && images.isNotEmpty) {
-      adminServices.addWorkout(
+  void addMeal() {
+    if (_addMealFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminServices.addMeal(
           context: context,
           name: mealNameController.text,
-          count: mealCountController.text,
-          target: mealTargetController.text,
+          prepTime: mealTimeController.text,
           description: descriptionController.text,
+          ingredients: mealIngredientController.text,
+          instructions: instructionController.text,
           category: category,
           images: images);
     }
@@ -73,11 +73,11 @@ class _AddMealScreenState extends State<AddMealScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Workout"),
+        title: const Text("Add Meal"),
       ),
       body: SingleChildScrollView(
         child: Form(
-          key: _addWorkoutFormKey,
+          key: _addMealFormKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
@@ -123,7 +123,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  "Select workout Image",
+                                  "Select Meal Image",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.grey.shade400),
@@ -144,7 +144,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 ),
                 const SizedBox(height: 10),
                 PlainTextField(
-                  controller: mealCountController,
+                  controller: mealTimeController,
                   hintText: "Prepatation Time",
                   hintStyle: const TextStyle(
                     fontSize: 18.0,
@@ -153,7 +153,16 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 ),
                 const SizedBox(height: 10),
                 PlainTextField(
-                  controller: mealTargetController,
+                  controller: mealIngredientController,
+                  hintText: "Prepatation Time",
+                  hintStyle: const TextStyle(
+                    fontSize: 18.0,
+                    color: GlobalVariables.lightGrey,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                PlainTextField(
+                  controller: instructionController,
                   hintText: "Calories Received",
                   hintStyle: const TextStyle(
                     fontSize: 18.0,
@@ -183,7 +192,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                       DropdownButton(
                         value: category,
                         icon: const Icon(Icons.keyboard_arrow_down),
-                        items: workoutCategories.map((String item) {
+                        items: mealCategories.map((String item) {
                           return DropdownMenuItem(
                             value: item,
                             child: Text(item),
@@ -201,7 +210,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 const SizedBox(height: 20),
                 CustomButtom(
                     text: "Add",
-                    onTap: addWorkout,
+                    onTap: addMeal,
                     color: GlobalVariables.mainBlack,
                     textColor: Colors.white,
                     borderColor: Colors.transparent),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:livin_sweaty/common/widgets/loader.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_text.dart';
 
 import '../../../common/widgets/custom_button.dart';
@@ -18,34 +19,46 @@ class ProgressPage extends StatefulWidget {
 
 @override
 class _ProgressPageState extends State<ProgressPage> {
+  List<Process>? progress;
+
   final ProgressServices progressServices = ProgressServices();
 
   void addProgress() {
-    progressServices.addProgress(context: context, images: images);
+    progressServices.addProgress(context: context, images: _selectedImages);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAllProgress();
+  }
+
+  fetchAllProgress() async {
+    await progressServices.fetchAllProgress(context);
+    setState(() {});
   }
 
   // List<File> images = [];
-  // Future getImage(ImageSource source) async {
+
+  // Future<void> getImage(ImageSource source) async {
   //   final image = await ImagePicker().pickImage(source: source);
-  //   if (image == null) return Container();
+  //   if (image == null) return;
 
   //   images.add(File(image.path));
-  //   setState(() {
-  //     images;
-  //   });
+  //   setState(() {});
   // }
 
-List<File> images = [];
+  final List<File> _selectedImages = [];
 
-Future<void> getImage(ImageSource source) async {
-  final image = await ImagePicker().pickImage(source: source);
-  if (image == null) return;
-
-  images.add(File(image.path));
-  setState(() {
-    images;
-  });
-}
+  Future<void> _selectImageFromGallery() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImages.add(File(pickedFile.path));
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +71,9 @@ Future<void> getImage(ImageSource source) async {
             padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
             child: Column(
               children: [
-                images.isNotEmpty
+                _selectedImages.isNotEmpty
                     ? CarouselSlider(
-                        items: images.map(
+                        items: _selectedImages.map(
                           (i) {
                             return Builder(
                               builder: (BuildContext context) => Image.file(
@@ -91,7 +104,7 @@ Future<void> getImage(ImageSource source) async {
                 ),
                 CustomButtom(
                   text: "Pick from Camera",
-                  onTap: () => getImage(ImageSource.camera),
+                  onTap: () => _selectImageFromGallery,
                   color: GlobalVariables.midBlackGrey,
                   textColor: Colors.white,
                   borderColor: Colors.transparent,
@@ -101,7 +114,7 @@ Future<void> getImage(ImageSource source) async {
                 ),
                 CustomButtom(
                   text: "Pick from Gallery",
-                  onTap: () => getImage(ImageSource.gallery),
+                  onTap: () => _selectImageFromGallery,
                   color: GlobalVariables.midBlackGrey,
                   textColor: Colors.white,
                   borderColor: Colors.transparent,
@@ -116,6 +129,26 @@ Future<void> getImage(ImageSource source) async {
                   textColor: Colors.white,
                   borderColor: Colors.transparent,
                 ),
+                progress == null
+                    ? const Loader()
+                    : GridView.builder(
+                        itemCount: progress!.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2),
+                        itemBuilder: (context, index) {
+                          final progressData = progress![index];
+                          return Column(
+                            children: const [
+                              SizedBox(
+                                height: 140,
+                                // child: SingleItem(
+                                //   image: progressData.images[0],
+                                // ),
+                              ),
+                            ],
+                          );
+                        }),
               ],
             ),
           ),

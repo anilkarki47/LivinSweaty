@@ -18,3 +18,14 @@ progressRouter.post("/auth/add-progress", auth, async (req, res) => {
   }
 });
 module.exports = progressRouter;
+
+// get progress images
+
+progressRouter.get('/auth/get-progress', auth, async (req, res) => {
+  try{
+    const progress = await Progress.find({});
+    res.json(progress);
+  }catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+})
