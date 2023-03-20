@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:livin_sweaty/features/admin/services/admin_services.dart';
 import 'package:livin_sweaty/models/meal.dart';
 
+import '../../../../../common/widgets/loader.dart';
+import '../../../../../common/widgets/single_item.dart';
 import 'add_meal_screen.dart';
 
 class MealScreen extends StatefulWidget {
@@ -14,16 +16,17 @@ class MealScreen extends StatefulWidget {
 class _MealScreenState extends State<MealScreen> {
   List<Meal>? meals;
   final AdminServices adminServices = AdminServices();
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // fetchAllMeals();
-  // }
 
-  // fetchAllWorkouts() async {
-  //   workouts = await adminServices.fetchAllWorkouts(context);
-  //   setState(() {});
-  // }
+  @override
+  void initState() {
+    super.initState();
+    fetchAllMeals();
+  }
+
+  fetchAllMeals() async {
+    meals = await adminServices.fetchAllMeals(context);
+    setState(() {});
+  }
 
   // void deleteWorkout(Workout workout, int index) {
   //   adminServices.deleteWorkout(
@@ -42,36 +45,33 @@ class _MealScreenState extends State<MealScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // workouts == null
-        //     ? const Loader()
-        //     :
-        Scaffold(
+    return meals == null
+        ? const Loader()
+        : Scaffold(
             body: GridView.builder(
-                // itemCount: workouts!.length,
+                itemCount: meals!.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 itemBuilder: (context, index) {
-                  // final workoutData = workouts![index];
+                  final mealData = meals![index];
                   return Column(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         height: 140,
-                        // child: SingleItem(
-                        //   image: workoutData.images[0],
-                        // ),
+                        child: SingleItem(
+                          image: mealData.images[0],
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              "Meal",
-                              // workoutData.name,
+                              mealData.name,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 15,
                               ),
                             ),
@@ -90,7 +90,6 @@ class _MealScreenState extends State<MealScreen> {
                 }),
             floatingActionButton: FloatingActionButton(
               onPressed: navigateToAddMeal,
-              // onPressed: () {},
               tooltip: "Add Meals",
               child: const Icon(Icons.add),
             ),

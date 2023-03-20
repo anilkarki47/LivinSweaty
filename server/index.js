@@ -8,6 +8,7 @@ const adminRouter = require("./routes/admin");
 const workoutRouter = require("./routes/routes_workout");
 const progressRouter = require("./routes/routes_progress");
 
+
 // INIT
 const PORT = 3000;
 const app = express();
@@ -20,6 +21,7 @@ app.use(authRouter);
 app.use(adminRouter);
 app.use(workoutRouter);
 app.use(progressRouter);
+
 
 // CONNECTIONS
 mongoose

@@ -46,7 +46,7 @@ class Meal {
       instructions: map['instructions'] ?? '',
       category: map['category'] ?? '',
       images: List<String>.from(map['images']),
-      id: map['id'],
+      id: map['_id'],
     );
   }
 
