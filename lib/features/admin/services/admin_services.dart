@@ -222,19 +222,19 @@ class AdminServices {
 // delete meal
   void deleteMeal({
     required BuildContext context,
-    required Workout workout,
+    required Meal meal,
     required VoidCallback onSuccess,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response res = await http.post(
-        Uri.parse('$uri/admin/delete-workout'),
+        Uri.parse('$uri/admin/delete-meal'),
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'x-auth-token': userProvider.user.token,
         },
         body: jsonEncode({
-          'id': workout.id,
+          'id': meal.id,
         }),
       );
 

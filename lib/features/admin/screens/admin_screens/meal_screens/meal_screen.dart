@@ -28,16 +28,16 @@ class _MealScreenState extends State<MealScreen> {
     setState(() {});
   }
 
-  // void deleteWorkout(Workout workout, int index) {
-  //   adminServices.deleteWorkout(
-  //     context: context,
-  //     workout: workout,
-  //     onSuccess: () {
-  //       workouts!.removeAt(index);
-  //       setState(() {});
-  //     },
-  //   );
-  // }
+  void deleteWorkout(Meal meal, int index) {
+    adminServices.deleteMeal(
+      context: context,
+      meal: meal,
+      onSuccess: () {
+        meals!.removeAt(index);
+        setState(() {});
+      },
+    );
+  }
 
   void navigateToAddMeal() {
     Navigator.pushNamed(context, AddMealScreen.routeName);
@@ -77,8 +77,8 @@ class _MealScreenState extends State<MealScreen> {
                             ),
                           ),
                           IconButton(
-                            // onPressed: () => deleteWorkout(workoutData, index),
-                            onPressed: () {},
+                            onPressed: () => deleteWorkout(mealData, index),
+
                             icon: const Icon(
                               Icons.delete_outline,
                             ),

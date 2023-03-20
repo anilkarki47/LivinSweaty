@@ -51,14 +51,15 @@ class _AddMealScreenState extends State<AddMealScreen> {
   void addMeal() {
     if (_addMealFormKey.currentState!.validate() && images.isNotEmpty) {
       adminServices.addMeal(
-          context: context,
-          name: mealNameController.text,
-          prepTime: mealTimeController.text,
-          description: descriptionController.text,
-          ingredients: mealIngredientController.text,
-          instructions: instructionController.text,
-          category: category,
-          images: images);
+        context: context,
+        name: mealNameController.text,
+        prepTime: mealTimeController.text,
+        description: descriptionController.text,
+        ingredients: mealIngredientController.text,
+        instructions: instructionController.text,
+        category: category,
+        images: images,
+      );
     }
   }
 
