@@ -1,71 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/features/meal/screens/meal_list.dart';
 
 import '../../../constants/global_variables.dart';
 import '../../auth/widgets/app_large_text.dart';
+import '../screens/meal_category_list.dart';
 
 class MealCategery extends StatelessWidget {
   const MealCategery({super.key});
+
+  void navigeToMealCategory(BuildContext context, String categoty) {
+    Navigator.pushNamed(context, MealCategoryList.routeName,
+        arguments: categoty);
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       height: 100,
-      child: GridView.count(
-        crossAxisCount: 1,
-        childAspectRatio: 0.7,
+      child: GridView.builder(
+        itemCount: GlobalVariables.mealCategory.length,
         padding: EdgeInsets.symmetric(horizontal: size.width / 20 - 5.6),
-        mainAxisSpacing: size.width / 30,
         scrollDirection: Axis.horizontal,
-        children: [
-          // elements here!
-          InkWell(
-            onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const MealList()));
-            },
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1,
+          childAspectRatio: .583,
+          mainAxisSpacing: 20,
+        ),
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () => navigeToMealCategory(
+              context,
+              GlobalVariables.mealCategory[index]['title']!,
+            ),
             child: Container(
+              padding: EdgeInsets.symmetric(horizontal: size.width / 20 - 5.6),
+              width: 200,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(10),
                 color: GlobalVariables.midBlackGrey,
               ),
               child: Center(
                 child: AppLargeText(
-                  text: "Vegan",
+                  text: GlobalVariables.mealCategory[index]['title']!,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
             ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: GlobalVariables.midBlackGrey,
-            ),
-            child: Center(
-              child: AppLargeText(
-                text: "Non Veg",
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: GlobalVariables.midBlackGrey,
-            ),
-            child: Center(
-              child: AppLargeText(
-                text: "Diet",
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

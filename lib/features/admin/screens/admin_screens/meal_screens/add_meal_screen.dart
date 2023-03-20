@@ -44,8 +44,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
 
   List<String> mealCategories = [
     'Vegan',
-    'NonVeg',
-    'Diet',
+    'Non-Veg',
   ];
 
   void addMeal() {
@@ -155,7 +154,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 const SizedBox(height: 10),
                 PlainTextField(
                   controller: mealIngredientController,
-                  hintText: "Prepatation Time",
+                  hintText: "Meal Ingredient",
                   hintStyle: const TextStyle(
                     fontSize: 18.0,
                     color: GlobalVariables.lightGrey,
@@ -164,13 +163,12 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 const SizedBox(height: 10),
                 PlainTextField(
                   controller: instructionController,
-                  hintText: "Calories Received",
+                  hintText: "Meal Prep Instructions",
                   hintStyle: const TextStyle(
                     fontSize: 18.0,
                     color: GlobalVariables.lightGrey,
                   ),
                 ),
-
                 const SizedBox(height: 10),
                 PlainTextField(
                   controller: descriptionController,
@@ -181,8 +179,6 @@ class _AddMealScreenState extends State<AddMealScreen> {
                     color: GlobalVariables.lightGrey,
                   ),
                 ),
-                // category
-                // const SizedBox(height: 5),
                 SizedBox(
                   width: double.infinity,
                   child: Row(
@@ -210,7 +206,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 ),
                 const SizedBox(height: 20),
                 CustomButtom(
-                    text: "Add",
+                    text: "Add Meal",
                     onTap: addMeal,
                     color: GlobalVariables.mainBlack,
                     textColor: Colors.white,

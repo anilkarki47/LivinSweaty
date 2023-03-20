@@ -7,7 +7,7 @@ const authRouter = require("./routes/auth");
 const adminRouter = require("./routes/admin");
 const workoutRouter = require("./routes/routes_workout");
 const progressRouter = require("./routes/routes_progress");
-
+const mealRouter = require("./routes/routes_meal");
 
 // INIT
 const PORT = 3000;
@@ -21,7 +21,7 @@ app.use(authRouter);
 app.use(adminRouter);
 app.use(workoutRouter);
 app.use(progressRouter);
-
+app.use(mealRouter);
 
 // CONNECTIONS
 mongoose

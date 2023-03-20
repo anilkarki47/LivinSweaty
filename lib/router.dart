@@ -4,6 +4,7 @@ import 'package:livin_sweaty/features/admin/screens/admin_screens/workout_screen
 import 'package:livin_sweaty/features/home/screens/home_screen.dart';
 
 import 'features/admin/screens/admin_screens/meal_screens/add_meal_screen.dart';
+import 'features/meal/screens/meal_category_list.dart';
 import 'features/screens/login_page.dart';
 import 'features/workouts/screens/all_exercise/screens/workout_category_screen.dart';
 
@@ -43,6 +44,15 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => WorkoutCategoryScreen(
+          category: category,
+        ),
+      );
+
+    case MealCategoryList.routeName:
+      var category = routeSettings.arguments as String;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => MealCategoryList(
           category: category,
         ),
       );

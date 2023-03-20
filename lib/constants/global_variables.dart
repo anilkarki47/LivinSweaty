@@ -45,4 +45,16 @@ class GlobalVariables {
       'image': 'assets/images/workout_category/abs.png',
     },
   ];
+
+  // meal category
+  static const List<Map<String, String>> mealCategory = [
+    {
+      'title': 'Vegan',
+      // 'image': 'assets/images/workout_category/chest.png',
+    },
+    {
+      'title': 'Non-Veg',
+      // 'image': 'assets/images/workout_category/back.png',
+    },
+  ];
 }
