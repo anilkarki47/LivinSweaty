@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../constants/global_variables.dart';
 import '../../auth/widgets/app_large_text.dart';
-import '../screens/medation/medation_list.dart';
+import '../screens/medation/meditation_list.dart';
 import 'bmi_calculaor.dart';
 
 class HomeFeature extends StatelessWidget {
@@ -45,10 +45,10 @@ class HomeFeature extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const MedationList()));
+                      builder: (context) => const MeditationListScreen()));
             },
             child: Container(
               decoration: BoxDecoration(

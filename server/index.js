@@ -8,6 +8,7 @@ const adminRouter = require("./routes/admin");
 const workoutRouter = require("./routes/routes_workout");
 const progressRouter = require("./routes/routes_progress");
 const mealRouter = require("./routes/routes_meal");
+const meditationRouter = require("./routes/routes_meditaion");
 
 // INIT
 const PORT = 3000;
@@ -22,8 +23,10 @@ app.use(adminRouter);
 app.use(workoutRouter);
 app.use(progressRouter);
 app.use(mealRouter);
+app.use(meditationRouter);
 
 // CONNECTIONS
+mongoose.set("strictQuery", false);
 mongoose
   .connect(DB)
   .then(() => {
@@ -33,6 +36,6 @@ mongoose
     console.log(e);
   });
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`connected at port ${PORT}`);
 });
