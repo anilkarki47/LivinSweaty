@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/features/workouts/screens/all_exercise/screens/workout_detail.dart';
-import 'package:livin_sweaty/features/workouts/services/all_workout_services.dart';
+import 'package:livin_sweaty/features/home/screens/medation/widgets/audio_file.dart';
 import 'package:livin_sweaty/models/meditation.dart';
 import '../../../../../common/widgets/loader.dart';
 import '../../../../../constants/global_variables.dart';
-import '../../../../../models/workout.dart';
 import '../../../auth/widgets/app_text.dart';
 import '../../services/home_services.dart';
 
 class MeditationListScreen extends StatefulWidget {
-  static const String routeName = '/workout-category';
+  // static const String routeName = '/workout-category';
 
   const MeditationListScreen({
     super.key,
@@ -44,11 +42,11 @@ class _MeditationListScreenState extends State<MeditationListScreen> {
           : CustomScrollView(
               slivers: [
                 // Appbar work here!
-                SliverAppBar(
+                const SliverAppBar(
                   expandedHeight: 180,
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
-                    title: const Text(
+                    title: Text(
                       "Meditation",
                       style: TextStyle(
                         fontSize: 20,
@@ -61,7 +59,7 @@ class _MeditationListScreenState extends State<MeditationListScreen> {
                     collapseMode: CollapseMode.parallax,
                     background: Image(
                         image: AssetImage(
-                          GlobalVariables.workoutCategory[0]['image']!,
+                          'assets/images/meditation.png',
                         ),
                         fit: BoxFit.cover),
                   ),
@@ -82,6 +80,12 @@ class _MeditationListScreenState extends State<MeditationListScreen> {
                           //     ),
                           //   ),
                           // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AudioFile(),
+                            ),
+                          );
                         },
                         child: Container(
                           margin: const EdgeInsets.only(
@@ -104,9 +108,8 @@ class _MeditationListScreenState extends State<MeditationListScreen> {
                                 children: [
                                   Container(
                                     color: GlobalVariables.lightGrey,
-                                    // child: Image.network(
-                                    //   meditation.images[0],
-                                    // ),
+                                    child: Image.asset(
+                                        "assets/images/meditation.png"),
                                   ),
                                   const SizedBox(
                                     width: 10,
