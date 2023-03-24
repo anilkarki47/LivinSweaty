@@ -93,7 +93,7 @@ class _AudioFileState extends State<AudioFile> {
                 height: 30,
               ),
               AppLargeText(
-                text: "Breathe",
+                text: "Heaven",
                 fontWeight: FontWeight.bold,
                 color: GlobalVariables.mainBlack,
               ),
@@ -101,9 +101,10 @@ class _AudioFileState extends State<AudioFile> {
                 height: 3,
               ),
               AppText(
-                  text: 'Anil Karki',
-                  fontWeight: FontWeight.normal,
-                  color: GlobalVariables.lightGrey),
+                text: 'David Fesliyan',
+                fontWeight: FontWeight.normal,
+                color: GlobalVariables.lightGrey,
+              ),
               Slider(
                 min: 0,
                 max: duration.inSeconds.toDouble(),

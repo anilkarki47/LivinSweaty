@@ -7,8 +7,44 @@ import 'package:livin_sweaty/features/meal/widgets/recommended_diets.dart';
 import '../widgets/favourite_meals.dart';
 import '../widgets/meal_category.dart';
 
-class MealPage extends StatelessWidget {
+class MealPage extends StatefulWidget {
   const MealPage({super.key});
+
+  @override
+  State<MealPage> createState() => _MealPageState();
+}
+
+class _MealPageState extends State<MealPage> {
+  int waterIntake = 0;
+
+  void waterIncrement() {
+    if (waterIntake >= 12) {
+      setState(() {
+        waterIntake = 12;
+      });
+    } else {
+      setState(() {
+        waterIntake += 1;
+      });
+    }
+  }
+
+  void waterDecrement() {
+    if (waterIntake <= 0) {
+      setState(() {
+        waterIntake = 0;
+      });
+    } else {
+      setState(() {
+        waterIntake -= 1;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,28 +101,83 @@ class MealPage extends StatelessWidget {
                     height: 10,
                   ),
                   Container(
+                    padding: const EdgeInsets.all(30),
                     height: 150.0,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: GlobalVariables.midBlackGrey,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        AppLargeText(
-                            text: "   Water Intake",
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
-                        AppFeatureText(
-                          fontWeight: FontWeight.normal,
-                          text: "    0/12 glasses",
-                          color: Colors.white,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppLargeText(
+                                text: "Water Intake",
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white),
+                            AppFeatureText(
+                              fontWeight: FontWeight.normal,
+                              text: "$waterIntake/12 glasses",
+                              color: Colors.white,
+                            )
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                waterIncrement();
+                              },
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white60,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                ),
+                                child: const ImageIcon(
+                                  AssetImage("assets/icons/plus.png"),
+                                  size: 30,
+                                  color: GlobalVariables.mainBlack,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                waterDecrement();
+                              },
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white60,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                ),
+                                child: const ImageIcon(
+                                  size: 30,
+                                  AssetImage("assets/icons/minus.png"),
+                                  color: GlobalVariables.mainBlack,
+                                ),
+                              ),
+                            ),
+                          ],
                         )
                       ],
                     ),
                   ),
+                  Container(),
                 ],
               ),
             ),
