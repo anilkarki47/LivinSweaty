@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
 import 'package:livin_sweaty/features/account/EditProfile/body.dart';
 import 'package:livin_sweaty/features/home/widgets/home_feature.dart';
@@ -18,6 +21,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  DateTime _currentDateTime = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        _currentDateTime = DateTime.now();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
@@ -86,9 +101,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ],
                                 ),
-                                const Text(
-                                  "SAT 17 DEC",
-                                  style: TextStyle(
+                                Text(
+                                  "${_currentDateTime.year} ${DateFormat('MMM').format(_currentDateTime)} ${_currentDateTime.day}, ${DateFormat('EEEE').format(_currentDateTime)}",
+                                  style: const TextStyle(
+                                      color: GlobalVariables.midBlackGrey,
+                                      fontSize: 16,
+                                      fontFamily: "Roboto",
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  DateFormat('h:mm:ss a')
+                                      .format(_currentDateTime),
+                                  style: const TextStyle(
                                       color: GlobalVariables.midBlackGrey,
                                       fontSize: 16,
                                       fontFamily: "Roboto",
@@ -148,7 +172,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    
                   ],
                 ),
               )

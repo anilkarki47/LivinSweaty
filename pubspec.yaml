@@ -27,6 +27,7 @@ dependencies:
   cloudinary_public: ^0.20.0
   share_plus: ^6.3.1
   audioplayers: ^3.0.1
+  intl: ^0.18.0
 
   
 
