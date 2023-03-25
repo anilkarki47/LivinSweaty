@@ -7,7 +7,10 @@ import 'package:livin_sweaty/features/auth/widgets/app_text.dart';
 
 import '../../../common/widgets/custom_button.dart';
 
+import '../../../common/widgets/loader.dart';
+import '../../../common/widgets/single_item.dart';
 import '../../../constants/global_variables.dart';
+import '../../../models/progress.dart';
 import '../services/progress_services.dart';
 
 class ProgressPage extends StatefulWidget {
@@ -19,7 +22,7 @@ class ProgressPage extends StatefulWidget {
 
 @override
 class _ProgressPageState extends State<ProgressPage> {
-  // List<Process>? progress;
+  List<Progress>? progress;
 
   final ProgressServices progressServices = ProgressServices();
 
@@ -37,16 +40,17 @@ class _ProgressPageState extends State<ProgressPage> {
     }
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchAllProgress();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    fetchAllProgress();
+  }
 
-  // fetchAllProgress() async {
-  //   await progressServices.fetchAllProgress(context);
-  //   setState(() {});
-  // }
+// separate function because init stat cant be turned asynchronous
+  fetchAllProgress() async {
+    progress = await progressServices.fetchAllProgress(context);
+    setState(() {});
+  }
 
   final List<File> _selectedImages = [];
 
@@ -139,26 +143,32 @@ class _ProgressPageState extends State<ProgressPage> {
                   textColor: Colors.white,
                   borderColor: Colors.transparent,
                 ),
-                // progress == null
-                //     ? const Loader()
-                //     : GridView.builder(
-                //         itemCount: progress!.length,
-                //         gridDelegate:
-                //             const SliverGridDelegateWithFixedCrossAxisCount(
-                //                 crossAxisCount: 2),
-                //         itemBuilder: (context, index) {
-                //           final progressData = progress![index];
-                //           return Column(
-                //             children: [
-                //               SizedBox(
-                //                 height: 140,
-                //                 // child: SingleItem(
-                //                 //   image: progressData.images[0],
-                //                 // ),
-                //               ),
-                //             ],
-                //           );
-                //         }),
+                const SizedBox(
+                  height: 30,
+                ),
+                progress == null
+                    ? const Loader()
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        // itemCount: progress!.length,
+                        itemCount: progress!.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2),
+                        itemBuilder: (context, index) {
+                          final progressData = progress![index];
+
+                          return Column(
+                            children: [
+                              SizedBox(
+                                height: 150,
+                                child: SingleItem(
+                                  image: progressData.images[0],
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
               ],
             ),
           ),

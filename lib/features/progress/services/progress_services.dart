@@ -54,6 +54,8 @@ class ProgressServices {
     }
   }
 
+
+// fetch all the progress
   Future<List<Progress>> fetchAllProgress(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Progress> progressList = [];
