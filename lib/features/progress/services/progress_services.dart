@@ -46,7 +46,7 @@ class ProgressServices {
         context: context,
         onSucess: () {
           showSnackBar(context, "Progress added sucessfully.");
-          Navigator.pop(context);
+          // Navigator.pop(context);
         },
       );
     } catch (e) {

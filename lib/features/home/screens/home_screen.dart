@@ -27,9 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _currentDateTime = DateTime.now();
-      });
+      if (mounted) {
+        setState(() {
+          _currentDateTime = DateTime.now();
+        });
+      }
     });
   }
 
