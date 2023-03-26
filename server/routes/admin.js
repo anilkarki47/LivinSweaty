@@ -3,6 +3,7 @@ const adminRouter = express.Router();
 const admin = require("../middlewares/admin");
 const Workout = require("../models/workout");
 const Meal = require("../models/meal");
+const auth = require("../middlewares/auth");
 
 // Add workout
 adminRouter.post("/admin/add-workout", admin, async (req, res) => {
@@ -25,7 +26,7 @@ adminRouter.post("/admin/add-workout", admin, async (req, res) => {
 
 // get all the workouts
 
-adminRouter.get("/admin/get-workouts", admin, async (req, res) => {
+adminRouter.get("/auth/get-workouts", auth, async (req, res) => {
   try {
     const workouts = await Workout.find({});
     res.json(workouts);

@@ -13,4 +13,7 @@ mealRouter.get("/api/meals", auth, async (req, res) => {
   }
 });
 
+
+
+
 module.exports = mealRouter;

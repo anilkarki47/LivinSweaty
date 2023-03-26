@@ -44,4 +44,34 @@ class AllMealServices {
     }
     return mealList;
   }
+
+  // water intake
+  void addWaterIntake({
+    required BuildContext context,
+    required Meal meal,
+    required double waterIntake,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      http.Response res = await http.post(
+        Uri.parse("$uri/auth/water-intake"),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'waterIntake': waterIntake,
+        }),
+      );
+
+      // ignore: use_build_context_synchronously
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSucess: () {},
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }

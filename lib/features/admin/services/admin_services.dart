@@ -73,7 +73,7 @@ class AdminServices {
     List<Workout> workoutList = [];
     try {
       http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-workouts'), headers: {
+          await http.get(Uri.parse('$uri/auth/get-workouts'), headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'x-auth-token': userProvider.user.token,
       });

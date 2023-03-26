@@ -1,15 +1,16 @@
 const mongoose = require("mongoose");
 const authRouter = require("../routes/auth");
+const waterIntakeSchema = require("./water_intake");
 
 const userSchema = mongoose.Schema({
   name: {
     required: true,
-    type: "string",
+    type: String,
     trim: true,
   },
   email: {
     required: true,
-    type: "string",
+    type: String,
     trim: true,
     validate: {
       validator: (value) => {
@@ -22,12 +23,14 @@ const userSchema = mongoose.Schema({
   },
   password: {
     required: true,
-    type: "string",
+    type: String,
   },
   type: {
-    type: "string",
+    type: String,
     default: "user",
   },
+  // water intake module
+  waterIntake: [waterIntakeSchema],
 });
 
 const User = mongoose.model("User", userSchema);

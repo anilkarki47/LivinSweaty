@@ -54,7 +54,7 @@ meditationRouter.post("/api/auth/add-meditation", async (req, res) => {
       link,
     });
     await newMeditation.save();
-    console.log(newMeditation);
+    // console.log(newMeditation);
     res.json({
       status: 201,
       newMeditation,

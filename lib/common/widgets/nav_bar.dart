@@ -4,6 +4,7 @@ import 'package:livin_sweaty/features/home/screens/home_screen.dart';
 import 'package:livin_sweaty/features/meal/screens/main_meal_page.dart';
 import 'package:livin_sweaty/features/workouts/screens/workouts.dart';
 
+import '../../features/plans/screens/custom_plans.dart';
 import '../../features/progress/screens/progress_page.dart';
 
 class BottomBar extends StatefulWidget {
@@ -28,8 +29,8 @@ class _BottomBarState extends State<BottomBar> {
     const HomeScreen(),
     const MealPage(),
     const Workout(),
-    const Center(child: Text("Favourite")),
-    // const Center(child: Text("Progress")),
+    const CustomPlans(),
+    // const Center(child: Text("Favourite")),
     const ProgressPage(),
   ];
 
