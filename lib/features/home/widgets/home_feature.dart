@@ -64,19 +64,7 @@ class HomeFeature extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: GlobalVariables.midBlackGrey,
-            ),
-            child: Center(
-              child: AppLargeText(
-                text: "BMI Calculator",
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          
         ],
       ),
     );

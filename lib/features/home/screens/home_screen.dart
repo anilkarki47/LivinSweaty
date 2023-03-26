@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
-import 'package:livin_sweaty/features/account/EditProfile/body.dart';
 import 'package:livin_sweaty/features/home/widgets/home_feature.dart';
 import 'package:livin_sweaty/features/home/widgets/my_plans.dart';
 import 'package:livin_sweaty/features/home/widgets/nearby_gyms.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/user_provider.dart';
+import '../../account/playlist/test.dart';
 import '../../auth/widgets/app_feature_text.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -62,7 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const Body()));
+                                        builder: (context) =>
+                                            const MyPlaylists()));
                               },
                               child: CircleAvatar(
                                 radius: 35,
