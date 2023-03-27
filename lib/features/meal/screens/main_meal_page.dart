@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_feature_text.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_large_text.dart';
+import 'package:livin_sweaty/features/meal/services/meal_services.dart';
 import 'package:livin_sweaty/features/meal/widgets/recommended_diets.dart';
 
 import '../widgets/favourite_meals.dart';
@@ -15,6 +18,12 @@ class MealPage extends StatefulWidget {
 }
 
 class _MealPageState extends State<MealPage> {
+  AllMealServices allMealServices = AllMealServices();
+
+  addWaterIntake() {
+    allMealServices.addWaterIntake(context: context, waterIntake: waterIntake);
+  }
+
   int waterIntake = 0;
 
   void waterIncrement() {
@@ -48,6 +57,9 @@ class _MealPageState extends State<MealPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Timer(const Duration(days: 1), () {
+    //   addWaterIntake();
+    // });
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -132,6 +144,7 @@ class _MealPageState extends State<MealPage> {
                             InkWell(
                               onTap: () {
                                 waterIncrement();
+                                addWaterIntake();
                               },
                               child: Container(
                                 height: 30,
@@ -155,6 +168,7 @@ class _MealPageState extends State<MealPage> {
                             InkWell(
                               onTap: () {
                                 waterDecrement();
+                                addWaterIntake();
                               },
                               child: Container(
                                 height: 30,

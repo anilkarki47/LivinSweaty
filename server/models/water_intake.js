@@ -1,15 +1,20 @@
 const mongoose = require("mongoose");
-
-const waterIntakeSchema=mongoose.Schema({
-        userId: {
-            type:String,
-            required:true,
-        },
-        waterIntake: {
-            type: Number,
-            required: true,
-        },
+var Schema = mongoose.Schema;
+const waterIntakeSchema = new mongoose.Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  waterIntake: {
+    type: Number,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 // just creating structure
-
-module.exports = waterIntakeSchema;
+const Water = mongoose.model("Water", waterIntakeSchema);
+module.exports = Water;

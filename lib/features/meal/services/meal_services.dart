@@ -48,13 +48,12 @@ class AllMealServices {
   // water intake
   void addWaterIntake({
     required BuildContext context,
-    required Meal meal,
-    required double waterIntake,
+    required int waterIntake,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response res = await http.post(
-        Uri.parse("$uri/auth/water-intake"),
+        Uri.parse("$uri/auth/add-waterIntake"),
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'x-auth-token': userProvider.user.token,
@@ -64,7 +63,6 @@ class AllMealServices {
         }),
       );
 
-      // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,
         context: context,

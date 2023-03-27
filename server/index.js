@@ -9,6 +9,7 @@ const workoutRouter = require("./routes/routes_workout");
 const progressRouter = require("./routes/routes_progress");
 const mealRouter = require("./routes/routes_meal");
 const meditationRouter = require("./routes/routes_meditaion");
+const waterIntakeRouter = require("./routes/routes_water_intake");
 
 // INIT
 const PORT = 3000;
@@ -24,6 +25,7 @@ app.use(workoutRouter);
 app.use(progressRouter);
 app.use(mealRouter);
 app.use(meditationRouter);
+app.use(waterIntakeRouter);
 
 // CONNECTIONS
 mongoose.set("strictQuery", false);
