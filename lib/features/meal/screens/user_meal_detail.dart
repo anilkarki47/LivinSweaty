@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
 import 'package:livin_sweaty/features/meal/services/meal_services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../models/water.dart';
@@ -80,6 +81,11 @@ class WaterIntakePageState extends State<WaterIntakePage> {
               ),
             ],
           ),
+          const SizedBox(
+            height: 20,
+          ),
+          Lottie.asset('assets/images/lottie/water.json',
+              height: 300, width: 300)
         ],
       ),
     );
