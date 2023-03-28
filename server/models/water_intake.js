@@ -15,6 +15,6 @@ const waterIntakeSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-// just creating structure
+
 const Water = mongoose.model("Water", waterIntakeSchema);
 module.exports = Water;

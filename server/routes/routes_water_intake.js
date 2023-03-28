@@ -2,7 +2,7 @@ const express = require("express");
 const Water = require("../models/water_intake");
 const auth = require("../middlewares/auth");
 const waterIntakeRouter = express.Router();
-const cron = require('node-cron');
+const cron = require("node-cron");
 
 // add water intake details
 waterIntakeRouter.post("/auth/add-waterIntake", auth, (req, res) => {
@@ -71,11 +71,21 @@ waterIntakeRouter.post("/auth/add-waterIntake", auth, (req, res) => {
 
 // Reset water intake value to 0 for all users every day
 
-cron.schedule('0 0 * * *', async () => {
+cron.schedule("0 0 * * *", async () => {
   try {
     await Water.updateMany({}, { waterIntake: 0 });
   } catch (error) {
     console.error(error);
+  }
+});
+
+// get water intake
+waterIntakeRouter.get("/auth/get-waterIntake", auth, async (req, res) => {
+  try {
+    const water = await Water.find({});
+    res.json(water);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
   }
 });
 

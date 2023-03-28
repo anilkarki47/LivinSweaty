@@ -17,7 +17,6 @@ progressRouter.post("/auth/add-progress", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-module.exports = progressRouter;
 
 // get progress images
 
@@ -28,4 +27,7 @@ progressRouter.get('/auth/get-progress', auth, async (req, res) => {
   }catch (e) {
     res.status(500).json({ error: e.message });
   }
-})
+});
+
+
+module.exports = progressRouter;

@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import '../../../constants/error_handling.dart';
 import '../../../constants/global_variables.dart';
 import '../../../constants/utils.dart';
+import '../../../models/water.dart';
 import '../../../providers/user_provider.dart';
 
 class AllMealServices {
@@ -45,7 +46,7 @@ class AllMealServices {
     return mealList;
   }
 
-  // water intake
+  // add water intake
   void addWaterIntake({
     required BuildContext context,
     required int waterIntake,
@@ -72,4 +73,38 @@ class AllMealServices {
       showSnackBar(context, e.toString());
     }
   }
+
+// get water intake data
+
+  Future<List<WaterIntakeData>> fetchWaterIntakeData(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<WaterIntakeData> waterIntakeData = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/auth/get-waterIntake'), headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSucess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            waterIntakeData.add(
+              WaterIntakeData.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return waterIntakeData;
+  }
 }
+

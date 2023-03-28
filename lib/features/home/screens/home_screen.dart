@@ -9,7 +9,7 @@ import 'package:livin_sweaty/features/home/widgets/nearby_gyms.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/user_provider.dart';
-import '../../account/playlist/test.dart';
+import '../../account/profile/main_profile.dart';
 import '../../auth/widgets/app_feature_text.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const MyPlaylists()));
+                                            const ProfileScreens()));
                               },
                               child: CircleAvatar(
                                 radius: 35,
