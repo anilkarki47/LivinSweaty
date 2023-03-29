@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:livin_sweaty/features/account/profile/screens/profile_picture.dart';
+import 'package:livin_sweaty/features/account/services/profile_services.dart';
 
 import 'screens/profile_menu.dart';
 
@@ -48,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ProfileMenu(
               icon: const Icon(Icons.logout),
-              press: () {},
+              press: () => AccountServices().logOut(context),
               text: 'Logout',
             ),
           ],
