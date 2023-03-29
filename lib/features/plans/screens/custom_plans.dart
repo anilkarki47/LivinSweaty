@@ -122,33 +122,33 @@ class _CustomPlansState extends State<CustomPlans> {
                 },
               ),
             ),
-            // const Divider(),
-            // const Text('My Playlists', style: TextStyle(fontSize: 18)),
-            // Expanded(
-            //   child: ListView.builder(
-            //     itemCount: myPlaylists.keys.length,
-            //     itemBuilder: (context, index) {
-            //       String playlistName = myPlaylists.keys.elementAt(index);
-            //       return ExpansionTile(
-            //         title: Text(playlistName),
-            //         children: myPlaylists[playlistName]!.map((Workout workout) {
-            //           return ListTile(
-            //             title: Text(workout.name),
-            //             subtitle: Text(workout.description),
-            //             trailing: IconButton(
-            //               icon: const Icon(Icons.remove),
-            //               onPressed: () {
-            //                 setState(() {
-            //                   myPlaylists[playlistName]!.remove(workout);
-            //                 });
-            //               },
-            //             ),
-            //           );
-            //         }).toList(),
-            //       );
-            //     },
-            //   ),
-            // ),
+            const Divider(),
+            const Text('My Playlists', style: TextStyle(fontSize: 18)),
+            Expanded(
+              child: ListView.builder(
+                itemCount: myPlaylists.keys.length,
+                itemBuilder: (context, index) {
+                  String playlistName = myPlaylists.keys.elementAt(index);
+                  return ExpansionTile(
+                    title: Text(playlistName),
+                    children: myPlaylists[playlistName]!.map((Workout workout) {
+                      return ListTile(
+                        title: Text(workout.name),
+                        subtitle: Text(workout.description),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.remove),
+                          onPressed: () {
+                            setState(() {
+                              myPlaylists[playlistName]!.remove(workout);
+                            });
+                          },
+                        ),
+                      );
+                    }).toList(),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
