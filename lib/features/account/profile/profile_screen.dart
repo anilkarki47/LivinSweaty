@@ -13,6 +13,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Profile"),
+          automaticallyImplyLeading: true,
         ),
         body: Column(
           children: [
