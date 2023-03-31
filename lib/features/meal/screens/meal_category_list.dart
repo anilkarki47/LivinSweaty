@@ -5,6 +5,7 @@ import '../../../../../constants/global_variables.dart';
 import '../../../common/widgets/loader.dart';
 import '../../auth/widgets/app_text.dart';
 import '../services/meal_services.dart';
+import 'meal_detail_page.dart';
 
 class MealCategoryList extends StatefulWidget {
   static const String routeName = '/meal-category';
@@ -76,14 +77,14 @@ class _MealCategoryListState extends State<MealCategoryList> {
                       final meal = mealList![index];
                       return GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => WorkoutDetails(
-                          //       workout: workout,
-                          //     ),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MealDetailPage(
+                                meal: meal,
+                              ),
+                            ),
+                          );
                         },
                         child: Container(
                           margin: const EdgeInsets.only(

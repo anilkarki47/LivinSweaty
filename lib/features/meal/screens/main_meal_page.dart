@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_feature_text.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_large_text.dart';
-import 'package:livin_sweaty/features/meal/screens/user_meal_detail.dart';
+import 'package:livin_sweaty/features/meal/screens/water_intake_page.dart';
 import 'package:livin_sweaty/features/meal/services/meal_services.dart';
 import 'package:livin_sweaty/features/meal/widgets/recommended_diets.dart';
 

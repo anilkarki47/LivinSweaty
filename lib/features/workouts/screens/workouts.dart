@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:livin_sweaty/constants/exersise_set.dart';
+import 'package:livin_sweaty/constants/exercise/exercise_model/exersise_set.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
 import 'package:livin_sweaty/features/workouts/widgets/all_exercises.dart';
 
+import '../../../constants/exercise/exercise_data/exercise_sets.dart';
 import '../../auth/widgets/app_feature_text.dart';
 import '../../auth/widgets/app_large_text.dart';
+import '../widgets/exercise_set_widget.dart';
 import '../widgets/recommended_workouts.dart';
 
 class Workout extends StatefulWidget {
@@ -69,12 +71,30 @@ class _WorkoutState extends State<Workout> {
                 height: 10,
               ),
               difficultyLevel(),
+              const SizedBox(
+                height: 10,
+              ),
+              buildWorkouts(),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget buildWorkouts() => GestureDetector(
+        onHorizontalDragEnd: swipeFunction,
+        child: Column(
+          children: exerciseSets
+              .where((element) => element.exerciseType == selectedType)
+              .map(
+                (exerciseSet) => Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: ExerciseSetWidget(exerciseSet: exerciseSet)),
+              )
+              .toList(),
+        ),
+      );
 
   Widget difficultyLevel() => Row(
         children: ExerciseType.values.map(
@@ -107,4 +127,20 @@ class _WorkoutState extends State<Workout> {
           },
         ).toList(),
       );
+  void swipeFunction(DragEndDetails dragEndDetails) {
+    final selectedIndex = ExerciseType.values.indexOf(selectedType);
+    final hasNext = selectedIndex < ExerciseType.values.length;
+    final hasPrevious = selectedIndex > 0;
+
+    setState(() {
+      if (dragEndDetails.primaryVelocity! < 0 && hasNext) {
+        final nextType = ExerciseType.values[selectedIndex + 1];
+        selectedType = nextType;
+      }
+      if (dragEndDetails.primaryVelocity! > 0 && hasPrevious) {
+        final previousType = ExerciseType.values[selectedIndex - 1];
+        selectedType = previousType;
+      }
+    });
+  }
 }
