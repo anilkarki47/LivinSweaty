@@ -8,11 +8,9 @@ waterIntakeRouter.post("/auth/add-waterIntake", auth, async (req, res) => {
   try {
     const { waterIntake } = req.body;
     const now = new Date();
-    const localOffset = now.getTimezoneOffset() * 60000; // milliseconds
-    const utcDate = new Date(now.getTime() + localOffset);
 
-    // format UTC date as string in YYYY-MM-DD format
-    const dateStr = utcDate.toISOString().slice(0, 10);
+    // format local date as string in YYYY-MM-DD format
+    const dateStr = now.toISOString().slice(0, 10);
 
     // check if there is an existing entry for the current date
     let water = await Water.findOne({
