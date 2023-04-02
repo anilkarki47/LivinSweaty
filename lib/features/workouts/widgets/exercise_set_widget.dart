@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/features/workouts/screens/exercise_vid_page.dart';
 
 import '../../../constants/exercise/exercise_model/exersise_set.dart';
+import '../../../constants/global_variables.dart';
 
 class ExerciseSetWidget extends StatelessWidget {
   final ExerciseSet exerciseSet;
@@ -12,13 +14,29 @@ class ExerciseSetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
+        onTap: () async {
+          await Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ExercisePage(exerciseSet: exerciseSet),
+          ));
+        },
         child: Container(
           padding: const EdgeInsets.all(18),
           margin: const EdgeInsets.symmetric(horizontal: 15),
           height: 120,
           decoration: BoxDecoration(
-            color: exerciseSet.color,
+            color: GlobalVariables.offWhite,
             borderRadius: BorderRadius.circular(16),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black38,
+                blurRadius: 3.0,
+                spreadRadius: 0,
+                offset: Offset(
+                  0,
+                  2,
+                ),
+              )
+            ],
           ),
           child: Row(
             children: [

@@ -39,7 +39,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                     child: Text(
                       widget.workout.name,
                       style: const TextStyle(
-                        fontSize: 28,
+                        fontSize: 30,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
