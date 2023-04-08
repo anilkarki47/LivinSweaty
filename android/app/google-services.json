@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "345715329365",
+    "project_id": "livinsweaty",
+    "storage_bucket": "livinsweaty.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345715329365:android:952668ae93652b567c87dc",
+        "android_client_info": {
+          "package_name": "com.example.livin_sweaty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345715329365-47l1mhsk60s133t10pgvroumqn7d3ta3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuluNeuROXbh1kpb6iaf2hC6oIJlQ8Q_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "345715329365-47l1mhsk60s133t10pgvroumqn7d3ta3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
