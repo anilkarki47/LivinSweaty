@@ -7,22 +7,24 @@ import '../widgets/video_player_widget.dart';
 
 class ExercisePage extends StatefulWidget {
   final ExerciseSet exerciseSet;
-  const ExercisePage({super.key, required this.exerciseSet});
+  const ExercisePage({Key? key, required this.exerciseSet}) : super(key: key);
 
   @override
   State<ExercisePage> createState() => ExercisePageState();
 }
 
+
 class ExercisePageState extends State<ExercisePage> {
   final controller = PageController();
   late Exercise currentExercise;
+  final GlobalKey<VideoControlsWidgetState> videoControlsKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-
     currentExercise = widget.exerciseSet.exercises.first;
   }
+  
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -54,8 +56,9 @@ class ExercisePageState extends State<ExercisePage> {
       );
 
   Widget buildVideoControls() => VideoControlsWidget(
+        key: videoControlsKey,
         exercise: currentExercise,
-        exercises: widget.exerciseSet.exercises, // Passing the exercises list
+        exercises: widget.exerciseSet.exercises,
         onTogglePlaying: (isPlaying) {
           setState(() {
             if (isPlaying) {
@@ -65,13 +68,21 @@ class ExercisePageState extends State<ExercisePage> {
             }
           });
         },
-        onNextVideo: () => controller.nextPage(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeIn,
-        ),
-        onRewindVideo: () => controller.previousPage(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeIn,
-        ),
+        onNextVideo: () {
+          controller.nextPage(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeIn,
+          );
+          videoControlsKey.currentState
+              ?.restartExerciseAndRestTimers(); 
+        },
+        onRewindVideo: () {
+          controller.previousPage(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeIn,
+          );
+          videoControlsKey.currentState
+              ?.restartExerciseAndRestTimers();
+        },
       );
 }

@@ -22,10 +22,10 @@ class VideoControlsWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _VideoControlsWidgetState createState() => _VideoControlsWidgetState();
+  VideoControlsWidgetState createState() => VideoControlsWidgetState();
 }
 
-class _VideoControlsWidgetState extends State<VideoControlsWidget> {
+class VideoControlsWidgetState extends State<VideoControlsWidget> {
   Timer? _exerciseTimer;
   Timer? _restTimer;
   int _remainingTime = 0;
@@ -48,6 +48,8 @@ class _VideoControlsWidgetState extends State<VideoControlsWidget> {
   }
 
   void _startExerciseTimer() {
+    _exerciseTimer?.cancel(); // Cancel the previous timer
+
     _remainingTime = widget.exercise.duration.inSeconds;
     _isRest = false;
 
@@ -68,6 +70,8 @@ class _VideoControlsWidgetState extends State<VideoControlsWidget> {
   }
 
   void _startRestTimer() {
+    _restTimer?.cancel(); // Cancel the previous timer
+
     _remainingTime = 5;
     _isRest = true;
     widget.onTogglePlaying(false);
@@ -97,7 +101,11 @@ class _VideoControlsWidgetState extends State<VideoControlsWidget> {
     return widget.exercise == widget.exercises.last;
   }
 
-  
+  void restartExerciseAndRestTimers() {
+    _exerciseTimer?.cancel();
+    _restTimer?.cancel();
+    _startExerciseTimer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,13 +148,16 @@ class _VideoControlsWidgetState extends State<VideoControlsWidget> {
   }
 
   Widget buildRestUI(BuildContext context) => Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white.withOpacity(0.90),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Rest Time',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Text(
@@ -161,17 +172,16 @@ class _VideoControlsWidgetState extends State<VideoControlsWidget> {
 
   Widget buildExerciseCompletedUI(BuildContext context) {
     return Container(
-      color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text(
-            'Exercise Completed',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16),
-          
-        ],
+      padding: const EdgeInsets.symmetric(vertical: 40),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.white.withOpacity(0.90),
+      ),
+      child: const Center(
+        child: Text(
+          'Exercise Completed!',
+          style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
