@@ -1,23 +1,16 @@
 const mongoose = require("mongoose");
-const PlaylistSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  workout: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Workout",
-    required: true,
-  },
-  name: {
+const playlistSchema = mongoose.Schema({
+  playlistID: {
     type: String,
     required: true,
+    trim: true,
   },
-  date: {
-    type: Date,
-    default: Date.now,
+  workoutID: {
+    type: String,
+    required: true,
+    trim: true,
   },
 });
 
-module.exports = mongoose.model("Playlist", PlaylistSchema);
+const Playlist = mongoose.model("Playlist", playlistSchema);
+module.exports = Playlist;

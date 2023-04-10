@@ -1,24 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_feature_text.dart';
+import 'package:livin_sweaty/features/plans/screens/services/plan_services.dart';
+import 'package:livin_sweaty/models/playlist_name.dart';
 
 import '../../../constants/global_variables.dart';
 import '../../../models/workout.dart';
 import '../../admin/services/admin_services.dart';
 
 class CustomPlans extends StatefulWidget {
-  const CustomPlans({super.key});
+  const CustomPlans({Key? key}) : super(key: key);
 
   @override
   State<CustomPlans> createState() => _CustomPlansState();
 }
 
 class _CustomPlansState extends State<CustomPlans> {
-  List<Workout>? workouts;
   final AdminServices adminServices = AdminServices();
+  final PlanServices allPlanServices = PlanServices();
+
+  TextEditingController playlistNameController = TextEditingController();
+
+  List<Workout>? workouts;
+  List<PlaylistName>? playlistNames;
+  Map<String, List<Workout>> myPlaylists = {};
+
+  @override
+  void dispose() {
+    super.dispose();
+    playlistNameController.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
     fetchAllWorkouts();
+    fetchAllPlaylistName();
   }
 
   fetchAllWorkouts() async {
@@ -26,8 +42,32 @@ class _CustomPlansState extends State<CustomPlans> {
     setState(() {});
   }
 
-  Map<String, List<Workout>> myPlaylists = {};
-  TextEditingController playlistNameController = TextEditingController();
+  fetchAllPlaylistName() async {
+    playlistNames = await allPlanServices.fetchAllPlaylistName(context);
+    setState(() {});
+  }
+
+//   addPlaylist() {
+//  allPlanServices.addPlaylist(context: context, playlistName: playlistNameController.text, playlists: myPlaylists);
+//   }
+
+  addPlaylistName() {
+    allPlanServices.addPlaylistName(
+        context: context, playlistName: playlistNameController.text);
+  }
+
+  addWorkoutToPlaylist(String? playlistId, String? workoutId) {
+    if (playlistId != null && workoutId != null) {
+      allPlanServices.addWorkoutToPlaylist(
+        context: context,
+        playlistId: playlistId,
+        workoutId: workoutId,
+      );
+    } else {
+      print("aaaaa");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +91,7 @@ class _CustomPlansState extends State<CustomPlans> {
                   icon: const Icon(Icons.add),
                   iconSize: 30,
                   onPressed: () {
+                    addPlaylistName();
                     setState(() {
                       myPlaylists[playlistNameController.text] = [];
                       playlistNameController.clear();
@@ -82,6 +123,8 @@ class _CustomPlansState extends State<CustomPlans> {
                 itemCount: workouts!.length,
                 itemBuilder: (context, index) {
                   final workout = workouts![index];
+                  final playlist = playlistNames![index];
+                  // print(playlist.id);
                   return Card(
                     elevation: 2,
                     child: ListTile(
@@ -98,22 +141,58 @@ class _CustomPlansState extends State<CustomPlans> {
                       ),
                       subtitle: Text(workouts![index].description,
                           overflow: TextOverflow.ellipsis),
-                      trailing: DropdownButton<String>(
+                      // trailing: DropdownButton<String>(
+                      //   hint: const Text(
+                      //     'Plans',
+                      //     style: TextStyle(fontSize: 14),
+                      //   ),
+                      //   onChanged: (String? playlistName) {
+                      //     if (playlistName != null) {
+                      //       setState(() {
+                      //         myPlaylists[playlistName]!.add(workouts![index]);
+                      //       });
+                      //     }
+                      //   },
+                      //   items: myPlaylists.keys.map((String playlistName) {
+                      //     return DropdownMenuItem<String>(
+                      //       value: playlistName,
+                      //       child: Text(playlistName),
+                      //     );
+                      trailing: DropdownButton<PlaylistName>(
                         hint: const Text(
                           'Plans',
                           style: TextStyle(fontSize: 14),
                         ),
-                        onChanged: (String? playlistName) {
+                        onChanged: (PlaylistName? playlistName) async {
                           if (playlistName != null) {
-                            setState(() {
-                              myPlaylists[playlistName]!.add(workouts![index]);
-                            });
+                            // Add the selected workout to the playlist
+                            // await addWorkoutToPlaylist(workout, playlistName);
+
+                            final workoutId = workout.id;
+                            final playlistId = playlist.id;
+                            addWorkoutToPlaylist(playlistId, workoutId);
+                            // print(playlist.id);
+                            // print(workoutId);
+
+                            // Show a snackbar to indicate successful addition to playlist
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(
+                            //     content: Text(
+                            //       '${workout.name} added to ${playlistName.name} playlist',
+                            //     ),
+                            //   ),
+                            // );
                           }
                         },
-                        items: myPlaylists.keys.map((String playlistName) {
-                          return DropdownMenuItem<String>(
+                        items: playlistNames!
+                            .map<DropdownMenuItem<PlaylistName>>(
+                                (PlaylistName playlistName) {
+                          return DropdownMenuItem<PlaylistName>(
                             value: playlistName,
-                            child: Text(playlistName),
+                            child: Text(
+                              playlistName.name,
+                              style: const TextStyle(fontSize: 14),
+                            ),
                           );
                         }).toList(),
                       ),

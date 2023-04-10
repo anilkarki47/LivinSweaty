@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
@@ -59,6 +58,7 @@ class WaterIntakePageState extends State<WaterIntakePage> {
                 fontStyle: FontStyle.italic,
               ),
               maximum: 12,
+              minimum: 0,
             ),
             series: <ChartSeries>[
               ColumnSeries<WaterIntakeData, String>(

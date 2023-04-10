@@ -7,9 +7,11 @@ const authRouter = require("./routes/auth");
 const adminRouter = require("./routes/admin");
 const workoutRouter = require("./routes/routes_workout");
 const progressRouter = require("./routes/routes_progress");
-const mealRouter = require("./routes/routes_meal");
+const mealRouter = require("./routes/meal.routes");
 const meditationRouter = require("./routes/routes_meditaion");
 const waterIntakeRouter = require("./routes/routes_water_intake");
+const playlistRouter = require("./routes/playlist.routes");
+const selectedWorkoutRouter = require("./routes/selected-workout.routes");
 
 // INIT
 const PORT = 3000;
@@ -26,6 +28,8 @@ app.use(progressRouter);
 app.use(mealRouter);
 app.use(meditationRouter);
 app.use(waterIntakeRouter);
+app.use(playlistRouter);
+app.use(selectedWorkoutRouter);
 
 // CONNECTIONS
 mongoose.set("strictQuery", false);

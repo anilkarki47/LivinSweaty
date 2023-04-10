@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:livin_sweaty/features/account/playlist/playlist.dart';
+
 class Plans {
+  final String? id;
   final String playlistname;
-  final List<String> playlist;
+  final Map<String, List<Workout>> playlist;
   Plans({
+    this.id,
     required this.playlistname,
     required this.playlist,
   });
@@ -11,6 +15,9 @@ class Plans {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
   
+    if(id != null){
+      result.addAll({'id': id});
+    }
     result.addAll({'playlistname': playlistname});
     result.addAll({'playlist': playlist});
   
@@ -19,8 +26,9 @@ class Plans {
 
   factory Plans.fromMap(Map<String, dynamic> map) {
     return Plans(
+      id: map['id'],
       playlistname: map['playlistname'] ?? '',
-      playlist: List<String>.from(map['playlist']),
+      playlist: Map<String, List<Workout>>.from(map['playlist']),
     );
   }
 

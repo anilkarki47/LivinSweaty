@@ -128,7 +128,7 @@ class _WorkoutState extends State<Workout> {
         ).toList(),
       );
 
-      // swipe functionality
+  // swipe functionality
   void swipeFunction(DragEndDetails dragEndDetails) {
     final selectedIndex = ExerciseType.values.indexOf(selectedType);
     final hasNext = selectedIndex < ExerciseType.values.length;
