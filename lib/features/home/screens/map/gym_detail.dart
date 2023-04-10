@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:livin_sweaty/constants/global_variables.dart';
 // import 'package:maps_launcher/maps_launcher.dart';
 
 class GymDetailsPage extends StatelessWidget {
@@ -20,32 +21,37 @@ class GymDetailsPage extends StatelessWidget {
           children: [
             // Show carousel of gym photos
             gym.photos.isNotEmpty
-                ? SizedBox(
-                    height: 200,
-                    child: SizedBox(
-                      height: 200,
-                      child: CarouselSlider.builder(
-                        itemCount: gym.photos.length,
-                        itemBuilder:
-                            (BuildContext context, int index, int realIndex) {
-                          final photo = gym.photos[index];
-                          return Image.network(
-                            GoogleMapsPlaces(
-                              apiKey: 'AIzaSyB1HHLk0HBCzg-zQ5r-oTtoNncZ0kEze8I',
-                            ).buildPhotoUrl(
-                              maxWidth: 1200,
-                              maxHeight: 800,
-                              photoReference: photo.photoReference,
-                            ),
-                            fit: BoxFit.cover,
-                          );
-                        },
-                        options: CarouselOptions(
-                          height: 300,
-                          autoPlay: true,
-                          enlargeCenterPage: true,
-                          aspectRatio: 3 / 2,
-                          viewportFraction: 0.8,
+                ? Container(
+                    height: 300,
+                    color: GlobalVariables.lightGrey,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: SizedBox(
+                        height: 300,
+                        child: CarouselSlider.builder(
+                          itemCount: gym.photos.length,
+                          itemBuilder:
+                              (BuildContext context, int index, int realIndex) {
+                            final photo = gym.photos[index];
+                            return Image.network(
+                              GoogleMapsPlaces(
+                                apiKey:
+                                    'AIzaSyB1HHLk0HBCzg-zQ5r-oTtoNncZ0kEze8I',
+                              ).buildPhotoUrl(
+                                maxWidth: 1200,
+                                maxHeight: 800,
+                                photoReference: photo.photoReference,
+                              ),
+                              fit: BoxFit.cover,
+                            );
+                          },
+                          options: CarouselOptions(
+                            height: 300,
+                            autoPlay: true,
+                            enlargeCenterPage: true,
+                            aspectRatio: 3 / 2,
+                            viewportFraction: 0.8,
+                          ),
                         ),
                       ),
                     ),
@@ -69,33 +75,35 @@ class GymDetailsPage extends StatelessWidget {
                         size: 16,
                         color: Colors.amber,
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 5),
                       Text(
                         gym.rating?.toString() ?? 'N/A',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: const TextStyle(
+                          color: GlobalVariables.lightGrey,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    gym.types.first,
-                    style: Theme.of(context).textTheme.titleSmall,
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        size: 16,
+                        color: GlobalVariables.lightGrey,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        gym.vicinity!,
+                        style: const TextStyle(
+                          color: GlobalVariables.lightGrey,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    gym.vicinity!,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Description',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae eros justo. Vivamus ut semper quam. Pellentesque malesuada aliquet justo, id elementum nisl aliquet non. Nullam eu faucibus nisl. In hac habitasse platea dictumst. Ut et tellus vel nisi malesuada sodales sed non quam.',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
                 ],
               ),
             ),
