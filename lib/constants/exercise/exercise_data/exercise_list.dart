@@ -3,12 +3,12 @@ import '../exercise_model/model_exercise.dart';
 final exercises1 = [
   Exercise(
       name: 'Burpees',
-      duration: const Duration(seconds: 30),
+      duration: const Duration(seconds: 10),
       noOfReps: 12,
       videoUrl: 'assets/images/exercise_sets/burpees.mp4'),
   Exercise(
       name: 'Push Up',
-      duration: const Duration(seconds: 40),
+      duration: const Duration(seconds: 20),
       noOfReps: 10,
       videoUrl: 'assets/images/exercise_sets/yoga.mp4'),
   Exercise(
@@ -18,7 +18,7 @@ final exercises1 = [
       videoUrl: 'assets/images/exercise_sets/yoga2.mp4'),
   Exercise(
       name: 'Pull Up',
-      duration: const Duration(seconds: 50),
+      duration: const Duration(seconds: 25),
       noOfReps: 8,
       videoUrl: 'assets/images/exercise_sets/burpees.mp4'),
   Exercise(

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import 'model_exercise.dart';
 
 enum ExerciseType { low, mid, hard }
@@ -22,14 +20,12 @@ class ExerciseSet {
   final List<Exercise> exercises;
   final String imageUrl;
   final ExerciseType exerciseType;
-  final Color color;
 
   const ExerciseSet({
     required this.name,
     required this.exercises,
     required this.imageUrl,
     required this.exerciseType,
-    required this.color,
   });
 
   String get totalDuration {

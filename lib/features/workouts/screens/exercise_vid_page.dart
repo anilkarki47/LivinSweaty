@@ -72,5 +72,6 @@ class ExercisePageState extends State<ExercisePage> {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeIn,
         ),
+        onExerciseCompleted: () => const Text("Congrats!"),
       );
 }

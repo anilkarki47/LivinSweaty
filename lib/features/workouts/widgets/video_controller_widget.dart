@@ -1,46 +1,141 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
-
+import '../../../constants/exercise/exercise_model/exersise_set.dart';
 import '../../../constants/exercise/exercise_model/model_exercise.dart';
 
-class VideoControlsWidget extends StatelessWidget {
+class VideoControlsWidget extends StatefulWidget {
   final Exercise exercise;
   final VoidCallback onRewindVideo;
   final VoidCallback onNextVideo;
   final ValueChanged<bool> onTogglePlaying;
+  final VoidCallback onExerciseCompleted;
 
   const VideoControlsWidget({
-    super.key,
+    Key? key,
     required this.exercise,
     required this.onRewindVideo,
     required this.onNextVideo,
     required this.onTogglePlaying,
-  });
+    required this.onExerciseCompleted,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: Colors.white.withOpacity(0.90),
-        ),
-        height: 142,
+  _VideoControlsWidgetState createState() => _VideoControlsWidgetState();
+}
+
+class _VideoControlsWidgetState extends State<VideoControlsWidget> {
+  Timer? _exerciseTimer;
+  Timer? _restTimer;
+  int _remainingTime = 0;
+  bool _isRest = false;
+
+  late ExerciseSet exerciseSet;
+
+  @override
+  void initState() {
+    super.initState();
+    _startExerciseTimer();
+  }
+
+  @override
+  void dispose() {
+    _exerciseTimer?.cancel();
+    _restTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startExerciseTimer() {
+    _remainingTime = widget.exercise.duration.inSeconds;
+    _isRest = false;
+
+    _exerciseTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!widget.exercise.controller.value.isPlaying) {
+        return;
+      }
+
+      setState(() {
+        _remainingTime -= 1;
+      });
+
+      if (_remainingTime <= 0) {
+        timer.cancel();
+        _startRestTimer();
+        widget.onExerciseCompleted();
+      }
+    });
+  }
+
+  void _startRestTimer() {
+    _remainingTime = 5;
+    _isRest = true;
+    widget.onTogglePlaying(false);
+
+    _restTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        _remainingTime -= 1;
+      });
+
+      if (_remainingTime <= 0) {
+        timer.cancel();
+        widget.onTogglePlaying(true);
+        widget.onNextVideo();
+        _startExerciseTimer();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) => _isRest
+      ? buildRestUI(context)
+      : Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.white.withOpacity(0.90),
+          ),
+          height: 142,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  buildText(
+                    title: 'Duration',
+                    value: '${widget.exercise.duration.inSeconds} Seconds',
+                  ),
+                  buildText(
+                    title: 'Reps',
+                    value: '${widget.exercise.noOfReps} times',
+                  ),
+                ],
+              ),
+              buildButtons(context),
+              Text(
+                'Time Left: $_remainingTime s',
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        );
+
+  Widget buildRestUI(BuildContext context) => Container(
+        color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                buildText(
-                  title: 'Duration',
-                  value: '${exercise.duration.inSeconds} Seconds',
-                ),
-                buildText(
-                  title: 'Reps',
-                  value: '${exercise.noOfReps} times',
-                ),
-              ],
+            const Text(
+              'Rest Time',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            buildButtons(context),
+            const SizedBox(height: 16),
+            Text(
+              '$_remainingTime s',
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 16),
+            buildPlayButton(context),
           ],
         ),
       );
@@ -72,7 +167,7 @@ class VideoControlsWidget extends StatelessWidget {
               color: Colors.black87,
               size: 32,
             ),
-            onPressed: onRewindVideo,
+            onPressed: widget.onRewindVideo,
           ),
           buildPlayButton(context),
           IconButton(
@@ -81,27 +176,27 @@ class VideoControlsWidget extends StatelessWidget {
               color: Colors.black87,
               size: 32,
             ),
-            onPressed: onNextVideo,
+            onPressed: widget.onNextVideo,
           ),
         ],
       );
 
   Widget buildPlayButton(BuildContext context) {
-    final isLoading = !exercise.controller.value.isInitialized;
+    final isLoading = !widget.exercise.controller.value.isInitialized;
 
     if (isLoading) {
       return const Center(child: CircularProgressIndicator());
-    } else if (exercise.controller.value.isPlaying) {
+    } else if (widget.exercise.controller.value.isPlaying) {
       return buildButton(
         context,
         icon: const Icon(Icons.pause, size: 30, color: Colors.white),
-        onClicked: () => onTogglePlaying(false),
+        onClicked: () => widget.onTogglePlaying(false),
       );
     } else {
       return buildButton(
         context,
         icon: const Icon(Icons.play_arrow, size: 30, color: Colors.white),
-        onClicked: () => onTogglePlaying(true),
+        onClicked: () => widget.onTogglePlaying(true),
       );
     }
   }

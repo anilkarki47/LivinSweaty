@@ -114,6 +114,7 @@ class GymDetailsPage extends StatelessWidget {
                     // Show button to open gym location in Google Maps
                     ElevatedButton(
                       onPressed: () {
+                        // ignore: deprecated_member_use
                         launch(
                           'https://www.google.com/maps/search/?api=1&query=${gymLocation.latitude},${gymLocation.longitude}',
                         );

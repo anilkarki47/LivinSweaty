@@ -60,7 +60,7 @@ class ExerciseSetWidget extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
         ),
         const SizedBox(height: 7),
-        Text('$exercises Exercises '),
+        Text('$exercises Exercises'),
         const SizedBox(height: 5),
         Text('$minutes Mins'),
       ],
