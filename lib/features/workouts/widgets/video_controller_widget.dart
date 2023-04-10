@@ -9,7 +9,8 @@ class VideoControlsWidget extends StatefulWidget {
   final VoidCallback onRewindVideo;
   final VoidCallback onNextVideo;
   final ValueChanged<bool> onTogglePlaying;
-  final VoidCallback onExerciseCompleted;
+
+  final List<Exercise> exercises;
 
   const VideoControlsWidget({
     Key? key,
@@ -17,7 +18,7 @@ class VideoControlsWidget extends StatefulWidget {
     required this.onRewindVideo,
     required this.onNextVideo,
     required this.onTogglePlaying,
-    required this.onExerciseCompleted,
+    required this.exercises,
   }) : super(key: key);
 
   @override
@@ -29,6 +30,7 @@ class _VideoControlsWidgetState extends State<VideoControlsWidget> {
   Timer? _restTimer;
   int _remainingTime = 0;
   bool _isRest = false;
+  bool _isExerciseFinished = false;
 
   late ExerciseSet exerciseSet;
 
@@ -61,7 +63,6 @@ class _VideoControlsWidgetState extends State<VideoControlsWidget> {
       if (_remainingTime <= 0) {
         timer.cancel();
         _startRestTimer();
-        widget.onExerciseCompleted();
       }
     });
   }
@@ -78,47 +79,65 @@ class _VideoControlsWidgetState extends State<VideoControlsWidget> {
 
       if (_remainingTime <= 0) {
         timer.cancel();
-        widget.onTogglePlaying(true);
-        widget.onNextVideo();
-        _startExerciseTimer();
+        if (isLastExercise()) {
+          _isExerciseFinished = true;
+          widget.onTogglePlaying(false);
+          setState(() {});
+        } else {
+          widget.onTogglePlaying(true);
+          widget.onNextVideo();
+          _startExerciseTimer();
+        }
       }
     });
   }
 
+  bool isLastExercise() {
+    // Check if the current exercise is the last one in the list
+    return widget.exercise == widget.exercises.last;
+  }
+
+  
+
   @override
-  Widget build(BuildContext context) => _isRest
-      ? buildRestUI(context)
-      : Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: Colors.white.withOpacity(0.90),
-          ),
-          height: 142,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  buildText(
-                    title: 'Duration',
-                    value: '${widget.exercise.duration.inSeconds} Seconds',
-                  ),
-                  buildText(
-                    title: 'Reps',
-                    value: '${widget.exercise.noOfReps} times',
-                  ),
-                ],
-              ),
-              buildButtons(context),
-              Text(
-                'Time Left: $_remainingTime s',
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        );
+  Widget build(BuildContext context) {
+    if (_isExerciseFinished) {
+      return buildExerciseCompletedUI(context);
+    }
+    return _isRest
+        ? buildRestUI(context)
+        : Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.white.withOpacity(0.90),
+            ),
+            height: 142,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    buildText(
+                      title: 'Duration',
+                      value: '${widget.exercise.duration.inSeconds} Seconds',
+                    ),
+                    buildText(
+                      title: 'Reps',
+                      value: '${widget.exercise.noOfReps} times',
+                    ),
+                  ],
+                ),
+                buildButtons(context),
+                Text(
+                  'Time Left: $_remainingTime s',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          );
+  }
 
   Widget buildRestUI(BuildContext context) => Container(
         color: Colors.white,
@@ -139,6 +158,23 @@ class _VideoControlsWidgetState extends State<VideoControlsWidget> {
           ],
         ),
       );
+
+  Widget buildExerciseCompletedUI(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            'Exercise Completed',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 16),
+          
+        ],
+      ),
+    );
+  }
 
   Widget buildText({
     required String title,

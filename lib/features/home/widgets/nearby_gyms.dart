@@ -4,8 +4,8 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:livin_sweaty/common/widgets/loader.dart';
 import 'package:location/location.dart' as LocationPlugin;
 
-import '../../../../constants/global_variables.dart';
-import 'gym_detail.dart';
+import '../../../constants/global_variables.dart';
+import '../screens/map/gym_detail.dart';
 
 class NearbyGyms extends StatefulWidget {
   const NearbyGyms({super.key});

@@ -55,6 +55,7 @@ class ExercisePageState extends State<ExercisePage> {
 
   Widget buildVideoControls() => VideoControlsWidget(
         exercise: currentExercise,
+        exercises: widget.exerciseSet.exercises, // Passing the exercises list
         onTogglePlaying: (isPlaying) {
           setState(() {
             if (isPlaying) {
@@ -72,6 +73,5 @@ class ExercisePageState extends State<ExercisePage> {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeIn,
         ),
-        onExerciseCompleted: () => const Text("Congrats!"),
       );
 }
