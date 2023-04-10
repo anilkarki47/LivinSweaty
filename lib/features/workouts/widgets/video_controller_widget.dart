@@ -115,11 +115,12 @@ class VideoControlsWidgetState extends State<VideoControlsWidget> {
     return _isRest
         ? buildRestUI(context)
         : Container(
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: Colors.white.withOpacity(0.90),
             ),
-            height: 142,
+            height: 160,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -137,10 +138,13 @@ class VideoControlsWidgetState extends State<VideoControlsWidget> {
                   ],
                 ),
                 buildButtons(context),
+                const SizedBox(
+                  height: 5,
+                ),
                 Text(
                   'Time Left: $_remainingTime s',
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -152,21 +156,24 @@ class VideoControlsWidgetState extends State<VideoControlsWidget> {
           borderRadius: BorderRadius.circular(15),
           color: Colors.white.withOpacity(0.90),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Rest Time',
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '$_remainingTime s',
-              style: const TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 16),
-            buildPlayButton(context),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Rest Time',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                '$_remainingTime s',
+                style: const TextStyle(fontSize: 20),
+              ),
+              const SizedBox(height: 5),
+              buildPlayButton(context),
+            ],
+          ),
         ),
       );
 

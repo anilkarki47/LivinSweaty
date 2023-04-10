@@ -13,18 +13,17 @@ class ExercisePage extends StatefulWidget {
   State<ExercisePage> createState() => ExercisePageState();
 }
 
-
 class ExercisePageState extends State<ExercisePage> {
   final controller = PageController();
   late Exercise currentExercise;
   final GlobalKey<VideoControlsWidgetState> videoControlsKey = GlobalKey();
+  final ValueNotifier<bool> isInitialized = ValueNotifier<bool>(false);
 
   @override
   void initState() {
     super.initState();
     currentExercise = widget.exerciseSet.exercises.first;
   }
-  
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -33,15 +32,19 @@ class ExercisePageState extends State<ExercisePage> {
         ),
         body: Stack(children: [
           buildVideos(),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            left: 20,
-            child: buildVideoControls(),
-          )
+          ValueListenableBuilder<bool>(
+            valueListenable: isInitialized,
+            builder: (context, isInitialized, child) {
+              return Positioned(
+                bottom: 20,
+                right: 20,
+                left: 20,
+                child: isInitialized ? buildVideoControls() : Container(),
+              );
+            },
+          ),
         ]),
       );
-
   Widget buildVideos() => PageView(
         controller: controller,
         onPageChanged: (index) => setState(() {
@@ -50,7 +53,7 @@ class ExercisePageState extends State<ExercisePage> {
         children: widget.exerciseSet.exercises
             .map((exercise) => VideoPlayerWidget(
                   exercise: exercise,
-                  onInitialized: () => setState(() {}),
+                  isInitialized: isInitialized,
                 ))
             .toList(),
       );
@@ -61,10 +64,12 @@ class ExercisePageState extends State<ExercisePage> {
         exercises: widget.exerciseSet.exercises,
         onTogglePlaying: (isPlaying) {
           setState(() {
-            if (isPlaying) {
-              currentExercise.controller.play();
-            } else {
-              currentExercise.controller.pause();
+            if (currentExercise.controller.value.isInitialized) {
+              if (isPlaying) {
+                currentExercise.controller.play();
+              } else {
+                currentExercise.controller.pause();
+              }
             }
           });
         },
@@ -73,16 +78,14 @@ class ExercisePageState extends State<ExercisePage> {
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeIn,
           );
-          videoControlsKey.currentState
-              ?.restartExerciseAndRestTimers(); 
+          videoControlsKey.currentState?.restartExerciseAndRestTimers();
         },
         onRewindVideo: () {
           controller.previousPage(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeIn,
           );
-          videoControlsKey.currentState
-              ?.restartExerciseAndRestTimers();
+          videoControlsKey.currentState?.restartExerciseAndRestTimers();
         },
       );
 }
