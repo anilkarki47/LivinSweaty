@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
 import 'package:livin_sweaty/features/home/screens/home_screen.dart';
 import 'package:livin_sweaty/features/meal/screens/main_meal_page.dart';
-import 'package:livin_sweaty/features/workouts/screens/workouts.dart';
-
 import '../../features/plans/screens/custom_plans.dart';
 import '../../features/progress/screens/progress_page.dart';
+import '../../features/workouts/screens/workouts.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';

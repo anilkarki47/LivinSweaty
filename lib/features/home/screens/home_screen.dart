@@ -4,6 +4,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:livin_sweaty/constants/global_variables.dart';
+import 'package:livin_sweaty/features/home/screens/notification/notification.dart';
+import 'package:livin_sweaty/features/home/screens/notification/notification_page.dart';
 import 'package:livin_sweaty/features/home/widgets/home_feature.dart';
 import 'package:livin_sweaty/features/home/widgets/my_plans.dart';
 import 'package:livin_sweaty/features/home/widgets/nearby_gyms.dart';
@@ -23,6 +25,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   DateTime _currentDateTime = DateTime.now();
+  late int totalNotificationsCounter = 0;
+  // Model
+  PushNotification? notificationInfo;
 
   @override
   void initState() {
@@ -57,6 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
           //     ),
           //   );
           // }
+          setState(() {
+            totalNotificationsCounter++;
+          });
         }
       },
     );
@@ -66,10 +74,21 @@ class _HomeScreenState extends State<HomeScreen> {
       (message) {
         print("FirebaseMessaging.onMessage.listen");
         if (message.notification != null) {
-          print(message.notification!.title);
-          print(message.notification!.body);
-          print("message.data11 ${message.data}");
+          // print(message.notification!.title);
+          // print(message.notification!.body);
+          // print("message.data11 ${message.data}");
+          PushNotification notification = PushNotification(
+            title: message.notification!.title,
+            body: message.notification!.body,
+            dataTitle: message.data['title'],
+            dataBody: message.data['body'],
+          );
           LocalNotificationService.displaynotification(message);
+
+          setState(() {
+            totalNotificationsCounter++;
+            notificationInfo = notification;
+          });
         }
       },
     );
@@ -79,9 +98,20 @@ class _HomeScreenState extends State<HomeScreen> {
       (message) {
         print("FirebaseMessaging.onMessageOpenedApp.listen");
         if (message.notification != null) {
-          print(message.notification!.title);
-          print(message.notification!.body);
-          print("message.data22 ${message.data['_id']}");
+          // print(message.notification!.title);
+          // print(message.notification!.body);
+          // print("message.data22 ${message.data['_id']}");
+
+          PushNotification notification = PushNotification(
+            title: message.notification!.title,
+            body: message.notification!.body,
+            dataTitle: message.data['title'],
+            dataBody: message.data['body'],
+          );
+          setState(() {
+            totalNotificationsCounter++;
+            notificationInfo = notification;
+          });
         }
       },
     );
@@ -178,13 +208,27 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         // notification
-                        const CircleAvatar(
-                          radius: 20,
-                          backgroundColor: GlobalVariables.midBlackGrey,
-                          child: Padding(
-                            padding: EdgeInsets.all(3),
-                            child: ClipOval(
-                              child: Icon(Icons.notifications),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => NotificationPage(
+                                          totalNotificationsCounter:
+                                              totalNotificationsCounter,
+                                        )));
+                          },
+                          child: const CircleAvatar(
+                            radius: 20,
+                            backgroundColor: GlobalVariables.midBlackGrey,
+                            child: Padding(
+                              padding: EdgeInsets.all(3),
+                              child: ClipOval(
+                                child: Icon(
+                                  Icons.notifications,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
