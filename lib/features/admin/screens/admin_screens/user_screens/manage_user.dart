@@ -84,7 +84,7 @@ class ManageUserState extends State<ManageUser> {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   text: TextSpan(
-                                    text: "Message",
+                                    text: user.name,
                                     style: TextStyle(
                                       fontSize: textSize,
                                       color: Colors.black,
@@ -98,9 +98,9 @@ class ManageUserState extends State<ManageUser> {
                                 RichText(
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  text: const TextSpan(
-                                    text: "Notification Description",
-                                    style: TextStyle(
+                                  text: TextSpan(
+                                    text: user.email,
+                                    style: const TextStyle(
                                       fontSize: 14,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w400,
@@ -112,10 +112,10 @@ class ManageUserState extends State<ManageUser> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: const [
+                                    children: [
                                       Text(
-                                        "admin",
-                                        style: TextStyle(fontSize: 12),
+                                        user.type,
+                                        style: const TextStyle(fontSize: 12),
                                       ),
                                     ],
                                   ),
