@@ -124,14 +124,13 @@ class ManageUserState extends State<ManageUser> {
                             ),
                           ),
                           InkWell(
-                            onTap: () => print("deleted"),
+                            onTap: () => deleteUser(user, index),
                             child: Container(
                               height: 50,
                               width: 50,
                               padding: const EdgeInsets.all(10),
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                // color: Colors.grey.shade300,
                               ),
                               child: Icon(
                                 Icons.delete,
