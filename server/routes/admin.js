@@ -4,6 +4,7 @@ const admin = require("../middlewares/admin");
 const Workout = require("../models/workout");
 const Meal = require("../models/meal");
 const auth = require("../middlewares/auth");
+const User = require("../models/user");
 
 // Add workout
 adminRouter.post("/admin/add-workout", admin, async (req, res) => {
@@ -86,7 +87,6 @@ adminRouter.get("/admin/get-meal", admin, async (req, res) => {
 });
 
 // Delete the meals
-
 adminRouter.post("/admin/delete-meal", admin, async (req, res) => {
   try {
     const { id } = req.body;
@@ -96,4 +96,26 @@ adminRouter.post("/admin/delete-meal", admin, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+// Get all the users
+adminRouter.get("/auth/get-users", admin, async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Delete the users
+adminRouter.post("/admin/delete-user", admin, async (req, res) => {
+  try {
+    const { id } = req.body;
+    let user = await User.findByIdAndDelete(id);
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 module.exports = adminRouter;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/global_variables.dart';
 import 'admin_screens/meal_screens/meal_screen.dart';
+import 'admin_screens/user_screens/manage_user.dart';
 import 'admin_screens/workout_screens/workout_screen.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _AdminScreenState extends State<AdminScreen> {
   List<Widget> pages = [
     const WorkoutScreen(),
     const MealScreen(),
-    const Center(child: Text("Users")),
+    const ManageUser(),
   ];
   @override
   Widget build(BuildContext context) {

@@ -28,7 +28,7 @@ class _MealScreenState extends State<MealScreen> {
     setState(() {});
   }
 
-  void deleteWorkout(Meal meal, int index) {
+  void deleteMeal(Meal meal, int index) {
     adminServices.deleteMeal(
       context: context,
       meal: meal,
@@ -77,8 +77,7 @@ class _MealScreenState extends State<MealScreen> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () => deleteWorkout(mealData, index),
-
+                            onPressed: () => deleteMeal(mealData, index),
                             icon: const Icon(
                               Icons.delete_outline,
                             ),

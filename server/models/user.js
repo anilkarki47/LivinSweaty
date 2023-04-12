@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const authRouter = require("../routes/auth");
-const waterIntakeSchema = require("./water_intake");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -29,8 +28,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "user",
   },
-  // water intake module
-  // waterIntake: [waterIntakeSchema],
 });
 
 const User = mongoose.model("User", userSchema);

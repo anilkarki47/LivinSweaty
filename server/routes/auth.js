@@ -77,18 +77,9 @@ authRouter.post("/tokenIsValid", async (req, res) => {
 
 // GET USER DATA
 
-authRouter.get('/',auth, async (req, res) => {
+authRouter.get('/', auth, async (req, res) => {
   const user = await User.findById(req.user);
   res.json({...user._doc, token: req.token});
 });
 
-// post request route for water intake
-authRouter.post('/auth/water-intake', auth, async (req, res) =>{
-  try{
-    const {waterIntake} = req.body;
-    
-  }catch(e){
-    res.status(500).json({ error: e.message });
-  }
-})
 module.exports = authRouter;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-// String uri = 'http://10.0.2.2:3000';
+String uri = 'http://10.0.2.2:3000';
 // iic
 // String uri = 'http://192.168.43.71:3000';
 // home
 // String uri = 'http://192.168.100.215:3000';
-String uri = 'http://192.168.100.142:3000';
+// String uri = 'http://192.168.100.142:3000';
 
 // String uri = 'http://0.0.0.0/0';
 

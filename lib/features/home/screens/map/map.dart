@@ -8,10 +8,10 @@ class GymLocationsPage extends StatefulWidget {
   const GymLocationsPage({Key? key}) : super(key: key);
 
   @override
-  _GymLocationsPageState createState() => _GymLocationsPageState();
+  GymLocationsPageState createState() => GymLocationsPageState();
 }
 
-class _GymLocationsPageState extends State<GymLocationsPage> {
+class GymLocationsPageState extends State<GymLocationsPage> {
   final _places = GoogleMapsPlaces(
     apiKey: 'AIzaSyB1HHLk0HBCzg-zQ5r-oTtoNncZ0kEze8I',
   );
