@@ -42,7 +42,6 @@ class ManageUserState extends State<ManageUser> {
   @override
   Widget build(BuildContext context) {
     double textSize = 16;
-    print(users!.length);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Manage Users"),
@@ -60,8 +59,8 @@ class ManageUserState extends State<ManageUser> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            height: 50,
-                            width: 50,
+                            height: 60,
+                            width: 60,
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -69,7 +68,7 @@ class ManageUserState extends State<ManageUser> {
                             ),
                             child: Icon(
                               Icons.person,
-                              size: 30,
+                              size: 40,
                               color: Colors.grey.shade700,
                             ),
                           ),
