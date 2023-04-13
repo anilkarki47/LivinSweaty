@@ -6,7 +6,6 @@ class PlaylistModel {
   final List<String> images;
   final String description;
   final String playlistName;
-
   PlaylistModel({
     required this.id,
     required this.workoutName,
@@ -17,19 +16,19 @@ class PlaylistModel {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'id': id});
     result.addAll({'workoutName': workoutName});
     result.addAll({'images': images});
     result.addAll({'description': description});
     result.addAll({'playlistName': playlistName});
-  
+
     return result;
   }
 
   factory PlaylistModel.fromMap(Map<String, dynamic> map) {
     return PlaylistModel(
-      id: map['_id'] ?? '',
+      id: map['id'] ?? '',
       workoutName: map['workoutName'] ?? '',
       images: List<String>.from(map['images']),
       description: map['description'] ?? '',
@@ -39,5 +38,6 @@ class PlaylistModel {
 
   String toJson() => json.encode(toMap());
 
-  factory PlaylistModel.fromJson(String source) => PlaylistModel.fromMap(json.decode(source));
+  factory PlaylistModel.fromJson(String source) =>
+      PlaylistModel.fromMap(json.decode(source));
 }

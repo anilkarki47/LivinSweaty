@@ -15,7 +15,7 @@ class SingleItem extends StatelessWidget {
           color: Colors.black12,
           width: 1.5,
         ),
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(10),
         color: Colors.white,
       ),
       child: Container(

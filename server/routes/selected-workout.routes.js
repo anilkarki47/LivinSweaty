@@ -50,11 +50,10 @@ router.post("/add-selected-workout", auth, async (req, res) => {
 // get all the user playlist
 router.get("/auth/get-playlists", auth, async (req, res) => {
   try {
-
     const data = await SelectedWorkout.find({
-      user: req.user.id,
+      user: req.user,
     })
-      .populate("workoutID", "name description")
+      .populate("workoutID")
       .populate("user")
       .populate("playlistID");
 

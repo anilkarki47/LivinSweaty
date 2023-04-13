@@ -8,12 +8,12 @@ import 'package:livin_sweaty/features/home/screens/notification/notification.dar
 import 'package:livin_sweaty/features/home/screens/notification/notification_page.dart';
 import 'package:livin_sweaty/features/home/widgets/home_feature.dart';
 import 'package:livin_sweaty/features/home/widgets/my_plans.dart';
-import 'package:livin_sweaty/features/home/widgets/nearby_gyms.dart';
 import 'package:provider/provider.dart';
 import '../../../notificationservice/local_notification_service.dart';
 import '../../../providers/user_provider.dart';
 import '../../account/profile/profile_screen.dart';
 import '../../auth/widgets/app_feature_text.dart';
+import '../widgets/nearby_gyms.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -267,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    MyPlans(),
+                    const MyPlans(),
                     const SizedBox(
                       height: 10,
                     ),

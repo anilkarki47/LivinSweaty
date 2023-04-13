@@ -14,49 +14,50 @@ class ExerciseList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
-          height: double.infinity,
-          child: ListView.builder(
-              itemExtent: 245,
-              itemCount: GlobalVariables.workoutCategory.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () => navigateToWorkoutCategoryPage(context,
-                          GlobalVariables.workoutCategory[index]['title']!),
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 15),
-                        height: 225,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(
-                                GlobalVariables.workoutCategory[index]
-                                    ['image']!,
-                              ),
-                              fit: BoxFit.cover),
-                          borderRadius: BorderRadius.circular(10.0),
-                          // color: Colors.blueAccent,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 160.0,
-                            left: 15,
+        height: double.infinity,
+        child: ListView.builder(
+          itemExtent: 245,
+          itemCount: GlobalVariables.workoutCategory.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                GestureDetector(
+                  onTap: () => navigateToWorkoutCategoryPage(context,
+                      GlobalVariables.workoutCategory[index]['title']!),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    height: 225,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                            GlobalVariables.workoutCategory[index]['image']!,
                           ),
-                          child: Text(
-                            GlobalVariables.workoutCategory[index]['title']!,
-                            style: const TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.white,
-                            ),
-                          ),
+                          fit: BoxFit.cover),
+                      borderRadius: BorderRadius.circular(10.0),
+                      // color: Colors.blueAccent,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 160.0,
+                        left: 15,
+                      ),
+                      child: Text(
+                        GlobalVariables.workoutCategory[index]['title']!,
+                        style: const TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
                         ),
                       ),
                     ),
-                  ],
-                );
-              })),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 }
