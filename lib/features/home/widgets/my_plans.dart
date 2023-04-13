@@ -69,14 +69,14 @@ class _MyPlanState extends State<MyPlans> {
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 0.2,
-                          blurRadius: 1,
-                          offset:
-                              const Offset(0, 2), // changes position of shadow
+                          spreadRadius: 0,
+                          blurRadius: 5,
+                          offset: const Offset(
+                              0, 1.5), // changes position of shadow
                         )
                       ],
                     ),
