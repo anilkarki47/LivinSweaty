@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-
-import 'package:livin_sweaty/features/auth/widgets/app_feature_text.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../../constants/global_variables.dart';
 
 import '../../auth/widgets/app_text.dart';
 
 class WorkoutDesc extends StatefulWidget {
+  final dynamic playlist;
+
   const WorkoutDesc({
     Key? key,
+    required this.playlist,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,8 @@ class WorkoutDesc extends StatefulWidget {
 class _WorkoutDescState extends State<WorkoutDesc> {
   @override
   Widget build(BuildContext context) {
+    final data = widget.playlist['workoutID'];
+    print(data);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -29,12 +33,12 @@ class _WorkoutDescState extends State<WorkoutDesc> {
                 color: Colors.white,
                 width: double.maxFinite,
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Center(
                     child: Text(
-                      "widget.workout.name",
-                      style: TextStyle(
+                      data['name'],
+                      style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w700,
                       ),
@@ -73,10 +77,8 @@ class _WorkoutDescState extends State<WorkoutDesc> {
 
                 // Share Icon
                 InkWell(
-                  onTap: () => {
-                    // Share.share(widget.workout.images[0],
-                    //     subject: widget.workout.name)
-                  },
+                  onTap: () =>
+                      {Share.share(data['images'][0], subject: data['name'])},
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3),
@@ -102,22 +104,22 @@ class _WorkoutDescState extends State<WorkoutDesc> {
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 margin: const EdgeInsets.only(bottom: 50),
-                // child: Image.network(
-                //   widget.workout.images[0],
-                //   width: double.maxFinite,
-                //   fit: BoxFit.cover,
-                // ),
+                child: Image.network(
+                  data['images'][0],
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
                   Card(
                     elevation: 3,
@@ -125,23 +127,39 @@ class _WorkoutDescState extends State<WorkoutDesc> {
                       borderRadius: BorderRadius.circular(7),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, top: 10, bottom: 10),
+                      padding: const EdgeInsets.all(15),
                       child: SizedBox(
                         width: double.infinity,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            AppFeatureText(
-                              text: "PREPARATION & EXECUTION:",
-                              fontWeight: FontWeight.bold,
+                            const Text(
+                              "CATEGORY:",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(
                               height: 7,
                             ),
                             AppText(
-                              text: "widget.workout.description",
-                              fontWeight: FontWeight.w500,
+                              text: data['category'],
+                              fontWeight: FontWeight.w400,
+                              color: GlobalVariables.midBlackGrey,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const Text(
+                              "PREPARATION & EXECUTION:",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(
+                              height: 7,
+                            ),
+                            AppText(
+                              text: data['description'],
+                              fontWeight: FontWeight.w400,
                               color: GlobalVariables.midBlackGrey,
                             ),
                           ],

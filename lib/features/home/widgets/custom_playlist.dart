@@ -84,7 +84,10 @@ class CustomPlaylistState extends State<CustomPlaylist> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const WorkoutDesc()),
+                                builder: (context) => WorkoutDesc(
+                                  playlist: playlists[index],
+                                ),
+                              ),
                             );
                           },
                         ),
