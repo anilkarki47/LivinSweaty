@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 
 import '../../../constants/global_variables.dart';
+import '../../../constants/utils.dart';
 import '../../../providers/user_provider.dart';
 import '../../auth/widgets/app_text.dart';
 
@@ -42,8 +43,8 @@ class CustomPlaylistState extends State<CustomPlaylist> {
       } else {
         throw Exception('Failed to fetch workouts');
       }
-    } catch (error) {
-      print(error);
+    } catch (e) {
+      showSnackBar(context, e.toString());
     }
   }
 
@@ -59,19 +60,38 @@ class CustomPlaylistState extends State<CustomPlaylist> {
           final playlist = playlists[index]['workoutID'];
           return Padding(
             padding:
-                const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
-            child: Card(
-              elevation: 2,
-              child: ListTile(
-                leading: Image.network(playlist['images'][0]),
-                title: Text(playlist['name']),
-                subtitle: Text(playlist['description']),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WorkoutDesc()));
-                },
+                const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 4),
+            child: SizedBox(
+              child: Card(
+                elevation: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 25),
+                  child: SizedBox(
+                    height: 100, // sets height to 120 pixels
+                    child: Center(
+                      child: Transform.scale(
+                        scale: 1.1,
+                        child: ListTile(
+                          leading: Transform.scale(
+                            scale: 1.3,
+                            child: Image.network(
+                              playlist['images'][0],
+                            ),
+                          ),
+                          title: Text(playlist['name']),
+                          subtitle: Text(playlist['category']),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const WorkoutDesc()),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           );
@@ -79,10 +99,13 @@ class CustomPlaylistState extends State<CustomPlaylist> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
-        label: AppText(
-          text: "Start Workout",
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
+        label: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: AppText(
+            text: "Start Workout",
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
         ),
         backgroundColor: GlobalVariables.mainBlack,
       ),

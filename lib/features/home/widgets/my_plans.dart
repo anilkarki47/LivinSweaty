@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:livin_sweaty/features/home/widgets/custom_playlist.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import '../../../common/widgets/single_item.dart';
@@ -62,7 +63,12 @@ class _MyPlanState extends State<MyPlans> {
           final playlist = playlists[index]['playlistID'];
           final user = playlists[index]['user'];
           return InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CustomPlaylist()));
+            },
             child: Column(
               children: [
                 Padding(
