@@ -30,12 +30,17 @@ const selectedWorkoutSchema = new mongoose.Schema({
   },
   playlistID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Playlist",
+    ref: "PlaylistName",
     required: true,
   },
   date: {
     type: Date,
     default: Date.now,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
   },
 });
 

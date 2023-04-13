@@ -1,22 +1,32 @@
 const express = require("express");
 const auth = require("../middlewares/auth");
-const Playlist = require("../models/playlist.model");
 const PlaylistName = require("../models/playlist_name");
+const Play = require("../models/selected-workout.model");
 
 const playlistRouter = express.Router();
 
-// Add playlist
-playlistRouter.post("/auth/add-playlist", auth, async (req, res) => {
+// POST route to create a new playlist with workouts
+playlistRouter.post("/create-playlist", auth, async (req, res) => {
   try {
-    console.log(req.body);
-    const { images } = req.body;
-    let playlist = new Playlist({
-      images,
+    const { name, workouts } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ message: "Playlist name is required." });
+    }
+
+    const newPlaylist = new Play({
+      name,
+      workouts,
     });
-    //   playlist = await playlist.save();
-    //   res.json(playlist);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+
+    await newPlaylist.save();
+
+    res
+      .status(201)
+      .json({ message: "Playlist created successfully.", newPlaylist });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error." });
   }
 });
 

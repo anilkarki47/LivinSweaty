@@ -64,7 +64,7 @@ class _CustomPlansState extends State<CustomPlans> {
         workoutId: workoutId,
       );
     } else {
-      print("aaaaa");
+      // print("aaaaa");
     }
   }
 
