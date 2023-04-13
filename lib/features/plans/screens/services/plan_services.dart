@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import '../../../../constants/error_handling.dart';
 import '../../../../constants/global_variables.dart';
 import '../../../../constants/utils.dart';
+import '../../../../models/playlist_model.dart';
 import '../../../../providers/user_provider.dart';
 
 class PlanServices {
@@ -103,5 +104,39 @@ class PlanServices {
       showSnackBar(context, e.toString());
     }
     return playlistNameList;
+  }
+
+// get all the playlist
+
+  Future<List<PlaylistModel>> fetchAllPlaylist(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<PlaylistModel> playlistList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/auth/get-playlist-name'), headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      // ignore: use_build_context_synchronously
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSucess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            playlistList.add(
+              PlaylistModel.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return playlistList;
   }
 }

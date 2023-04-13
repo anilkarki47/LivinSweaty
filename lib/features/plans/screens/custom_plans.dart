@@ -47,10 +47,6 @@ class _CustomPlansState extends State<CustomPlans> {
     setState(() {});
   }
 
-//   addPlaylist() {
-//  allPlanServices.addPlaylist(context: context, playlistName: playlistNameController.text, playlists: myPlaylists);
-//   }
-
   addPlaylistName() {
     allPlanServices.addPlaylistName(
         context: context, playlistName: playlistNameController.text);
@@ -141,23 +137,6 @@ class _CustomPlansState extends State<CustomPlans> {
                       ),
                       subtitle: Text(workouts![index].description,
                           overflow: TextOverflow.ellipsis),
-                      // trailing: DropdownButton<String>(
-                      //   hint: const Text(
-                      //     'Plans',
-                      //     style: TextStyle(fontSize: 14),
-                      //   ),
-                      //   onChanged: (String? playlistName) {
-                      //     if (playlistName != null) {
-                      //       setState(() {
-                      //         myPlaylists[playlistName]!.add(workouts![index]);
-                      //       });
-                      //     }
-                      //   },
-                      //   items: myPlaylists.keys.map((String playlistName) {
-                      //     return DropdownMenuItem<String>(
-                      //       value: playlistName,
-                      //       child: Text(playlistName),
-                      //     );
                       trailing: DropdownButton<PlaylistName>(
                         hint: const Text(
                           'Plans',
@@ -166,22 +145,9 @@ class _CustomPlansState extends State<CustomPlans> {
                         onChanged: (PlaylistName? playlistName) async {
                           if (playlistName != null) {
                             // Add the selected workout to the playlist
-                            // await addWorkoutToPlaylist(workout, playlistName);
-
                             final workoutId = workout.id;
                             final playlistId = playlist.id;
                             addWorkoutToPlaylist(playlistId, workoutId);
-                            // print(playlist.id);
-                            // print(workoutId);
-
-                            // Show a snackbar to indicate successful addition to playlist
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   SnackBar(
-                            //     content: Text(
-                            //       '${workout.name} added to ${playlistName.name} playlist',
-                            //     ),
-                            //   ),
-                            // );
                           }
                         },
                         items: playlistNames!

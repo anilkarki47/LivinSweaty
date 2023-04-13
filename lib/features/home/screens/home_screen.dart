@@ -267,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const MyPlans(),
+                    MyPlans(),
                     const SizedBox(
                       height: 10,
                     ),

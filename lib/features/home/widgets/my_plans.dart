@@ -1,51 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/features/home/widgets/test.dart';
 
-import '../../../constants/global_variables.dart';
-
-class MyPlans extends StatelessWidget {
+class MyPlans extends StatefulWidget {
   const MyPlans({super.key});
 
+  @override
+  State<MyPlans> createState() => _MyPlansState();
+}
+
+class _MyPlansState extends State<MyPlans> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: 200,
-      child: GridView.count(
-        crossAxisCount: 1,
-        childAspectRatio: 0.7,
-        mainAxisSpacing: size.width / 30,
-        scrollDirection: Axis.horizontal,
-        children: [
-          // elements here!
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
-                  image: AssetImage('assets/images/fit.jpg'),
-                  fit: BoxFit.cover),
-              color: GlobalVariables.midBlackGrey,
-            ),
+        // color: Colors.black,
+        height: 205,
+        child: GridView.builder(
+          itemCount: 2,
+          scrollDirection: Axis.horizontal,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 1,
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
-                  image: AssetImage('assets/images/fit_g.jpg'),
-                  fit: BoxFit.cover),
-              color: GlobalVariables.midBlackGrey,
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                  image: AssetImage('assets/images/fit.jpg'),
-                  fit: BoxFit.cover),
-              borderRadius: BorderRadius.circular(15),
-              color: GlobalVariables.midBlackGrey,
-            ),
-          ),
-        ],
-      ),
-    );
+          itemBuilder: (context, index) {
+            // final mealData = meals![index];
+            return Padding(
+              padding: EdgeInsets.only(
+                left: index == 0 ? 0 : 8, // no padding for the first item
+                right: index == 2 ? 0 : 8, // no padding for the last item
+              ),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WorkoutList()));
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      height: 140,
+                      color: Colors.amber,
+                      // child: SingleItem(
+                      //   image: mealData.images[0],
+                      // ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            "mealData.name",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          // onPressed: () => deleteMeal(mealData, index),
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.delete_outline,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        ));
   }
 }
