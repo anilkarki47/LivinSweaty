@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-
 import '../../../../../constants/global_variables.dart';
-
 import '../../auth/widgets/app_text.dart';
 
 class WorkoutDesc extends StatefulWidget {
@@ -21,7 +19,6 @@ class _WorkoutDescState extends State<WorkoutDesc> {
   @override
   Widget build(BuildContext context) {
     final data = widget.playlist['workoutID'];
-    print(data);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
