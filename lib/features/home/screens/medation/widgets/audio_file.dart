@@ -93,7 +93,6 @@ class _AudioFileState extends State<AudioFile> {
   @override
   void dispose() {
     audioPlayer.dispose();
-
     super.dispose();
   }
 
@@ -113,12 +112,25 @@ class _AudioFileState extends State<AudioFile> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text("Meditation Player"),
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_back_ios_rounded,
+            ),
+          ),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(Icons.more_vert),
+            )
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 decoration: BoxDecoration(
