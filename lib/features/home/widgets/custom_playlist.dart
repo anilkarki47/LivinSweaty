@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:livin_sweaty/features/home/widgets/playlist_player/exercise_page.dart';
 import 'package:livin_sweaty/features/home/widgets/workout_desc.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
@@ -50,6 +51,7 @@ class CustomPlaylistState extends State<CustomPlaylist> {
 
   @override
   Widget build(BuildContext context) {
+    // print(playlists);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Workouts'),
@@ -101,7 +103,19 @@ class CustomPlaylistState extends State<CustomPlaylist> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          List<String> gifUrls = playlists
+              .map<String>((p) => p['workoutID']['images'][0] as String)
+              .toList();
+          int initialIndex = 0; // Start with the first item, modify as needed
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  GifPlayer(gifs: gifUrls, initialIndex: initialIndex),
+            ),
+          );
+        },
         label: Padding(
           padding: const EdgeInsets.all(15.0),
           child: AppText(
