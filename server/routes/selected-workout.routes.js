@@ -53,7 +53,7 @@ router.get("/auth/get-playlists", auth, async (req, res) => {
     const data = await SelectedWorkout.find({
       user: req.user,
     })
-      .populate("workoutID")
+      .populate("workoutID", "workoutName description images category")
       .populate("user")
       .populate("playlistID");
 
