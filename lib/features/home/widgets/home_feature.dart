@@ -25,7 +25,7 @@ class HomeFeature extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const BMI(),
+                  builder: (context) => const BMICalculator(),
                 ),
               );
             },

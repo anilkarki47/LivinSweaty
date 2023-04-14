@@ -33,7 +33,7 @@ dependencies:
   animated_theme_switcher: ^2.0.8
   fl_chart: ^0.61.0
   syncfusion_flutter_charts: ^21.1.35
-  lottie: ^2.3.1
+  lottie: ^2.3.2
   video_player: ^2.6.0
   firebase_messaging: ^14.4.0
   flutter_local_notifications: ^8.2.0

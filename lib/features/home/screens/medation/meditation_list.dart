@@ -72,18 +72,14 @@ class _MeditationListScreenState extends State<MeditationListScreen> {
                       final meditation = meditationList![index];
                       return GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => WorkoutDetails(
-                          //       workout: workout,
-                          //     ),
-                          //   ),
-                          // );
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AudioFile(),
+                              builder: (context) => AudioFile(
+                                meditations: meditationList!,
+                                imgUrls: GlobalVariables.medationImage[index]
+                                    ['image']!,
+                              ),
                             ),
                           );
                         },
@@ -107,12 +103,20 @@ class _MeditationListScreenState extends State<MeditationListScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Container(
-                                    color: GlobalVariables.lightGrey,
-                                    child: Image.asset(
-                                        "assets/images/meditation.png"),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: GlobalVariables.lightGrey,
+                                    ),
+                                    height: double.infinity,
+                                    width: 110,
+                                    child: Image.network(
+                                      GlobalVariables.medationImage[index]
+                                          ['image']!,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                   const SizedBox(
-                                    width: 10,
+                                    width: 12,
                                   ),
                                   Column(
                                     crossAxisAlignment:

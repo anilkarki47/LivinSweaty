@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-String uri = 'http://10.0.2.2:3000';
+// String uri = 'http://10.0.2.2:3000';
 // iic
 // String uri = 'http://192.168.43.71:3000';
 // home
 // String uri = 'http://192.168.100.215:3000';
-// String uri = 'http://192.168.100.142:3000';
+String uri = 'http://192.168.100.142:3000';
 
 // String uri = 'http://0.0.0.0/0';
 
@@ -58,5 +58,22 @@ class GlobalVariables {
       'title': 'Non-Veg',
       // 'image': 'assets/images/workout_category/back.png',
     },
+  ];
+
+  // meal category
+  static const List<Map<String, String>> medationImage = [
+    {      
+      'image': 'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499953/medation/img/ffawunsq43zmohe0di7e.jpg',
+    },
+    {
+      'image': 'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499932/medation/img/ofgrxclncrlptapda5nh.jpg',
+    },
+    {      
+      'image': 'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499920/medation/img/c5xec61vrzgl99rcgkyp.png',
+    },
+    {      
+      'image': 'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499922/medation/img/fuxguw9dkktsq2jhekox.png',
+    },
+    
   ];
 }

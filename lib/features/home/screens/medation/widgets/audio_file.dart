@@ -1,12 +1,21 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+
 import 'package:livin_sweaty/constants/global_variables.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_text.dart';
 
+import '../../../../../models/meditation.dart';
 import '../../../../auth/widgets/app_large_text.dart';
 
 class AudioFile extends StatefulWidget {
-  const AudioFile({super.key});
+  final List<Meditation> meditations;
+  final String imgUrls;
+
+  const AudioFile({
+    Key? key,
+    required this.meditations,
+    required this.imgUrls,
+  }) : super(key: key);
 
   @override
   State<AudioFile> createState() => _AudioFileState();
@@ -17,13 +26,13 @@ class _AudioFileState extends State<AudioFile> {
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
+  int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
 
     setAudio();
-
     audioPlayer.onPlayerStateChanged.listen((state) {
       setState(() {
         isPlaying = state == PlayerState.playing;
@@ -43,14 +52,42 @@ class _AudioFileState extends State<AudioFile> {
     });
   }
 
+// getter for audios
+  List<String> get audioUrls =>
+      widget.meditations.map((meditation) => meditation.link).toList();
+      
+// getter for images
+  List<String> get imgUrls => GlobalVariables.medationImage
+      .map((meditationImage) => meditationImage['image'] as String)
+      .toList();
+
   Future setAudio() async {
     audioPlayer.setReleaseMode(ReleaseMode.loop);
+    await audioPlayer.setSourceUrl(audioUrls[currentIndex]);
+  }
 
-    // Load audio fro URL
-    String url =
-        "https://res.cloudinary.com/dy0zkzzt7/video/upload/v1679396300/medation/wvau1mpu7oxns2qslmdt.mp3";
-    // await audioPlayer.play(url);
-    audioPlayer.setSourceUrl(url);
+  void previousAudio() {
+    if (currentIndex > 0) {
+      setState(() {
+        currentIndex--;
+      });
+      setAudio();
+      if (isPlaying) {
+        audioPlayer.resume();
+      }
+    }
+  }
+
+  void nextAudio() {
+    if (currentIndex < audioUrls.length - 1) {
+      setState(() {
+        currentIndex++;
+      });
+      setAudio();
+      if (isPlaying) {
+        audioPlayer.resume();
+      }
+    }
   }
 
   @override
@@ -75,25 +112,34 @@ class _AudioFileState extends State<AudioFile> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text("Meditation Player"),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  "assets/images/meditation.png",
-                  width: double.infinity,
-                  height: 350,
-                  fit: BoxFit.cover,
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.black.withOpacity(.13),
+                ),
+                height: 400,
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    widget.imgUrls,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 30,
               ),
               AppLargeText(
-                text: "Heaven",
+                text: widget.meditations[currentIndex].name,
                 fontWeight: FontWeight.bold,
                 color: GlobalVariables.mainBlack,
               ),
@@ -101,7 +147,7 @@ class _AudioFileState extends State<AudioFile> {
                 height: 3,
               ),
               AppText(
-                text: 'David Fesliyan',
+                text: widget.meditations[currentIndex].artist,
                 fontWeight: FontWeight.normal,
                 color: GlobalVariables.lightGrey,
               ),
@@ -127,22 +173,42 @@ class _AudioFileState extends State<AudioFile> {
                   ],
                 ),
               ),
-              CircleAvatar(
-                radius: 35,
-                child: IconButton(
-                  icon: Icon(
-                    isPlaying ? Icons.pause : Icons.play_arrow,
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(
+                    iconSize: 40,
+                    icon: const Icon(Icons.skip_previous),
+                    onPressed: previousAudio,
                   ),
-                  iconSize: 50,
-                  onPressed: () async {
-                    if (isPlaying) {
-                      await audioPlayer.pause();
-                    } else {
-                      await audioPlayer.resume();
-                    }
-                  },
-                ),
-              )
+                  CircleAvatar(
+                    backgroundColor: GlobalVariables.mainBlack,
+                    radius: 30,
+                    child: IconButton(
+                      icon: Icon(
+                        isPlaying ? Icons.pause : Icons.play_arrow,
+                      ),
+                      iconSize: 40,
+                      color: Colors.white,
+                      onPressed: () async {
+                        if (isPlaying) {
+                          await audioPlayer.pause();
+                        } else {
+                          await audioPlayer.resume();
+                        }
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.skip_next),
+                    iconSize: 40,
+                    onPressed: nextAudio,
+                  ),
+                ],
+              ),
             ],
           ),
         ),

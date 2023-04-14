@@ -1,106 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/common/widgets/custom_button.dart';
+import 'package:livin_sweaty/constants/global_variables.dart';
 
-class BMI extends StatefulWidget {
-  const BMI({super.key});
+class BMICalculator extends StatefulWidget {
+  const BMICalculator({super.key});
 
   @override
-  State<BMI> createState() => _BMIState();
+  _BMICalculatorState createState() => _BMICalculatorState();
 }
 
-class _BMIState extends State<BMI> {
-  var wtController = TextEditingController();
-  var ftController = TextEditingController();
-  var inController = TextEditingController();
+class _BMICalculatorState extends State<BMICalculator> {
+  double _height = 0;
+  double _weight = 0;
+  double _bmi = 0;
+  String _status = "";
 
-  var result = "";
+  void _calculateBMI() {
+    setState(() {
+      _height = double.parse(_heightController.text) / 100;
+      _weight = double.parse(_weightController.text);
+      _bmi = _weight / (_height * _height);
+      if (_bmi < 18.5) {
+        _status = "Underweight";
+      } else if (_bmi >= 18.5 && _bmi < 25) {
+        _status = "Normal";
+      } else if (_bmi >= 25 && _bmi < 30) {
+        _status = "Overweight";
+      } else {
+        _status = "Obese";
+      }
+    });
+  }
+
+  final _heightController = TextEditingController();
+  final _weightController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("BMI Calculator"),
+        title: const Text('BMI Calculator'),
       ),
-      body: Center(
-        child: SizedBox(
-          width: 350,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Check your BMI',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextField(
-                controller: wtController,
-                decoration: const InputDecoration(
-                  label: Text("Enter your weight in kg"),
-                  prefixIcon: Icon(Icons.line_weight),
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                controller: _heightController,
                 keyboardType: TextInputType.number,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextField(
-                controller: ftController,
                 decoration: const InputDecoration(
-                  label: Text("Enter your height in Feet"),
-                  prefixIcon: Icon(Icons.height),
+                  labelText: 'Height (cm)',
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                controller: _weightController,
                 keyboardType: TextInputType.number,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextField(
-                controller: inController,
                 decoration: const InputDecoration(
-                  label: Text("Enter your height in Inch"),
-                  prefixIcon: Icon(Icons.height),
+                  labelText: 'Weight (kg)',
                 ),
-                keyboardType: TextInputType.number,
               ),
-              const SizedBox(
-                height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: CustomButtom(
+                  text: "Calculate",
+                  onTap: _calculateBMI,
+                  color: GlobalVariables.mainBlack,
+                  textColor: Colors.white,
+                  borderColor: Colors.transparent),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Your BMI: ${_bmi.toStringAsFixed(2)}',
+                style: const TextStyle(fontSize: 24.0),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    var wt = wtController.text.toString();
-                    var ft = ftController.text.toString();
-                    var inch = inController.text.toString();
-
-                    if (wt != "" && ft != "" && inch != "") {
-                      var iWt = int.parse(wt);
-                      var iFt = int.parse(ft);
-                      var iInch = int.parse(inch);
-
-                      var tInch = (iFt * 12) + iInch;
-                      var tCm = tInch * 2.54;
-                      var tM = tCm / 100;
-
-                      var bmi = iWt / (tM * tM);
-
-                      setState(() {
-                        result = 'Your BMI is: $bmi';
-                      });
-                    } else {
-                      setState(() {
-                        result = "Please fill all the entry.";
-                      });
-                    }
-                  },
-                  child: const Text('Calculate')),
-              const SizedBox(
-                height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                'You are $_status'.toUpperCase(),
+                style: const TextStyle(fontSize: 24.0, color: Colors.blue),
               ),
-              Text(
-                result,
-                style: const TextStyle(fontSize: 17),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
