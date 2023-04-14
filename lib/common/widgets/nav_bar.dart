@@ -29,7 +29,6 @@ class _BottomBarState extends State<BottomBar> {
     const MealPage(),
     const Workout(),
     const CustomPlans(),
-    // const Center(child: Text("Favourite")),
     const ProgressPage(),
   ];
 
@@ -64,12 +63,12 @@ class _BottomBarState extends State<BottomBar> {
                 AssetImage("assets/icons/gym.png"),
               ),
               label: 'Workout'),
-          //favorite
+          //custom plans
           BottomNavigationBarItem(
               icon: ImageIcon(
-                AssetImage("assets/icons/favourite.png"),
+                AssetImage("assets/images/queue.png"),
               ),
-              label: 'Favourite'),
+              label: 'Custom Plans'),
 
           BottomNavigationBarItem(
               icon: ImageIcon(

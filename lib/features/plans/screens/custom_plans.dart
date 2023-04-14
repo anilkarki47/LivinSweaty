@@ -115,85 +115,59 @@ class _CustomPlansState extends State<CustomPlans> {
               height: 5,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: workouts!.length,
-                itemBuilder: (context, index) {
-                  final workout = workouts![index];
-                  final playlist = playlistNames![index];
-                  // print(playlist.id);
-                  return Card(
-                    elevation: 2,
-                    child: ListTile(
-                      leading: Image.network(
-                        workout.images[0],
-                        fit: BoxFit.fitWidth,
-                        width: 50,
-                      ),
-                      title: Text(
-                        workouts![index].name,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: GlobalVariables.mainBlack),
-                      ),
-                      subtitle: Text(workouts![index].description,
-                          overflow: TextOverflow.ellipsis),
-                      trailing: DropdownButton<PlaylistName>(
-                        hint: const Text(
-                          'Plans',
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        onChanged: (PlaylistName? playlistName) async {
-                          if (playlistName != null) {
-                            // Add the selected workout to the playlist
-                            final workoutId = workout.id;
-                            final playlistId = playlist.id;
-                            addWorkoutToPlaylist(playlistId, workoutId);
-                          }
-                        },
-                        items: playlistNames!
-                            .map<DropdownMenuItem<PlaylistName>>(
-                                (PlaylistName playlistName) {
-                          return DropdownMenuItem<PlaylistName>(
-                            value: playlistName,
-                            child: Text(
-                              playlistName.name,
-                              style: const TextStyle(fontSize: 14),
+              child: workouts == null || playlistNames == null
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      itemCount: workouts!.length,
+                      itemBuilder: (context, index) {
+                        final workout = workouts![index];
+
+                        return Card(
+                          elevation: 2,
+                          child: ListTile(
+                            leading: Image.network(
+                              workout.images[0],
+                              fit: BoxFit.fitWidth,
+                              width: 50,
                             ),
-                          );
-                        }).toList(),
-                      ),
+                            title: Text(
+                              workouts![index].name,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: GlobalVariables.mainBlack),
+                            ),
+                            subtitle: Text(workouts![index].description,
+                                overflow: TextOverflow.ellipsis),
+                            trailing: DropdownButton<PlaylistName>(
+                              hint: const Text(
+                                'Plans',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              onChanged: (PlaylistName? playlistName) async {
+                                if (playlistName != null) {
+                                  // Add the selected workout to the playlist
+                                  final workoutId = workout.id;
+                                  final playlistId = playlistName.id;
+                                  addWorkoutToPlaylist(playlistId, workoutId);
+                                }
+                              },
+                              items: playlistNames!
+                                  .map<DropdownMenuItem<PlaylistName>>(
+                                      (PlaylistName playlistName) {
+                                return DropdownMenuItem<PlaylistName>(
+                                  value: playlistName,
+                                  child: Text(
+                                    playlistName.name,
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ),
-            const Divider(),
-            const Text('My Playlists', style: TextStyle(fontSize: 18)),
-            // Expanded(
-            //   child: ListView.builder(
-            //     itemCount: myPlaylists.keys.length,
-            //     itemBuilder: (context, index) {
-            //       String playlistName = myPlaylists.keys.elementAt(index);
-            //       return ExpansionTile(
-            //         title: Text(playlistName),
-            //         children: myPlaylists[playlistName]!.map((Workout workout) {
-            //           return ListTile(
-            //             title: Text(workout.name),
-            //             subtitle: Text(workout.description),
-            //             trailing: IconButton(
-            //               icon: const Icon(Icons.remove),
-            //               onPressed: () {
-            //                 setState(() {
-            //                   myPlaylists[playlistName]!.remove(workout);
-            //                 });
-            //               },
-            //             ),
-            //           );
-            //         }).toList(),
-            //       );
-            //     },
-            //   ),
-            // ),
           ],
         ),
       ),

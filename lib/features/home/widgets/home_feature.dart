@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:livin_sweaty/features/home/widgets/bmi_calculaor.dart';
 import '../../../constants/global_variables.dart';
 import '../../auth/widgets/app_large_text.dart';
 import '../screens/medation/meditation_list.dart';
-import 'bmi_calculaor.dart';
 
 class HomeFeature extends StatelessWidget {
   const HomeFeature({super.key});
@@ -64,7 +64,6 @@ class HomeFeature extends StatelessWidget {
               ),
             ),
           ),
-          
         ],
       ),
     );
