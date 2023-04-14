@@ -57,49 +57,56 @@ class CustomPlaylistState extends State<CustomPlaylist> {
         title: const Text('Workouts'),
       ),
       body: ListView.builder(
+        padding: const EdgeInsets.all(20),
         itemCount: playlists.length,
         itemBuilder: (BuildContext context, int index) {
           final playlist = playlists[index]['workoutID'];
-          return Padding(
-            padding:
-                const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 4),
-            child: SizedBox(
-              child: Card(
-                elevation: 3,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: SizedBox(
-                    height: 100, // sets height to 120 pixels
-                    child: Center(
-                      child: Transform.scale(
-                        scale: 1.1,
-                        child: ListTile(
-                          leading: Transform.scale(
-                            scale: 1.3,
-                            child: Image.network(
-                              playlist['images'][0],
-                            ),
-                          ),
-                          title: Text(playlist['name']),
-                          subtitle: Text(playlist['category']),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => WorkoutDesc(
-                                  playlist: playlists[index],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+          return Container(
+            height: 115,
+
+            margin: const EdgeInsets.only(bottom: 15),
+            decoration: const BoxDecoration(
+              color: Colors.amberAccent,
+            ),
+            // sets height to 120 pixels
+
+            child: Center(
+              child: ListTile(
+                tileColor: Colors.black54,
+                leading: Transform.scale(
+                  scale: 1.5,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Image.network(
+                      playlist['images'][0],
                     ),
                   ),
                 ),
-              ),
-            ),
-          );
+                title: Transform.scale(
+                  scale: 1.1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, bottom: 3),
+                    child: Text(playlist['name']),
+                  ),
+                ),
+                subtitle: Transform.scale(
+                  scale: 1.1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 3),
+                    child: Text(playlist['category']),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WorkoutDesc(
+                        playlist: playlists[index],
+                      ),
+                    ),
+                  );
+                },
+              )));
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -107,12 +114,18 @@ class CustomPlaylistState extends State<CustomPlaylist> {
           List<String> gifUrls = playlists
               .map<String>((p) => p['workoutID']['images'][0] as String)
               .toList();
+          List<String> workoutName = playlists
+              .map<String>((p) => p['workoutID']['name'] as String)
+              .toList();
           int initialIndex = 0; // Start with the first item, modify as needed
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  GifPlayer(gifs: gifUrls, initialIndex: initialIndex),
+              builder: (context) => GifPlayer(
+                gifs: gifUrls,
+                initialIndex: initialIndex,
+                workoutName: workoutName,
+              ),
             ),
           );
         },

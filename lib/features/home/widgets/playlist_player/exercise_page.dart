@@ -2,19 +2,25 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:livin_sweaty/constants/global_variables.dart';
 
 class GifPlayer extends StatefulWidget {
   final List<String> gifs;
+  final List<String> workoutName;
   final int initialIndex;
 
-  const GifPlayer({Key? key, required this.gifs, required this.initialIndex})
+  const GifPlayer(
+      {Key? key,
+      required this.gifs,
+      required this.initialIndex,
+      required this.workoutName})
       : super(key: key);
 
   @override
-  _GifPlayerState createState() => _GifPlayerState();
+  GifPlayerState createState() => GifPlayerState();
 }
 
-class _GifPlayerState extends State<GifPlayer> {
+class GifPlayerState extends State<GifPlayer> {
   late int currentIndex;
   bool isPlaying = false;
   int counter = 20;
@@ -86,17 +92,32 @@ class _GifPlayerState extends State<GifPlayer> {
     });
   }
 
+  Widget restTimer() {
+    return Text(
+      'Rest for $restCounter seconds',
+      style: const TextStyle(
+          fontSize: 30, fontWeight: FontWeight.w500, color: Colors.white),
+    );
+  }
+
+  Widget exerciseCompleted() {
+    return const Text(
+      'Exercise completed!',
+      style: TextStyle(
+          fontSize: 30, fontWeight: FontWeight.w500, color: Colors.white),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gif Player'),
+        title: Text(widget.workoutName[currentIndex]),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            // color: Colors.red,
             height: 450,
             width: 500,
             child: CachedNetworkImage(
@@ -109,55 +130,58 @@ class _GifPlayerState extends State<GifPlayer> {
           const SizedBox(height: 20),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(15),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.yellow.withOpacity(0.90),
+                  color: GlobalVariables.mainBlack,
                 ),
                 height: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (counter == 0 && restCounter > 0)
+                    if (counter == 0 &&
+                        restCounter > 0 &&
+                        currentIndex < widget.gifs.length - 1)
+                      restTimer()
+                    else if (counter > 0 ||
+                        currentIndex < widget.gifs.length - 1)
                       Text(
-                        'Rest for $restCounter seconds',
-                        style: const TextStyle(fontSize: 18),
-                      )
-                    else if (currentIndex < widget.gifs.length - 1)
-                      Text(
-                        '$counter seconds',
-                        style: const TextStyle(fontSize: 18),
+                        'Timer : $counter sec',
+                        style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
                       )
                     else
-                      const Text(
-                        'Exercise completed',
-                        style: TextStyle(fontSize: 18),
-                      ),
+                      exerciseCompleted(),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         IconButton(
                           icon: const Icon(
                             Icons.fast_rewind,
-                            color: Colors.black87,
-                            size: 32,
+                            color: Colors.white,
+                            size: 40,
                           ),
                           onPressed: previousGif,
                         ),
                         IconButton(
                           icon: Icon(
-                            isPlaying ? Icons.pause : Icons.play_arrow,
-                            color: Colors.black87,
-                            size: 32,
+                            isPlaying ? Icons.play_arrow : Icons.pause,
+                            color: Colors.white,
+                            size: 40,
                           ),
                           onPressed: togglePlayPause,
                         ),
                         IconButton(
                           icon: const Icon(
                             Icons.fast_forward,
-                            color: Colors.black87,
-                            size: 32,
+                            color: Colors.white,
+                            size: 40,
                           ),
                           onPressed: nextGif,
                         ),
