@@ -55,7 +55,7 @@ class _AudioFileState extends State<AudioFile> {
 // getter for audios
   List<String> get audioUrls =>
       widget.meditations.map((meditation) => meditation.link).toList();
-      
+
 // getter for images
   List<String> get imgUrls => GlobalVariables.medationImage
       .map((meditationImage) => meditationImage['image'] as String)
@@ -130,7 +130,7 @@ class _AudioFileState extends State<AudioFile> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
-                    widget.imgUrls,
+                    imgUrls[currentIndex],
                     fit: BoxFit.cover,
                   ),
                 ),
