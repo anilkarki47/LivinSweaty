@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:livin_sweaty/features/auth/widgets/app_feature_text.dart';
 import 'package:livin_sweaty/features/auth/widgets/app_text.dart';
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/loader.dart';
@@ -19,10 +19,10 @@ class ProgressPage extends StatefulWidget {
 
 class _ProgressPageState extends State<ProgressPage> {
   List<Progress>? progress;
-
+  final List<File> _selectedImages = [];
   final ProgressServices progressServices = ProgressServices();
 
-  void addProgress() {
+  void addProgress() async {
     try {
       progressServices.addProgress(
         context: context,
@@ -32,7 +32,12 @@ class _ProgressPageState extends State<ProgressPage> {
         _selectedImages.clear();
       });
     } catch (e) {
-      debugPrint("Select image!");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $e'),
+          duration: const Duration(seconds: 3),
+        ),
+      );
     }
   }
 
@@ -47,8 +52,6 @@ class _ProgressPageState extends State<ProgressPage> {
     progress = await progressServices.fetchAllProgress(context);
     setState(() {});
   }
-
-  final List<File> _selectedImages = [];
 
   Future<void> _selectImageFromGallery() async {
     final picker = ImagePicker();
@@ -82,32 +85,33 @@ class _ProgressPageState extends State<ProgressPage> {
           child: Column(
             children: [
               _selectedImages.isNotEmpty
-                  ? CarouselSlider(
-                      items: _selectedImages.map(
-                        (i) {
-                          return Builder(
-                            builder: (BuildContext context) => Image.file(
-                              i,
-                              fit: BoxFit.cover,
-                              height: 200,
-                            ),
-                          );
-                        },
-                      ).toList(),
-                      options: CarouselOptions(
-                        viewportFraction: 1,
-                        height: 200,
-                      ),
+                  ? GridView.builder(
+                      shrinkWrap: true,
+                      itemCount: _selectedImages.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
+                      itemBuilder: (context, index) {
+                        return SizedBox(
+                          height: 150,
+                          child: Image.file(
+                            _selectedImages[index],
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      },
                     )
                   : Container(
                       height: 300,
                       width: double.infinity,
                       color: GlobalVariables.mainBlack,
                       child: Center(
-                          child: AppText(
-                              text: "Select an Image!",
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white)),
+                        child: AppText(
+                          text: "Select an Image!",
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
               const SizedBox(
                 height: 20,
@@ -142,28 +146,39 @@ class _ProgressPageState extends State<ProgressPage> {
               const SizedBox(
                 height: 30,
               ),
+              AppFeatureText(
+                  text: "Your Saved Progress", fontWeight: FontWeight.w600),
+              const SizedBox(
+                height: 5,
+              ),
               progress == null
                   ? const Loader()
-                  : GridView.builder(
-                      shrinkWrap: true,
-                      itemCount: progress!.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2),
-                      itemBuilder: (context, index) {
-                        final progressData = progress![index];
-
-                        return Column(
-                          children: [
-                            SizedBox(
-                              height: 150,
-                              child: SingleItem(
-                                image: progressData.images[0],
+                  : SizedBox(
+                      height: 250,
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        itemCount: progress!.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2),
+                        itemBuilder: (context, index) {
+                          final progressData = progress![index];
+                          if (progressData.images.isNotEmpty) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                height: 150,
+                                child: SingleItem(
+                                  image: progressData.images[0],
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      }),
+                            );
+                          } else {
+                            return const SizedBox.shrink();
+                          }
+                        },
+                      ),
+                    ),
             ],
           ),
         ),
