@@ -49,6 +49,26 @@ class CustomPlaylistState extends State<CustomPlaylist> {
     }
   }
 
+  void _moveUp(int index) {
+    if (index > 0) {
+      setState(() {
+        final item = playlists[index];
+        playlists[index] = playlists[index - 1];
+        playlists[index - 1] = item;
+      });
+    }
+  }
+
+  void _moveDown(int index) {
+    if (index < playlists.length - 1) {
+      setState(() {
+        final item = playlists[index];
+        playlists[index] = playlists[index + 1];
+        playlists[index + 1] = item;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // print(playlists);
@@ -62,17 +82,25 @@ class CustomPlaylistState extends State<CustomPlaylist> {
         itemBuilder: (BuildContext context, int index) {
           final playlist = playlists[index]['workoutID'];
           return Container(
-            height: 115,
+            height: 100,
 
-            margin: const EdgeInsets.only(bottom: 15),
-            decoration: const BoxDecoration(
-              color: Colors.amberAccent,
+            margin: const EdgeInsets.only(bottom: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 0,
+                  blurRadius: 5,
+                  offset: const Offset(0, 1.5), // changes position of shadow
+                )
+              ],
+              color: Colors.white,
             ),
             // sets height to 120 pixels
 
             child: Center(
               child: ListTile(
-                tileColor: Colors.black54,
                 leading: Transform.scale(
                   scale: 1.5,
                   child: Padding(
@@ -106,7 +134,38 @@ class CustomPlaylistState extends State<CustomPlaylist> {
                     ),
                   );
                 },
-              )));
+                trailing: SizedBox(
+                  // color: Colors.red,
+                  height: double.infinity,
+                  width: 30,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () => _moveUp(index),
+                        child: const ImageIcon(
+                          AssetImage("assets/images/up-arrow.png"),
+                          size: 23,
+                          color: GlobalVariables.lightGrey,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      InkWell(
+                        onTap: () => _moveDown(index),
+                        child: const ImageIcon(
+                          AssetImage("assets/images/down-arrow.png"),
+                          size: 23,
+                          color: GlobalVariables.lightGrey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
