@@ -68,7 +68,7 @@ meditationRouter.post("/api/auth/add-meditation", async (req, res) => {
 meditationRouter.get("/api/auth/get-meditation", async (req, res) => {
   try {
     const meditation = await Meditation.find();
-    console.log(meditation);
+    // console.log(meditation);
     res.status(200).json(meditation);
   } catch (e) {
     res.status(500).json({ error: e.message });

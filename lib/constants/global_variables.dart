@@ -62,18 +62,21 @@ class GlobalVariables {
 
   // meal category
   static const List<Map<String, String>> medationImage = [
-    {      
-      'image': 'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499953/medation/img/ffawunsq43zmohe0di7e.jpg',
+    {
+      'image':
+          'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499953/medation/img/ffawunsq43zmohe0di7e.jpg',
     },
     {
-      'image': 'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499932/medation/img/ofgrxclncrlptapda5nh.jpg',
+      'image':
+          'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499932/medation/img/ofgrxclncrlptapda5nh.jpg',
     },
-    {      
-      'image': 'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499920/medation/img/c5xec61vrzgl99rcgkyp.png',
+    {
+      'image':
+          'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499920/medation/img/c5xec61vrzgl99rcgkyp.png',
     },
-    {      
-      'image': 'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499922/medation/img/fuxguw9dkktsq2jhekox.png',
+    {
+      'image':
+          'https://res.cloudinary.com/dy0zkzzt7/image/upload/v1681499922/medation/img/fuxguw9dkktsq2jhekox.png',
     },
-    
   ];
 }
