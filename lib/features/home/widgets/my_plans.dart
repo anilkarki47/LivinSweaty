@@ -24,8 +24,24 @@ class _MyPlanState extends State<MyPlans> {
     fetchWorkouts();
   }
 
+// Custom function to remove duplicates based on playlist name
+  List<dynamic> removeDuplicatesByPlaylistName(List<dynamic> playlists) {
+    List<dynamic> uniquePlaylists = [];
+    Set<String> seenPlaylistNames = <String>{};
+
+    for (var playlist in playlists) {
+      String playlistName = playlist['playlistID']['name'];
+      if (!seenPlaylistNames.contains(playlistName)) {
+        seenPlaylistNames.add(playlistName);
+        uniquePlaylists.add(playlist);
+      }
+    }
+    return uniquePlaylists;
+  }
+
   Future<void> fetchWorkouts() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final String currentUserId = userProvider.user.id;
     try {
       final response = await http.get(
         Uri.parse('$uri/auth/get-playlists'),
@@ -36,9 +52,24 @@ class _MyPlanState extends State<MyPlans> {
       );
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+        List<dynamic> filteredData = data['data'].where((item) {
+          return item['user']['_id'] == currentUserId;
+        }).toList();
+
+        // Remove duplicates based on playlist name
+        filteredData = removeDuplicatesByPlaylistName(filteredData);
+
+        // Add the workouts key to each playlist object
+        for (var playlist in filteredData) {
+          playlist['playlistID']['workouts'] = data['data']
+              .where((item) =>
+                  item['playlistID']['_id'] == playlist['playlistID']['_id'])
+              .map((item) => item['workoutID'])
+              .toList();
+        }
+
         setState(() {
-          playlists = data['data'];
-          // print(playlists);
+          playlists = filteredData;
         });
       } else {
         throw Exception('Failed to fetch workouts');
@@ -50,6 +81,7 @@ class _MyPlanState extends State<MyPlans> {
 
   @override
   Widget build(BuildContext context) {
+    // print(playlists);
     return SizedBox(
       height: 225,
       child: GridView.builder(
@@ -59,15 +91,18 @@ class _MyPlanState extends State<MyPlans> {
           crossAxisCount: 1,
         ),
         itemBuilder: (context, index) {
-          final workout = playlists[index]['workoutID'];
-          final playlist = playlists[index]['playlistID'];
-          final user = playlists[index]['user'];
+          final workout = playlists[index]['workoutID'] ?? {};
+          final playlist = playlists[index]['playlistID'] ?? {};
+          final user = playlists[index]['user'] ?? {};
           return InkWell(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CustomPlaylist()));
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      CustomPlaylist(playlist: playlists[index]['playlistID']),
+                ),
+              );
             },
             child: Column(
               children: [
@@ -89,7 +124,7 @@ class _MyPlanState extends State<MyPlans> {
                     height: 160,
                     width: 300,
                     child: SingleItem(
-                      image: workout['images'][0],
+                      image: workout['images']?[0] ?? '',
                     ),
                   ),
                 ),
@@ -99,7 +134,7 @@ class _MyPlanState extends State<MyPlans> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        playlist['name'],
+                        playlist['name'] ?? '',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(

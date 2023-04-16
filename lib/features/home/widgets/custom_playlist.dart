@@ -1,52 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:livin_sweaty/features/home/widgets/playlist_player/exercise_page.dart';
-import 'package:livin_sweaty/features/home/widgets/workout_desc.dart';
-import 'package:provider/provider.dart';
-import 'dart:convert';
 
 import '../../../constants/global_variables.dart';
-import '../../../constants/utils.dart';
-import '../../../providers/user_provider.dart';
 import '../../auth/widgets/app_text.dart';
 
 class CustomPlaylist extends StatefulWidget {
-  const CustomPlaylist({super.key});
+  final Map<String, dynamic> playlist;
+  const CustomPlaylist({
+    Key? key,
+    required this.playlist,
+  }) : super(key: key);
 
   @override
   CustomPlaylistState createState() => CustomPlaylistState();
 }
 
 class CustomPlaylistState extends State<CustomPlaylist> {
-  List<dynamic> playlists = [];
+  late List<dynamic> playlists;
 
   @override
   void initState() {
     super.initState();
-    _fetchWorkouts();
-  }
-
-  Future<void> _fetchWorkouts() async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    try {
-      final response = await http.get(
-        Uri.parse('$uri/auth/get-playlists'),
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'x-auth-token': userProvider.user.token,
-        },
-      );
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        setState(() {
-          playlists = data['data'];
-        });
-      } else {
-        throw Exception('Failed to fetch workouts');
-      }
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
+    playlists = widget.playlist['workouts'] ?? [];
+    print('Playlists: $playlists'); // Debugging print statement
   }
 
   void _moveUp(int index) {
@@ -71,7 +48,6 @@ class CustomPlaylistState extends State<CustomPlaylist> {
 
   @override
   Widget build(BuildContext context) {
-    // print(playlists);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Workouts'),
@@ -80,10 +56,10 @@ class CustomPlaylistState extends State<CustomPlaylist> {
         padding: const EdgeInsets.all(20),
         itemCount: playlists.length,
         itemBuilder: (BuildContext context, int index) {
-          final playlist = playlists[index]['workoutID'];
+          final workout = playlists[index];
+          print(workout);
           return Container(
             height: 100,
-
             margin: const EdgeInsets.only(bottom: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
@@ -97,16 +73,26 @@ class CustomPlaylistState extends State<CustomPlaylist> {
               ],
               color: Colors.white,
             ),
-            // sets height to 120 pixels
-
             child: Center(
               child: ListTile(
-                leading: Transform.scale(
-                  scale: 1.5,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Image.network(
-                      playlist['images'][0],
+                leading: SizedBox(
+                  width: 80,
+                  child: Transform.scale(
+                    scale: 1.5,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              workout['images']?[0] ?? '',
+                            ),
+                          ),
+                        ),
+                        width: 80,
+                      ),
                     ),
                   ),
                 ),
@@ -114,28 +100,17 @@ class CustomPlaylistState extends State<CustomPlaylist> {
                   scale: 1.1,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20, bottom: 3),
-                    child: Text(playlist['name']),
+                    child: Text(workout['name'] ?? ''),
                   ),
                 ),
                 subtitle: Transform.scale(
                   scale: 1.1,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20, top: 3),
-                    child: Text(playlist['category']),
+                    child: Text(workout['category'] ?? ''),
                   ),
                 ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => WorkoutDesc(
-                        playlist: playlists[index],
-                      ),
-                    ),
-                  );
-                },
                 trailing: SizedBox(
-                  // color: Colors.red,
                   height: double.infinity,
                   width: 30,
                   child: Column(
@@ -143,9 +118,9 @@ class CustomPlaylistState extends State<CustomPlaylist> {
                     children: [
                       InkWell(
                         onTap: () => _moveUp(index),
-                        child: const ImageIcon(
-                          AssetImage("assets/images/up-arrow.png"),
-                          size: 23,
+                        child: const Icon(
+                          Icons.arrow_drop_up,
+                          size: 30,
                           color: GlobalVariables.lightGrey,
                         ),
                       ),
@@ -154,9 +129,9 @@ class CustomPlaylistState extends State<CustomPlaylist> {
                       ),
                       InkWell(
                         onTap: () => _moveDown(index),
-                        child: const ImageIcon(
-                          AssetImage("assets/images/down-arrow.png"),
-                          size: 23,
+                        child: const Icon(
+                          Icons.arrow_drop_down,
+                          size: 30,
                           color: GlobalVariables.lightGrey,
                         ),
                       ),

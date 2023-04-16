@@ -52,15 +52,36 @@ class _CustomPlansState extends State<CustomPlans> {
         context: context, playlistName: playlistNameController.text);
   }
 
-  addWorkoutToPlaylist(String? playlistId, String? workoutId) {
+  addWorkoutToPlaylist(
+      String? playlistId, String? workoutId, String playlistName) {
     if (playlistId != null && workoutId != null) {
-      allPlanServices.addWorkoutToPlaylist(
-        context: context,
-        playlistId: playlistId,
-        workoutId: workoutId,
-      );
-    } else {
-      // print("aaaaa");
+      List<Workout> playlistWorkouts = myPlaylists[playlistName] ?? [];
+
+      // Check if the workout already exists in the selected playlist
+      bool workoutExists =
+          playlistWorkouts.any((workout) => workout.id == workoutId);
+
+      if (!workoutExists) {
+        allPlanServices.addWorkoutToPlaylist(
+          context: context,
+          playlistId: playlistId,
+          workoutId: workoutId,
+        );
+
+        // Update myPlaylists with the new workout
+        setState(() {
+          playlistWorkouts
+              .add(workouts!.firstWhere((wo) => wo.id == workoutId));
+          myPlaylists[playlistName] = playlistWorkouts;
+        });
+      } else {
+        // Show a message to inform the user that the workout already exists in the selected playlist
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('This workout is already in the selected playlist.'),
+          ),
+        );
+      }
     }
   }
 
@@ -148,12 +169,18 @@ class _CustomPlansState extends State<CustomPlans> {
                                   // Add the selected workout to the playlist
                                   final workoutId = workout.id;
                                   final playlistId = playlistName.id;
-                                  addWorkoutToPlaylist(playlistId, workoutId);
+                                  addWorkoutToPlaylist(
+                                      playlistId, workoutId, playlistName.name);
                                 }
                               },
-                              items: playlistNames!
-                                  .map<DropdownMenuItem<PlaylistName>>(
-                                      (PlaylistName playlistName) {
+                              items: <PlaylistName>[
+                                ...playlistNames!,
+                                ...myPlaylists.keys
+                                    .map((key) =>
+                                        PlaylistName(id: "", name: key))
+                                    .toList(),
+                              ].map<DropdownMenuItem<PlaylistName>>(
+                                  (PlaylistName playlistName) {
                                 return DropdownMenuItem<PlaylistName>(
                                   value: playlistName,
                                   child: Text(
