@@ -23,7 +23,7 @@ class CustomPlaylistState extends State<CustomPlaylist> {
   void initState() {
     super.initState();
     playlists = widget.playlist['workouts'] ?? [];
-    print('Playlists: $playlists'); // Debugging print statement
+    // print('Playlists: $playlists'); // Debugging print statement
   }
 
   void _moveUp(int index) {
@@ -57,7 +57,7 @@ class CustomPlaylistState extends State<CustomPlaylist> {
         itemCount: playlists.length,
         itemBuilder: (BuildContext context, int index) {
           final workout = playlists[index];
-          print(workout);
+          // print(workout);
           return Container(
             height: 100,
             margin: const EdgeInsets.only(bottom: 20),
@@ -118,9 +118,9 @@ class CustomPlaylistState extends State<CustomPlaylist> {
                     children: [
                       InkWell(
                         onTap: () => _moveUp(index),
-                        child: const Icon(
-                          Icons.arrow_drop_up,
-                          size: 30,
+                        child: const ImageIcon(
+                          AssetImage("assets/images/up-arrow.png"),
+                          size: 23,
                           color: GlobalVariables.lightGrey,
                         ),
                       ),
@@ -129,9 +129,9 @@ class CustomPlaylistState extends State<CustomPlaylist> {
                       ),
                       InkWell(
                         onTap: () => _moveDown(index),
-                        child: const Icon(
-                          Icons.arrow_drop_down,
-                          size: 30,
+                        child: const ImageIcon(
+                          AssetImage("assets/images/down-arrow.png"),
+                          size: 23,
                           color: GlobalVariables.lightGrey,
                         ),
                       ),
@@ -146,10 +146,10 @@ class CustomPlaylistState extends State<CustomPlaylist> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           List<String> gifUrls = playlists
-              .map<String>((p) => p['workoutID']['images'][0] as String)
+              .map<String>((p) => p['images'][0] as String) // Update this line
               .toList();
           List<String> workoutName = playlists
-              .map<String>((p) => p['workoutID']['name'] as String)
+              .map<String>((p) => p['name'] as String) // Update this line
               .toList();
           int initialIndex = 0; // Start with the first item, modify as needed
           Navigator.push(
